@@ -6,7 +6,7 @@ import Introduce from "./Introduce";
 import AgreementHome from "./AgreementHome";
 import AgreementAdventure from "./AgreementAdventure";
 import AgreementMembership from "./AgreementMembership";
-import Email from "./Email";
+import Email from "../../components/Email";
 
 const SitemapContainer = styled.div`
   width: 1540px;
@@ -136,34 +136,32 @@ const Sitemap = memo(() => {
               </ul>
             </li>
             <li>
-              <Link to="/business/Introduce">유틸리티</Link>
+              <Link to="../Introduce">유틸리티</Link>
               <ul>
                 <li>
-                  <Link to="/business/Introduce">
-                    롯데월드 어드벤처 부산 소개
-                  </Link>
+                  <Link to="../Introduce">롯데월드 어드벤처 부산 소개</Link>
                 </li>
                 <li>
-                  <Link to="/business/AgreementHome">이용약관</Link>
+                  <Link to="../AgreementHome">이용약관</Link>
                   <ul>
                     <li>
-                      <Link to="/business/AgreementHome">홈페이지</Link>
+                      <Link to="../AgreementHome">홈페이지</Link>
                     </li>
                     <li>
-                      <Link to="/business/AgreementAdventure">
+                      <Link to="../AgreementAdventure">
                         롯데월드 어드벤처 부산
                       </Link>
                     </li>
                     <li>
-                      <Link to="/business/AgreementMembership">연간이용</Link>
+                      <Link to="../AgreementMembership">연간이용</Link>
                     </li>
                   </ul>
                 </li>
                 <li>
-                  <Link to="/business/Sitemap">사이트맵</Link>
+                  <Link to="/">사이트맵</Link>
                 </li>
                 <li>
-                  <Link to="/business/Email">이메일무단수집거부</Link>
+                  {/* <Link to="../../components/Email">이메일무단수집거부</Link> */}
                 </li>
               </ul>
             </li>
@@ -176,25 +174,22 @@ const Sitemap = memo(() => {
               </ul>
             </li>
           </ul>
+
+          <Routes>
+            <Route path="../Introduce" element={<Introduce />}></Route>
+            <Route path="../AgreementHome" element={<AgreementHome />}></Route>
+            <Route
+              path="../AgreementAdventure"
+              element={<AgreementAdventure />}
+            ></Route>
+            <Route
+              path="../AgreementMembership"
+              element={<AgreementMembership />}
+            ></Route>
+            {/* <Route path="/components/Email" element={<Email />}></Route> */}
+          </Routes>
         </div>
       </div>
-
-      <Routes path="/pages">
-        <Route path="/business/Introduce" element={<Introduce />}></Route>
-        <Route
-          path="/business/AgreementHome"
-          element={<AgreementHome />}
-        ></Route>
-        <Route
-          path="/business/AgreementAdventure"
-          element={<AgreementAdventure />}
-        ></Route>
-        <Route
-          path="/business/AgreementMembership"
-          element={<AgreementMembership />}
-        ></Route>
-        <Route path="/business/Email" element={<Email />}></Route>
-      </Routes>
     </SitemapContainer>
   );
 });

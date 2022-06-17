@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import styled from "styled-components";
 
-import Img from "../../assets/images/components/Email/email.png";
+import Img from "../assets/images/components/Email/email.png";
 
 const EmailContainer = styled.div`
   width: 820px;

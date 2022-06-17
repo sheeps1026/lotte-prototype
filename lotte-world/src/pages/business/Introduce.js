@@ -1,13 +1,13 @@
 import React, { memo } from "react";
 import styled from "styled-components";
 
-import bg1 from "../../assets/images/business/Introduce/bg1.jpg";
-import bg1Img1 from "../../assets/images/business/Introduce/bg1-img1.png";
-import bg1Img2 from "../../assets/images/business/Introduce/bg1-img2.png";
-import bg1Img3 from "../../assets/images/business/Introduce/bg1-img3.png";
-import bg2 from "../../assets/images/business/Introduce/bg2.jpg";
-import bg2Img1 from "../../assets/images/business/Introduce/bg2-img1.png";
-import bg2Img2 from "../../assets/images/business/Introduce/bg2-img2.png";
+import bg1 from "../../assets/images/pages/business/Introduce/bg1.jpg";
+import bg1Img1 from "../../assets/images/pages/business/Introduce/bg1-img1.png";
+import bg1Img2 from "../../assets/images/pages/business/Introduce/bg1-img2.png";
+import bg1Img3 from "../../assets/images/pages/business/Introduce/bg1-img3.png";
+import bg2 from "../../assets/images/pages/business/Introduce/bg2.jpg";
+import bg2Img1 from "../../assets/images/pages/business/Introduce/bg2-img1.png";
+import bg2Img2 from "../../assets/images/pages/business/Introduce/bg2-img2.png";
 
 const IntroduceContainer = styled.div`
   h2 {
