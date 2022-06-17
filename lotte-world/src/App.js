@@ -4,7 +4,16 @@ import reset from "styled-reset";
 
 import { Routes, Route, Link } from "react-router-dom";
 
-import Sitemap from "./pages/business/Sitemap";
+import Introduce from "./pages/business/Introduce";
+import AgreementHome from "./pages/business/AgreementHome";
+import AgreementAdventure from "./pages/business/AgreementAdventure";
+import AgreementMembership from "./pages/business/AgreementMembership";
+import HelpId from "./pages/user/HelpId";
+import HelpPwd from "./pages/user/HelpPwd";
+import HelpPwdChange from "./pages/user/HelpPwdChange";
+import HelpPwdConfirm from "./pages/user/HelpPwdConfirm";
+import Login from "./pages/user/Login";
+import Signin from "./pages/user/Signin";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -16,15 +25,32 @@ const GlobalStyle = createGlobalStyle`
 
 const App = memo(() => {
   return (
-    <div>
+    <>
       <GlobalStyle />
       롯월 첫 페이지~~~
-      {/* <Sitemap /> */}
-      <Link to="/Sitemap">유틸리티</Link>
+      <Link to="/Introduce">Introduce</Link>&nbsp;&nbsp;
+      <Link to="/AgreementHome">AgreementHome</Link>&nbsp;&nbsp;
+      <Link to="/AgreementAdventure">AgreementAdventure</Link>&nbsp;&nbsp;
+      <Link to="/AgreementMembership">AgreementMembership</Link>&nbsp;&nbsp;
+      <Link to="/HelpId">HelpId</Link>&nbsp;&nbsp;
+      <Link to="/HelpPwd">HelpPwd</Link>&nbsp;&nbsp;
+      <Link to="/HelpPwdChange">HelpPwdChange</Link>&nbsp;&nbsp;
+      <Link to="/HelpPwdConfirm">HelpPwdConfirm</Link>&nbsp;&nbsp;
+      <Link to="/Login">Login</Link>&nbsp;&nbsp;
+      <Link to="/Signin">Signin</Link>
       <Routes>
-        <Route path="/Sitemap" element={<Sitemap />}></Route>
+        <Route path="/Introduce" element={<Introduce />} />
+        <Route path="/AgreementHome" element={<AgreementHome />} />
+        <Route path="/AgreementAdventure" element={<AgreementAdventure />} />
+        <Route path="/AgreementMembership" element={<AgreementMembership />} />
+        <Route path="/HelpId" element={<HelpId />} />
+        <Route path="/HelpPwd" element={<HelpPwd />} />
+        <Route path="/HelpPwdChange" element={<HelpPwdChange />} />
+        <Route path="/HelpPwdConfirm" element={<HelpPwdConfirm />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Signin" element={<Signin />} />
       </Routes>
-    </div>
+    </>
   );
 });
 

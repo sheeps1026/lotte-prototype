@@ -136,24 +136,24 @@ const Sitemap = memo(() => {
               </ul>
             </li>
             <li>
-              <Link to="../Introduce">유틸리티</Link>
+              <Link to="Introduce">유틸리티</Link>
               <ul>
                 <li>
-                  <Link to="../Introduce">롯데월드 어드벤처 부산 소개</Link>
+                  <Link to="Introduce">롯데월드 어드벤처 부산 소개</Link>
                 </li>
                 <li>
-                  <Link to="../AgreementHome">이용약관</Link>
+                  <Link to="/AgreementHome">이용약관</Link>
                   <ul>
                     <li>
-                      <Link to="../AgreementHome">홈페이지</Link>
+                      <Link to="/AgreementHome">홈페이지</Link>
                     </li>
                     <li>
-                      <Link to="../AgreementAdventure">
+                      <Link to="/AgreementAdventure">
                         롯데월드 어드벤처 부산
                       </Link>
                     </li>
                     <li>
-                      <Link to="../AgreementMembership">연간이용</Link>
+                      <Link to="/AgreementMembership">연간이용</Link>
                     </li>
                   </ul>
                 </li>
@@ -176,16 +176,16 @@ const Sitemap = memo(() => {
           </ul>
 
           <Routes>
-            <Route path="../Introduce" element={<Introduce />}></Route>
-            <Route path="../AgreementHome" element={<AgreementHome />}></Route>
+            <Route path="Introduce" element={<Introduce />} />
+            <Route path="/AgreementHome" element={<AgreementHome />} />
             <Route
-              path="../AgreementAdventure"
+              path="/AgreementAdventure"
               element={<AgreementAdventure />}
-            ></Route>
+            />
             <Route
-              path="../AgreementMembership"
+              path="/AgreementMembership"
               element={<AgreementMembership />}
-            ></Route>
+            />
             {/* <Route path="/components/Email" element={<Email />}></Route> */}
           </Routes>
         </div>
