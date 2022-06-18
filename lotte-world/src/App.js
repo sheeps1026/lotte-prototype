@@ -15,6 +15,7 @@ import HelpPwdChange from "./pages/user/HelpPwdChange";
 import HelpPwdConfirm from "./pages/user/HelpPwdConfirm";
 import Login from "./pages/user/Login";
 import Signin from "./pages/user/Signin";
+import SigninConfirm from "./pages/user/SigninConfirm";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -39,7 +40,8 @@ const App = memo(() => {
       <Link to="/HelpPwd">HelpPwd</Link>&nbsp;&nbsp;
       <Link to="/HelpPwdChange">HelpPwdChange</Link>&nbsp;&nbsp;
       <Link to="/HelpPwdConfirm">HelpPwdConfirm</Link>&nbsp;&nbsp;
-      <Link to="/Signin">Signin</Link>
+      <Link to="/Signin">Signin</Link>&nbsp;&nbsp;
+      <Link to="/SigninConfirm">SigninConfirm</Link>
       <Routes>
         <Route path="/Introduce" element={<Introduce />} />
         <Route path="/AgreementHome" element={<AgreementHome />} />
@@ -52,6 +54,7 @@ const App = memo(() => {
         <Route path="/HelpPwdChange" element={<HelpPwdChange />} />
         <Route path="/HelpPwdConfirm" element={<HelpPwdConfirm />} />
         <Route path="/Signin" element={<Signin />} />
+        <Route path="/SigninConfirm" element={<SigninConfirm />} />
       </Routes>
     </>
   );
