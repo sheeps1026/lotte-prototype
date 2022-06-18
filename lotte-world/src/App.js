@@ -9,6 +9,7 @@ import AgreementHome from "./pages/business/AgreementHome";
 import AgreementAdventure from "./pages/business/AgreementAdventure";
 import AgreementMembership from "./pages/business/AgreementMembership";
 import HelpId from "./pages/user/HelpId";
+import HelpIdConfirm from "./pages/user/HelpIdConfirm";
 import HelpPwd from "./pages/user/HelpPwd";
 import HelpPwdChange from "./pages/user/HelpPwdChange";
 import HelpPwdConfirm from "./pages/user/HelpPwdConfirm";
@@ -32,22 +33,24 @@ const App = memo(() => {
       <Link to="/AgreementHome">AgreementHome</Link>&nbsp;&nbsp;
       <Link to="/AgreementAdventure">AgreementAdventure</Link>&nbsp;&nbsp;
       <Link to="/AgreementMembership">AgreementMembership</Link>&nbsp;&nbsp;
+      <Link to="/Login">Login</Link>&nbsp;&nbsp;
       <Link to="/HelpId">HelpId</Link>&nbsp;&nbsp;
+      <Link to="/HelpIdConfirm">HelpIdConfirm</Link>&nbsp;&nbsp;
       <Link to="/HelpPwd">HelpPwd</Link>&nbsp;&nbsp;
       <Link to="/HelpPwdChange">HelpPwdChange</Link>&nbsp;&nbsp;
       <Link to="/HelpPwdConfirm">HelpPwdConfirm</Link>&nbsp;&nbsp;
-      <Link to="/Login">Login</Link>&nbsp;&nbsp;
       <Link to="/Signin">Signin</Link>
       <Routes>
         <Route path="/Introduce" element={<Introduce />} />
         <Route path="/AgreementHome" element={<AgreementHome />} />
         <Route path="/AgreementAdventure" element={<AgreementAdventure />} />
         <Route path="/AgreementMembership" element={<AgreementMembership />} />
+        <Route path="/Login" element={<Login />} />
         <Route path="/HelpId" element={<HelpId />} />
+        <Route path="/HelpIdConfirm" element={<HelpIdConfirm />} />
         <Route path="/HelpPwd" element={<HelpPwd />} />
         <Route path="/HelpPwdChange" element={<HelpPwdChange />} />
         <Route path="/HelpPwdConfirm" element={<HelpPwdConfirm />} />
-        <Route path="/Login" element={<Login />} />
         <Route path="/Signin" element={<Signin />} />
       </Routes>
     </>
