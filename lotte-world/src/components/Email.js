@@ -1,20 +1,43 @@
 import React, { memo } from "react";
 import styled from "styled-components";
 
+import Close from "../assets/images/components/Email/close.png";
 import Img from "../assets/images/components/Email/email.png";
 
 const EmailContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 820px;
   height: 700px;
   padding: 0 40px;
+  // background-color: yellow;
+  transform: translate(-50%, -50%);
 
-  h2 {
-    padding: 39px 0;
-    color: rgb(51, 51, 51);
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: -1.56px;
-    line-height: 39px;
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      padding: 39px 0;
+      color: rgb(51, 51, 51);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -1.56px;
+      line-height: 39px;
+    }
+
+    button {
+      border: none;
+      font-size: 30px;
+      cursor: pointer;
+
+      img {
+        width: 24px;
+        height: 24px;
+      }
+    }
   }
 
   div {
@@ -63,7 +86,12 @@ const EmailContainer = styled.div`
 const Email = memo(() => {
   return (
     <EmailContainer>
-      <h2>이메일무단수집거부</h2>
+      <header>
+        <h2>이메일무단수집거부</h2>
+        <button>
+          <img src={Close} alt="" />
+        </button>
+      </header>
       <div>
         <img src={Img} alt="" />
         <h3>롯데월드는 이메일무단수집을 거부합니다.</h3>

@@ -8,6 +8,7 @@ import Introduce from "./pages/business/Introduce";
 import AgreementHome from "./pages/business/AgreementHome";
 import AgreementAdventure from "./pages/business/AgreementAdventure";
 import AgreementMembership from "./pages/business/AgreementMembership";
+import Email from "./components/Email";
 import HelpId from "./pages/user/HelpId";
 import HelpIdConfirm from "./pages/user/HelpIdConfirm";
 import HelpPwd from "./pages/user/HelpPwd";
@@ -35,6 +36,7 @@ const App = memo(() => {
       <Link to="/AgreementAdventure">AgreementAdventure</Link>&nbsp;&nbsp;
       <Link to="/AgreementMembership">AgreementMembership</Link>&nbsp;&nbsp;
       <Link to="/Login">Login</Link>&nbsp;&nbsp;
+      <Link to="/Email">Email</Link>&nbsp;&nbsp;
       <Link to="/HelpId">HelpId</Link>&nbsp;&nbsp;
       <Link to="/HelpIdConfirm">HelpIdConfirm</Link>&nbsp;&nbsp;
       <Link to="/HelpPwd">HelpPwd</Link>&nbsp;&nbsp;
@@ -47,6 +49,7 @@ const App = memo(() => {
         <Route path="/AgreementHome" element={<AgreementHome />} />
         <Route path="/AgreementAdventure" element={<AgreementAdventure />} />
         <Route path="/AgreementMembership" element={<AgreementMembership />} />
+        <Route path="/Email" element={<Email />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/HelpId" element={<HelpId />} />
         <Route path="/HelpIdConfirm" element={<HelpIdConfirm />} />
