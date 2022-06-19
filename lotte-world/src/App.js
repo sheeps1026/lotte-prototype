@@ -4,6 +4,7 @@ import reset from "styled-reset";
 
 import { Routes, Route, Link } from "react-router-dom";
 
+import Sitemap from "./pages/business/Sitemap";
 import Introduce from "./pages/business/Introduce";
 import AgreementHome from "./pages/business/AgreementHome";
 import AgreementAdventure from "./pages/business/AgreementAdventure";
@@ -31,6 +32,7 @@ const App = memo(() => {
     <>
       <GlobalStyle />
       롯월 첫 페이지~~~
+      <Link to="/Sitemap">Sitemap</Link>&nbsp;&nbsp;
       <Link to="/Introduce">Introduce</Link>&nbsp;&nbsp;
       <Link to="/AgreementHome">AgreementHome</Link>&nbsp;&nbsp;
       <Link to="/AgreementAdventure">AgreementAdventure</Link>&nbsp;&nbsp;
@@ -45,6 +47,7 @@ const App = memo(() => {
       <Link to="/Signin">Signin</Link>&nbsp;&nbsp;
       <Link to="/SigninConfirm">SigninConfirm</Link>
       <Routes>
+        <Route path="/Sitemap" element={<Sitemap />} />
         <Route path="/Introduce" element={<Introduce />} />
         <Route path="/AgreementHome" element={<AgreementHome />} />
         <Route path="/AgreementAdventure" element={<AgreementAdventure />} />

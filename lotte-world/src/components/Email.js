@@ -30,6 +30,7 @@ const EmailContainer = styled.div`
 
     button {
       border: none;
+      background-color: #fff;
       font-size: 30px;
       cursor: pointer;
 

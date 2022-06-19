@@ -136,10 +136,10 @@ const Sitemap = memo(() => {
               </ul>
             </li>
             <li>
-              <Link to="Introduce">유틸리티</Link>
+              <Link to="/Introduce">유틸리티</Link>
               <ul>
                 <li>
-                  <Link to="Introduce">롯데월드 어드벤처 부산 소개</Link>
+                  <Link to="/Introduce">롯데월드 어드벤처 부산 소개</Link>
                 </li>
                 <li>
                   <Link to="/AgreementHome">이용약관</Link>
@@ -158,10 +158,10 @@ const Sitemap = memo(() => {
                   </ul>
                 </li>
                 <li>
-                  <Link to="/">사이트맵</Link>
+                  <Link to="/Sitemap">사이트맵</Link>
                 </li>
                 <li>
-                  {/* <Link to="../../components/Email">이메일무단수집거부</Link> */}
+                  <Link to="/Email">이메일무단수집거부</Link>
                 </li>
               </ul>
             </li>
@@ -176,7 +176,7 @@ const Sitemap = memo(() => {
           </ul>
 
           <Routes>
-            <Route path="Introduce" element={<Introduce />} />
+            <Route path="/Introduce" element={<Introduce />} />
             <Route path="/AgreementHome" element={<AgreementHome />} />
             <Route
               path="/AgreementAdventure"
@@ -186,7 +186,7 @@ const Sitemap = memo(() => {
               path="/AgreementMembership"
               element={<AgreementMembership />}
             />
-            {/* <Route path="/components/Email" element={<Email />}></Route> */}
+            <Route path="/Email" element={<Email />}></Route>
           </Routes>
         </div>
       </div>
