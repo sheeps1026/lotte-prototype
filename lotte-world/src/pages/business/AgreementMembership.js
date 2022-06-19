@@ -7,64 +7,70 @@ const AgreementContainer = styled.div`
   margin: 0 auto;
 
   h2 {
-    margin-top: 175px;
+    margin-top: 120px;
     font-size: 60px;
     font-weight: 700;
     letter-spacing: -3.6px;
     line-height: 60px;
   }
 
-  .ui-document {
-    padding: 100px 0 180px 0;
+  .document-tab {
+    display: flex;
+    margin-top: 100px;
 
-    .document-tab {
-      display: flex;
+    li {
+      color: rgb(170, 170, 170);
 
-      li {
-        color: rgb(170, 170, 170);
+      &:nth-child(2) {
+        display: flex;
+        align-items: center;
+      }
+
+      &:nth-child(2)::after,
+      &:nth-child(2)::before {
+        display: block;
+        content: "";
+        width: 1px;
+        height: 16px;
+        margin: 0 15px;
+        background-color: rgb(229, 229, 229);
+      }
+
+      a {
+        color: rgb(102, 102, 102);
         font-size: 20px;
         letter-spacing: -0.36px;
         line-height: 30px;
+        text-decoration: none;
 
         &.active {
           color: rgb(47, 125, 78);
           font-weight: 700;
         }
-
-        &:nth-child(2) {
-          display: flex;
-          align-items: center;
-        }
-
-        &:nth-child(2)::after,
-        &:nth-child(2)::before {
-          display: block;
-          content: "";
-          width: 1px;
-          height: 16px;
-          margin: 0 15px;
-          background-color: rgb(229, 229, 229);
-        }
-
-        a {
-          color: rgb(102, 102, 102);
-          text-decoration: none;
-        }
       }
     }
+  }
+
+  .document-list {
+    margin-top: 80px;
+    margin-bottom: 180px;
 
     .document {
       margin: 40px 0 20px 0;
 
       h3 {
+        margin-bottom: 20px;
+        color: #333;
         font-size: 18px;
         font-weight: 700;
-        letter-spacing: -0.36px;
-        line-height: 27px;
+        line-height: 1.5;
       }
 
       p {
-        margin-top: 13px;
+        color: #666;
+        font-size: 18px;
+        letter-spacing: -0.02em;
+        line-height: 1.5;
       }
 
       table {
@@ -112,25 +118,25 @@ const AgreementContainer = styled.div`
           list-style-type: hangul;
         }
 
-        li {
+        > li {
           margin-top: 13px;
           margin-left: 17px;
-        }
-      }
+          color: #666;
+          font-size: 18px;
+          letter-spacing: -0.02em;
+          line-height: 1.5;
 
-      p,
-      ol > li {
-        color: rgb(102, 102, 102);
-        font-size: 18px;
-        letter-spacing: -0.36px;
-        line-height: 27px;
+          &:first-child {
+            margin-top: 0;
+          }
 
-        ol {
-          margin-top: 0;
-
-          li {
+          > ol {
             margin-top: 10px;
-            margin-left: 28px;
+
+            > li {
+              margin-top: 10px;
+              margin-left: 27px;
+            }
           }
         }
       }
@@ -142,18 +148,20 @@ const AgreementMembership = memo(() => {
   return (
     <AgreementContainer>
       <h2>이용약관</h2>
-      <div className="ui-document">
-        <ul className="document-tab">
-          <li>
-            <Link to="/AgreementHome">홈페이지</Link>
-          </li>
-          <li>
-            <Link to="/AgreementAdventure">롯데월드 어드벤처 부산</Link>
-          </li>
-          <li className="active">
-            <Link to="/AgreementMembership">연간이용</Link>
-          </li>
-        </ul>
+      <ul className="document-tab">
+        <li>
+          <Link to="/AgreementHome">홈페이지</Link>
+        </li>
+        <li>
+          <Link to="/AgreementAdventure">롯데월드 어드벤처 부산</Link>
+        </li>
+        <li>
+          <Link to="/AgreementMembership" className="active">
+            연간이용
+          </Link>
+        </li>
+      </ul>
+      <div className="document-list">
         <div className="document">
           <h3>제 1 조 목적</h3>
           <ol>
