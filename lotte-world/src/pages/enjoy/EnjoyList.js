@@ -165,7 +165,7 @@ const EnjoyList = memo(() => {
                         <div className='cardlist'>
                             <ul>
                                 <li>
-                                    <NavLink to='/enjoy' href='#!'>
+                                    <NavLink to='/enjoyList/view1' href='#!'>
                                         <div className='cardimg'>
                                             <p className='img'>
                                                 <img src={att1} alt='토킹트리'/>

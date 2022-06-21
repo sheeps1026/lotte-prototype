@@ -1,13 +1,34 @@
 import React, { memo } from "react";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import styled from "styled-components";
-import Customer from "./pages/customer/Customer";
-import Ticketing from "./pages/product/Ticketing";
+import styled from 'styled-components';
+import {Routes,Route} from "react-router-dom";
 
-const Wrap = styled.div`
-  padding-top: 120px;
-`;
+import ProductHeader from './ProductHeader';
+import Ticketing from "./pages/product/Ticketing";
+import EnjoyList from "./pages/enjoy/EnjoyList";
+import EnjoyView from "./pages/enjoy/EnjoyView";
+import Headers from "./Header";
+import Footer from "./Footer";
+
+
+import NoticeList from "./pages/customer/NoticeList";
+import NoticeView from "./pages/customer/NoticeView";
+import FAQ from "./pages/customer/FAQ";
+import Inquiry from "./pages/customer/Inquiry";
+import InquiryWrite from "./pages/customer/InquiryWrite";
+import LostList from "./pages/customer/LostList";
+import PaymentList from "./pages/myPages/PaymentList";
+import PaymentView from "./pages/myPages/PaymentView";
+
+import Guide from "./pages/enjoy/Guide";
+
+
+
+
+// const Wrap = styled.div`
+// padding-top: 120px;
+// `;
 const GlobalStyle = createGlobalStyle`
   ${reset}
   /* other styles */
@@ -38,11 +59,28 @@ const GlobalStyle = createGlobalStyle`
 
 const App = memo(() => {
   return (
-    <Wrap>
-      <GlobalStyle />
-      <Customer />
-      <Ticketing />
-    </Wrap>
+    <div>
+      {/* 티켓팅 해더 <ProductHeader/> */}
+      <Headers/>
+      <GlobalStyle/>
+      {/* <EnjoyList/> */}
+      <Routes>
+        <Route path="/enjoyList" exact={true} element={<EnjoyList />} />
+        <Route path="/enjoyList/*" exact={true} element={<EnjoyView />} />
+        <Route path="/enjoyList/guide" exact={true} element={<Guide />} />
+        <Route path="/customer/*" exact={true} element={<NoticeList />} />
+        <Route path="/customer/notice-list" element={<NoticeView />} />
+        <Route path="/customer/FAQ/*" element={<FAQ />} />
+        <Route path="/customer/inquiry/" element={<Inquiry />} />
+        <Route path="/customer/InquiryWrite" element={<InquiryWrite />} />
+        <Route path="/customer/LostList" element={<LostList />} />
+
+        {/* 마이페이지 */}
+        <Route path="/myPage" element={<PaymentList />} />
+        <Route path="/mypages/paymentView" element={<PaymentView />} />
+      </Routes>
+      <Footer/>
+    </div>
   );
 });
 

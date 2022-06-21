@@ -7,10 +7,12 @@
  */
 import React, { memo, useCallback, useState } from "react";
 import styled from "styled-components";
+import {Link} from "react-router-dom";
 
 //  import logo from '../assets/img/logo.png';
 const HeaderWrap = styled.div`
   position: absolute;
+  top: 0;
   width: 100%;
   background: #fff;
   overflow: hidden;
@@ -179,7 +181,7 @@ const Header = memo(() => {
             <a className="onedepth">즐길거리</a>
             <ul className="twodepth">
               <li>
-                <a>어트랙션</a>
+                <Link to="/enjoyList">어트랙션</Link>
               </li>
             </ul>
           </li>
@@ -187,7 +189,7 @@ const Header = memo(() => {
             <a className="onedepth">이용가이드</a>
             <ul className="twodepth">
               <li>
-                <a>가이드맵</a>
+                <Link to="/enjoyList/guide">가이드맵</Link>
               </li>
             </ul>
           </li>
@@ -195,13 +197,13 @@ const Header = memo(() => {
             <a className="onedepth">소통공간</a>
             <ul className="twodepth">
               <li>
-                <a>공지사항</a>
+                <Link to="/customer/">공지사항</Link>
               </li>
               <li>
-                <a>자주묻는질문</a>
+              <Link to="/customer/FAQ/all">자주묻는질문</Link>
               </li>
               <li>
-                <a>문의사항</a>
+              <Link to="/customer/inquiry/">문의사항</Link>
               </li>
             </ul>
           </li>
