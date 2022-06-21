@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import bg from "../../assets/images/bg_pc_visual.png";
 
@@ -6,7 +7,7 @@ const MypageContainer = styled.div`
   width: 100vw;
   height: 100vh;
   background: url(${bg});
-  padding:20px 0 50px;
+  padding: 20px 0 50px;
 
   .pageContainer {
     width: 900px;
@@ -30,13 +31,13 @@ const MypageContainer = styled.div`
     .orderCancel {
       display: block;
       background: #2b72c9;
-      margin: 60px auto 0 ;
-      color:#fff;
-      line-height:1.5;
-      padding:13px 0;
-      font-size:17px;
+      margin: 60px auto 0;
+      color: #fff;
+      line-height: 1.5;
+      padding: 13px 0;
+      font-size: 17px;
       width: 400px;
-      border:none;
+      border: none;
       border-radius: 3px;
     }
     .PaymentListTable {
@@ -124,9 +125,10 @@ const PaymentView = memo(() => {
             <td>email1234@gmail.com</td>
           </tr>
         </table>
-        <button className="orderCancel" type="button">
+        {/* <button className="orderCancel" type="button">
           예매취소
-        </button>
+        </button> */}
+        <Link to="/TicketingPage/PaymentList">예매취소</Link>
       </div>
     </MypageContainer>
   );

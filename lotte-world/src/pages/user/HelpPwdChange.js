@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const HelpPwdChangeContainer = styled.div`
@@ -94,7 +95,8 @@ const HelpPwdChange = memo(() => {
             <input type="text" placeholder="새 비밀번호를 확인해주세요." />
           </div>
         </div>
-        <button type="submit">확인</button>
+        {/* <button type="submit">확인</button> */}
+        <Link to="/TicketingPage/Login">확인</Link>
       </form>
     </HelpPwdChangeContainer>
   );

@@ -4,6 +4,7 @@
 //                성별, 휴대전화, 이메일 정보를 입력하여 가입
 
 import React, { memo } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const SigninContainer = styled.form`
@@ -91,7 +92,7 @@ const Signin = memo(() => {
         <label htmlFor="">이메일</label>
         <input type="email" />
       </div>
-      <button type="submit">회원가입</button>
+      <Link to="/TicketingPage/SigninConfirm">회원가입</Link>
     </SigninContainer>
   );
 });

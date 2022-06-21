@@ -4,8 +4,9 @@
  * @filename: Header.js
  * @description: 예매 페이지 상단 메뉴
  */
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback, useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const ProHeaderWrap = styled.div`
   position: relative;
@@ -47,7 +48,7 @@ const ProHeaderWrap = styled.div`
     position: relative;
     z-index: 25;
     &:before {
-      content: '';
+      content: "";
       display: block;
       position: absolute;
       z-index: -1;
@@ -75,7 +76,7 @@ const ProHeaderWrap = styled.div`
         &:last-child {
           margin-right: 0;
         }
-        .onedepth {  
+        .onedepth {
           cursor: pointer;
           position: relative;
           display: block;
@@ -125,7 +126,8 @@ const ProHeaderWrap = styled.div`
       width: 17px;
       height: 17px;
       z-index: 100;
-      background: url(https://mticket.lotteworld.com/images/adventure/btn_mega_close.png) no-repeat 50% 50%;
+      background: url(https://mticket.lotteworld.com/images/adventure/btn_mega_close.png)
+        no-repeat 50% 50%;
       position: absolute;
       bottom: 15px;
       right: 500px;
@@ -139,7 +141,7 @@ const ProHeaderWrap = styled.div`
       font-weight: 700;
       .user_info {
         display: inline-block;
-          color: #3e3e4d;
+        color: #3e3e4d;
       }
       a {
         display: inline-block;
@@ -169,34 +171,40 @@ const ProductHeader = memo(() => {
       <nav>
         <ul className="gnb">
           <li className="gnbList">
-            <a className="onedepth" onClick={openMenu}>예매</a>
+            <a className="onedepth" onClick={openMenu}>
+              예매
+            </a>
             <ul className="twodepth">
               <li>
-                <a>티켓 예매</a>
+                <Link to="/TicketingPage">티켓 예매</Link>
               </li>
             </ul>
           </li>
           <li className="gnbList">
-            <a className="onedepth" onClick={openMenu}>마이페이지</a>
+            <a className="onedepth" onClick={openMenu}>
+              마이페이지
+            </a>
             <ul className="twodepth">
               <li>
-                <a>결제 내역</a>
-                <a>회원 정보 변경</a>
+                <Link to="/TicketingPage/PaymentList">결제 내역</Link>
+                <Link to="/TicketingPage/HelpPwdConfirm">회원정보 변경</Link>
               </li>
             </ul>
           </li>
-        <button className='btn_close' onClick={closeMenu}>
-        </button>
+          <button className="btn_close" onClick={closeMenu}></button>
         </ul>
 
         <div className="util">
-          {isLogin? (
+          {isLogin ? (
             <>
-              <p className='user_info'> <strong>ㅇㅇㅇ</strong> 님</p>
+              <p className="user_info">
+                <strong>ㅇㅇㅇ</strong> 님
+              </p>
               <a>로그아웃</a>
-            </>):(
-              <a>로그인</a>
-            )}
+            </>
+          ) : (
+            <Link to="/TicketingPage/Login">로그인</Link>
+          )}
         </div>
       </nav>
     </ProHeaderWrap>

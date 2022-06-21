@@ -80,17 +80,18 @@ const Login = memo(() => {
           <input type="checkbox" />
           <label htmlFor="">아이디저장</label>
         </div>
-        <button type="submit">로그인</button>
+        {/* <button type="submit">로그인</button> */}
+        <Link to="/TicketingPage">로그인</Link>
       </form>
       <ul>
         <li>
-          <Link to="/HelpId">아이디 찾기</Link>
+          <Link to="/TicketingPage/HelpId">아이디 찾기</Link>
         </li>
         <li>
-          <Link to="/HelpPwd">비밀번호 찾기</Link>
+          <Link to="/TicketingPage/HelpPwd">비밀번호 찾기</Link>
         </li>
         <li>
-          <Link to="/Signin">회원가입</Link>
+          <Link to="/TicketingPage/Signin">회원가입</Link>
         </li>
       </ul>
     </LoginContainer>

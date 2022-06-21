@@ -3,6 +3,7 @@
 // @description : 등록되어 있는 회원 정보 중 택 1 확인 (전화번호, 이메일)
 
 import React, { memo } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const HelpPwdContainer = styled.div`
@@ -152,7 +153,8 @@ const HelpPwd = memo(() => {
             />
           </div>
         </div>
-        <button type="submit">확인</button>
+        {/* <button type="submit">확인</button> */}
+        <Link to="/TicketingPage/HelpPwdConfirm">확인</Link>
       </form>
     </HelpPwdContainer>
   );

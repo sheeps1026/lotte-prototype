@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const HelpPwdConfirmContainer = styled.form`
@@ -67,6 +68,12 @@ const HelpPwdConfirmContainer = styled.form`
 `;
 
 const HelpPwdConfirm = memo(() => {
+  // const location = React.useLocation();
+  // console.log(location.pathname.substring(0, 14));
+
+  // let navigateee = React.Navigate();
+  // console.log(navigateee);
+
   return (
     <HelpPwdConfirmContainer>
       <div className="top-area">
@@ -77,7 +84,9 @@ const HelpPwdConfirm = memo(() => {
           <input type="text" placeholder="비밀번호를 입력해주세요." />
         </div>
       </div>
-      <button type="submit">확인</button>
+      {/* <button type="submit">확인</button> */}
+      {}
+      <Link to="/TicketingPage/Login">확인</Link>
     </HelpPwdConfirmContainer>
   );
 });

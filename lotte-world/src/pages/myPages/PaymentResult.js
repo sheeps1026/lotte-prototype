@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import styled from "styled-components";
 import bg from "../../assets/images/bg_pc_visual.png";
 import resultimg from "../../assets/images/paymentresult.jpg";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const MypageContainer = styled.div`
   width: 100vw;
@@ -24,10 +24,10 @@ const MypageContainer = styled.div`
       z-index: 1;
       padding: 20px 0;
     }
-    .result-p{
-        text-align: center;
-        font-weight: bold;
-        font-size: 20px;
+    .result-p {
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
     }
     img.resultImg {
       display: block;
@@ -41,7 +41,7 @@ const MypageContainer = styled.div`
     .paymentList {
       display: block;
       background: #2b72c9;
-      margin: 20px auto ;
+      margin: 20px auto;
       color: #fff;
       line-height: 1.5;
       padding: 13px 0;
@@ -77,38 +77,37 @@ const MypageContainer = styled.div`
         }
       }
     }
-    .paymentFooter{
-        background: #f1f1f1;
-        padding: 0 0 40px 0;
-        .paymentFooterTitle{
-            width: 800px;
-            margin:0 auto;
-            padding:20px 0 0 0;
-            line-height: 1.5;
-            font-size: 18px;
-
-        }
-        ul{
-            width: 800px;
-            margin:5px auto;
-            li{
-                font-size: 16px;
-                color:#222;
-                line-height: 2;
-                &:before{
-                    content:"·";
-                    padding: 0 5px 0 0;
-                }
-                ul{
-                    li{
-                        color:#666;
-                        &:before{
-                            color: #f1f1f1;
-                        }
-                    }
-                }
+    .paymentFooter {
+      background: #f1f1f1;
+      padding: 0 0 40px 0;
+      .paymentFooterTitle {
+        width: 800px;
+        margin: 0 auto;
+        padding: 20px 0 0 0;
+        line-height: 1.5;
+        font-size: 18px;
+      }
+      ul {
+        width: 800px;
+        margin: 5px auto;
+        li {
+          font-size: 16px;
+          color: #222;
+          line-height: 2;
+          &:before {
+            content: "·";
+            padding: 0 5px 0 0;
+          }
+          ul {
+            li {
+              color: #666;
+              &:before {
+                color: #f1f1f1;
+              }
             }
+          }
         }
+      }
     }
   }
 `;
@@ -119,7 +118,11 @@ const PaymentResult = memo(() => {
         <h3>결제 완료</h3>
         <img className="resultImg" src={resultimg} alt="결제완룡" />
         <p className="result-p">예매가 완료되었습니다.</p>
-        <NavLink to="/mypages/paymentView" className="paymentList" type="button">
+        <NavLink
+          to="/TicketingPage/PaymentView"
+          className="paymentList"
+          type="button"
+        >
           결제 내역
         </NavLink>
         <table className="PaymentListTable">
@@ -167,7 +170,8 @@ const PaymentResult = memo(() => {
             </li>
 
             <li>
-              예매내역의 부분취소는 [마이페이지 &#62;결제내역]에서 처리 가능합니다.
+              예매내역의 부분취소는 [마이페이지 &#62;결제내역]에서 처리
+              가능합니다.
             </li>
             <li>입장 이후에는 예매취소가 불가합니다.</li>
             <li>

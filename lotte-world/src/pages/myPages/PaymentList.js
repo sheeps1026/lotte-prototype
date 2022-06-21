@@ -13,7 +13,7 @@ const MypageContainer = styled.div`
   width: 100vw;
   height: 100vh;
   background: url(${bg});
-  padding:20px 0 50px;
+  padding: 20px 0 50px;
   .pageContainer {
     width: 900px;
     background: #fff;
@@ -122,7 +122,8 @@ const PaymentListWrap = styled.div`
         border-style: solid;
         border-color: ${({ ticket }) => (ticket === "Yes" ? "red" : "blue")};
         &:before {
-          content: "${({ ticket }) => (ticket === "Yes" ? "예약완료" : "취소완료")}";
+          content: "${({ ticket }) =>
+            ticket === "Yes" ? "예약완료" : "취소완료"}";
           color: ${({ ticket }) => (ticket === "Yes" ? "red" : "blue")};
         }
 
@@ -233,7 +234,7 @@ const PaymentList = memo(() => {
           <button type="button">다음달</button>
         </div>
 
-        {!OrderNumList ? (
+        {OrderNumList ? (
           <PaymentListWrap>
             <h2>
               총 <span>1</span>건
@@ -272,14 +273,14 @@ const PaymentList = memo(() => {
                     </div>
 
                     <div className="price">{v.paymentPrice}원</div>
-                    <Link to="/mypages/paymentView"></Link>
+                    <Link to="/TicketingPage/PaymentView"></Link>
                   </div>
                 );
               })}
             </div>
           </PaymentListWrap>
         ) : (
-          <NoResultFound/>
+          <NoResultFound />
         )}
       </div>
     </MypageContainer>

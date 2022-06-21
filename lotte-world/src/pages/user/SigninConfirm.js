@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import CheckIcon from "../../assets/images/user/SigninConfirm/check.png";
@@ -62,7 +63,8 @@ const SigninConfirm = memo(() => {
         완료되었습니다.
       </p>
       <p>회원가입을 축하합니다.</p>
-      <button type="submit">로그인</button>
+      {/* <button type="submit">로그인</button> */}
+      <Link to="/TicketingPage/Login">로그인</Link>
     </SigninConfirmContainer>
   );
 });

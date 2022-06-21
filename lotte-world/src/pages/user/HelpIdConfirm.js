@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const HelpIdConfirmContainer = styled.div`
@@ -81,7 +82,8 @@ const HelpIdConfirm = memo(() => {
             <p>*** 아이디 보여지는 칸</p>
           </div>
         </div>
-        <button type="submit">로그인</button>
+        {/* <button type="submit">로그인</button> */}
+        <Link to="/TicketingPage/Login">로그인</Link>
       </form>
     </HelpIdConfirmContainer>
   );
