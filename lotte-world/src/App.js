@@ -21,6 +21,25 @@ import LostList from "./pages/customer/LostList";
 import PaymentList from "./pages/myPages/PaymentList";
 import PaymentView from "./pages/myPages/PaymentView";
 
+import Sitemap from "./pages/business/Sitemap";
+import Introduce from "./pages/business/Introduce";
+import AgreementHome from "./pages/business/AgreementHome";
+import AgreementAdventure from "./pages/business/AgreementAdventure";
+import AgreementMembership from "./pages/business/AgreementMembership";
+import Email from "./components/Email";
+import HelpId from "./pages/user/HelpId";
+import HelpIdConfirm from "./pages/user/HelpIdConfirm";
+import HelpPwd from "./pages/user/HelpPwd";
+import HelpPwdChange from "./pages/user/HelpPwdChange";
+import HelpPwdConfirm from "./pages/user/HelpPwdConfirm";
+import Login from "./pages/user/Login";
+import Signin from "./pages/user/Signin";
+import SigninConfirm from "./pages/user/SigninConfirm";
+import PaymentChk1 from "./components/alert/PaymentChk1";
+import PaymentChk2 from "./components/alert/PaymentChk2";
+import PaymentChk3 from "./components/alert/PaymentChk3";
+import PaymentChk4 from "./components/alert/PaymentChk4";
+
 import Guide from "./pages/enjoy/Guide";
 
 
@@ -78,6 +97,26 @@ const App = memo(() => {
         {/* 마이페이지 */}
         <Route path="/myPage" element={<PaymentList />} />
         <Route path="/mypages/paymentView" element={<PaymentView />} />
+        
+        {/*푸터 연결  */}
+        <Route path="/Sitemap" element={<Sitemap />} />
+        <Route path="/Introduce" element={<Introduce />} />
+        <Route path="/AgreementHome" element={<AgreementHome />} />
+        <Route path="/AgreementAdventure" element={<AgreementAdventure />} />
+        <Route path="/AgreementMembership" element={<AgreementMembership />} />
+        <Route path="/Email" element={<Email />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/HelpId" element={<HelpId />} />
+        <Route path="/HelpIdConfirm" element={<HelpIdConfirm />} />
+        <Route path="/HelpPwd" element={<HelpPwd />} />
+        <Route path="/HelpPwdChange" element={<HelpPwdChange />} />
+        <Route path="/HelpPwdConfirm" element={<HelpPwdConfirm />} />
+        <Route path="/Signin" element={<Signin />} />
+        <Route path="/SigninConfirm" element={<SigninConfirm />} />
+        <Route path="/PaymentChk1" element={<PaymentChk1 />} />
+        <Route path="/PaymentChk2" element={<PaymentChk2 />} />
+        <Route path="/PaymentChk3" element={<PaymentChk3 />} />
+        <Route path="/PaymentChk4" element={<PaymentChk4 />} />
       </Routes>
       <Footer/>
     </div>
