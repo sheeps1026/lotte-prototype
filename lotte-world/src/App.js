@@ -1,16 +1,15 @@
 import React, { memo } from "react";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import styled from 'styled-components';
-import {Routes,Route} from "react-router-dom";
+import styled from "styled-components";
+import { Routes, Route } from "react-router-dom";
 
-import ProductHeader from './ProductHeader';
-import Ticketing from "./pages/product/Ticketing";
+import { useParams, useLocation } from "react-router-dom";
+import ProductHeader from "./ProductHeader";
 import EnjoyList from "./pages/enjoy/EnjoyList";
 import EnjoyView from "./pages/enjoy/EnjoyView";
 import Headers from "./Header";
 import Footer from "./Footer";
-
 
 import NoticeList from "./pages/customer/NoticeList";
 import NoticeView from "./pages/customer/NoticeView";
@@ -42,6 +41,10 @@ import PaymentChk4 from "./components/alert/PaymentChk4";
 
 import Guide from "./pages/enjoy/Guide";
 
+import TicketingMain from "./pages/product/TicketingMain";
+import Ticketing from "./pages/product/Ticketing";
+
+import PaymentResult from "./pages/mypages/PaymentResult";
 
 
 
@@ -77,11 +80,15 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App = memo(() => {
+  const location = useLocation();
+  console.log(location.pathname.substring(0,14));
+  const path = location.pathname.substring(0,14);
   return (
     <div>
-      {/* 티켓팅 해더 <ProductHeader/> */}
-      <Headers/>
-      <GlobalStyle/>
+      {path === "/TicketingPage" ? <ProductHeader /> : <Headers/>}
+      <GlobalStyle />
+
+
       {/* <EnjoyList/> */}
       <Routes>
         <Route path="/enjoyList" exact={true} element={<EnjoyList />} />
@@ -97,7 +104,7 @@ const App = memo(() => {
         {/* 마이페이지 */}
         <Route path="/myPage" element={<PaymentList />} />
         <Route path="/mypages/paymentView" element={<PaymentView />} />
-        
+
         {/*푸터 연결  */}
         <Route path="/Sitemap" element={<Sitemap />} />
         <Route path="/Introduce" element={<Introduce />} />
@@ -117,8 +124,14 @@ const App = memo(() => {
         <Route path="/PaymentChk2" element={<PaymentChk2 />} />
         <Route path="/PaymentChk3" element={<PaymentChk3 />} />
         <Route path="/PaymentChk4" element={<PaymentChk4 />} />
+        {/* 예매 페이지 */}
+        
+        <Route path="/TicketingPage" element={<TicketingMain />} />
+        <Route path="/TicketingPage/Ticketing" element={<Ticketing />} />
+        {/* 결제완료 후 페이지 */}
+        <Route path="/TicketingPage/PaymentResult" element={<PaymentResult />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </div>
   );
 });

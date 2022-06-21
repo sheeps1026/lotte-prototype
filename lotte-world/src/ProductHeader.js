@@ -8,7 +8,7 @@ import React, { memo, useCallback, useState } from 'react';
 import styled from "styled-components";
 
 const ProHeaderWrap = styled.div`
-  position: absolute;
+  position: relative;
   z-index: 200;
   width: 100%;
   background: #fff;

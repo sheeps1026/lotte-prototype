@@ -210,7 +210,7 @@ const Header = memo(() => {
         </ul>
 
         <div className="util">
-          <a>온라인예매</a>
+          <Link to="/TicketingPage">온라인예매</Link>
         </div>
       </nav>
       {/* <div className={openList ? 'dimd opendimd' : 'dimd'}/>  */}

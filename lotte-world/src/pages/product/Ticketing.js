@@ -6,6 +6,8 @@ import React, { memo, useState } from 'react';
 import styled from 'styled-components';
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
+
+import Payment from "./Payment";
 import "react-datepicker/dist/react-datepicker.css";
 
 import bg from '../../assets/images/pages/product/bg_pc_visual_busan.png';
@@ -193,9 +195,11 @@ const Ticketing = memo(() => {
                                                             <div className='price'><span>42,300</span> 원</div>
                                                         </div>
                                                         <div className='ticketingBtn'>
-                                                            <button type='button' className='btn_fill'>
-                                                                <span>예매하기</span>
-                                                            </button>
+                                                                <Payment/>
+                                                            {/* <button type='button' className='btn_fill'> */}
+                                                                {/* <span>예매하기</span> */}
+                                                                {/* 결제하기 */}
+                                                            {/* </button> */}
                                                         </div>
                                                     </div>
                                                 </li>
