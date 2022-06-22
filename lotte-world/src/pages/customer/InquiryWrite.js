@@ -4,13 +4,13 @@ import checkboxOff from "../../assets/images/checkbox-icon.png";
 import checkboxOn from "../../assets/images/checkbox-icon-on.png";
 import selectBg from "../../assets/images/select-icon2.png";
 const InquiryWriteWrap = styled.div`
-width: 50%;
-margin: 0 auto;
-position: relative;
+  width: 50%;
+  margin: 40px auto;
+  position: relative;
   ul {
     padding: 30px 40px;
     background: #f2f2f2f2;
-    width: 100%;
+    width: calc(100% - 80px);
     li {
       color: #888;
       line-height: 1.5;
@@ -31,6 +31,7 @@ position: relative;
     font-size: 26px;
     margin: 20px 0;
     letter-spacing: -1px;
+    margin: 60px 0 20px;
     span {
       color: green;
     }
@@ -52,6 +53,19 @@ position: relative;
     border: 1px solid #ccc;
     padding: 40px 30px;
     width: 100%;
+    box-sizing: border-box;
+    &::-webkit-scrollbar {
+      width: 15px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius:20px;
+      border:3px solid #fff;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: #fff;
+      
+    }
     h3 {
       font-weight: bold;
       color: #777;
@@ -70,6 +84,7 @@ position: relative;
     border-bottom: 1px solid #ccc;
     padding: 20px;
     width: 100%;
+    box-sizing: border-box;
     input[type="checkbox"] {
       display: none;
       & + label {
@@ -248,6 +263,11 @@ const InquiryWrite = memo(() => {
         <h3>개인 정보 수집 , 이용 동의서</h3>
         <p>
           1. 본인은 방문 전 이용문의 작성과 관련하여 귀사가 아래와 같이 본인의
+          개인정보를 수집, 이용하는데 동의합니다.
+          2. 수집하는 개인정보의 항목
+          고객의 요청ㆍ문의사항 확인, 사실조사를 위한 연락ㆍ통지, 처리결과 통보 등의 목적
+          3. 개인정보의 보유, 이용기간
+          본인은 방문 전 이용문의 작성과 관련하여 귀사가 아래와 같이 본인의
           개인정보를 수집, 이용하는데 동의합니다.
         </p>
       </div>
