@@ -8,9 +8,9 @@ const Background = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 0;
+  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,7 +18,7 @@ const Background = styled.div`
 `;
 
 const EmailContainer = styled.div`
-  width: 820px;
+  width: 900px;
   height: 675px;
   padding: 0 40px;
   background-color: #fff;
@@ -74,7 +74,7 @@ const EmailContainer = styled.div`
     p {
       text-align: center;
       margin-top: 25px;
-      color: rgb(102, 102, 102);
+      color: #666;
       font-size: 18px;
       letter-spacing: -0.36px;
       line-height: 30px;

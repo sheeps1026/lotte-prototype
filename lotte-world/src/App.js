@@ -94,10 +94,15 @@ const App = memo(() => {
 
   // PaymentChk 모달 (나중에 props로 전달해서 연결)
   // let [openPayment, setOpenPayment] = useState(false);
+  {
+    /* {openPayment && <PaymentChk4 setOpenPayment={setOpenPayment} />} */
+  }
 
   return (
     <div>
       {path === "/TicketingPage" ? <ProductHeader /> : <Headers />}
+      {openEmail && <Email setOpenEmail={setOpenEmail} />}
+
       <GlobalStyle />
       {path === "/" ? (
         <Main />
@@ -175,7 +180,8 @@ const App = memo(() => {
           />
         </Routes>
       )}
-      <Footer />
+
+      <Footer setOpenEmail={setOpenEmail} />
     </div>
   );
 });

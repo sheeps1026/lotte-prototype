@@ -2,8 +2,8 @@
  * @filename: Header.js
  * @description: 하단 메뉴
  */
-import React, { memo } from "react";
-import { Link } from "react-router-dom";
+import React, { memo, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -74,7 +74,15 @@ const FooterArea = styled.footer`
   }
 `;
 
-const Footer = memo(({ setOpenEmail, setOpenPayment }) => {
+const Footer = memo(({ setOpenEmail }) => {
+  // 현재 컴포넌트 위치에 따라 모달창 열리게
+  const location = useLocation();
+  let pathname = location.pathname;
+
+  // useEffect(() => {
+  //   console.log(location);
+  // }, [location]);
+
   return (
     <FooterArea>
       <p className="logo">
@@ -86,13 +94,14 @@ const Footer = memo(({ setOpenEmail, setOpenPayment }) => {
           <Link to="/AgreementHome">이용약관</Link>
           <Link to="/Sitemap">사이트맵</Link>
           <Link
-            to="/"
+            to={`${pathname}`}
             onClick={() => {
               setOpenEmail(true);
             }}
           >
             이메일무단수집거부
           </Link>
+          <button>버튼</button>
         </div>
         <div className="address">
           <p>
