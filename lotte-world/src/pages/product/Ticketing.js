@@ -52,7 +52,7 @@ const personnalArr = [
 ];
 const TicketingStyled = styled.div`
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
   background-color: #fff9e4;
   background-image: url(${bg});
   .containerWrap {
@@ -202,16 +202,17 @@ const Ticketing = memo(() => {
                               </div>
                             </div>
                             <div className="ticketingBtn">
-                              {/* <Payment /> */}
-                              <Link to="/TicketingPage/PaymentResult">
+                              
+                              {/* <Link to="/TicketingPage/PaymentResult">
                                 결제하기
-                              </Link>
+                              </Link> */}
 
                               {/* <button type='button' className='btn_fill'> */}
                               {/* <span>예매하기</span> */}
                               {/* 결제하기 */}
                               {/* </button> */}
                             </div>
+                            <Payment />
                           </div>
                         </li>
                       </ul>
