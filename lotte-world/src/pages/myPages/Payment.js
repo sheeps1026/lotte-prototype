@@ -1,7 +1,9 @@
 import React from 'react';
 
 function Payment() {
-  function onClickPayment() {
+  function onClickPayment(e) {
+    e.preventDefault();
+    
     /* 1. 가맹점 식별하기 */
     const { IMP } = window;
     IMP.init('imp70078593');
