@@ -17,7 +17,6 @@ const TicketingStyled = styled.div`
   min-height: calc(100% + 50px);
   background-color: #fff9e4;
   padding: 50px 0;
-  background-color: #fff9e4;
   background-image: url(${bg});
   .containerWrap {
     margin: 0 auto;
