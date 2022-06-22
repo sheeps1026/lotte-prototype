@@ -16,6 +16,8 @@ import show3 from "./../assets/images/show3.jpeg";
 import arrow from "./../assets/images/arrow-right.png";
 import enjoyBg from "./../assets/images/zone-mask-bg5.jpeg";
 import showBg from "./../assets/images/main-parade-bg.png";
+import wave from "./../assets/images/wave-bg5.png";
+import wave2 from "./../assets/images/zone-wave3.png";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 const MainContainer = styled.div`
@@ -81,7 +83,10 @@ const MainContainer = styled.div`
     }
   }
   .animationWrap {
-    padding: 200px 0 200px;
+    padding: 200px 0 0;
+    & {
+      padding: 0;
+    }
     p {
       font-size: 105px;
       font-weight: bold;
@@ -100,8 +105,26 @@ const MainContainer = styled.div`
     }
   }
   .enjoywrap {
-    background: url(${enjoyBg}) no-repeat;
-    padding: 40px 0 30px;
+    background: url(${enjoyBg}) no-repeat 100% 0 / cover;
+    padding: 500px 0 100px;
+    position: relative;
+    .enjoySlide {
+      padding: 50px 0 300px;
+    }
+    .mask-bg {
+      background: url(${wave}) repeat-x;
+      width: 100%;
+      height: 472px;
+      position: absolute;
+      top: 0;
+    }
+    .mask-bg-2 {
+      background: url(${wave2}) repeat-x 0 bottom;
+      width: 100%;
+      height: 472px;
+      position: absolute;
+      bottom: 0;
+    }
     h2 {
       font-weight: bold;
       text-align: center;
@@ -121,6 +144,7 @@ const MainContainer = styled.div`
         cursor: pointer;
       }
     }
+    
     .slick-slide {
       opacity: 0.75;
       img {
@@ -145,11 +169,29 @@ const MainContainer = styled.div`
       }
     }
   }
-  .showWrap{
+  .showCon {
     background: url(${showBg}) no-repeat;
-    display: flex;
-    justify-content: center;
-
+    padding:100px 0;
+    h1 {
+      color: #fff;
+      text-align: center;
+      font-size: 40px;
+      font-weight: bold;
+      line-height: 1.5s;
+    }
+    .showWrap {
+      display: flex;
+      justify-content: center;
+      h4{
+        font-size: 28px;
+        font-weight: bold
+      }
+      h4,p{
+        color:#fff;
+        text-align: center;
+        line-height: 1.5;
+      }
+    }
   }
 `;
 
@@ -237,6 +279,7 @@ const Main = memo(() => {
         <p className="active-txt">완벽하게 즐겨라</p>
       </div>
       <div className="enjoywrap">
+        <div className="mask-bg"></div>
         <h2>신나고 즐거운 어트랙션</h2>
         <div className="badgesWrap">
           <span>언더랜드 존</span>
@@ -290,28 +333,38 @@ const Main = memo(() => {
             </div>
           </Slider>
         </div>
+        <div className="mask-bg-2"></div>
       </div>
       <div className="animationWrap" ref={active2}>
         <p className="active-txt">언제나 즐겁고</p>
         <p className="active-txt">신나는 공연과</p>
         <p className="active-txt">퍼레이드를 경험하라</p>
       </div>
-      <div className="showWrap">
-        <div className="showImgWrap">
-          <img src={show1} alt="공연 사진" />
-          <h4>로티스 매직포레스트 퍼레이드</h4>
-          <p>마법에 걸린 매직 포레스트를 구한 용감한 기사 로티를 위한 축제</p>
+      <div className="showCon">
+        <h1>즐거운 공연과 퍼레이드</h1>
+        <div className="showWrap">
+          <div className="showImgWrap">
+            <img src={show1} alt="공연 사진" />
+            <h4>로티스 매직포레스트 퍼레이드</h4>
+            <p>마법에 걸린 매직 포레스트를 구한 용감한 기사 로티를 위한 축제</p>
+          </div>
+          <div className="showImgWrap">
+            <img src={show2} alt="공연 사진" />
+            <h4>로티스 매직포레스트 퍼레이드</h4>
+            <p>마법에 걸린 매직 포레스트를 구한 용감한 기사 로티를 위한 축제</p>
+          </div>
+          <div className="showImgWrap">
+            <img src={show3} alt="공연 사진" />
+            <h4>로티스 매직포레스트 퍼레이드</h4>
+            <p>마법에 걸린 매직 포레스트를 구한 용감한 기사 로티를 위한 축제</p>
+          </div>
         </div>
-        <div className="showImgWrap">
-          <img src={show2} alt="공연 사진" />
-          <h4>로티스 매직포레스트 퍼레이드</h4>
-          <p>마법에 걸린 매직 포레스트를 구한 용감한 기사 로티를 위한 축제</p>
-        </div>
-        <div className="showImgWrap">
-          <img src={show3} alt="공연 사진" />
-          <h4>로티스 매직포레스트 퍼레이드</h4>
-          <p>마법에 걸린 매직 포레스트를 구한 용감한 기사 로티를 위한 축제</p>
-        </div>
+      </div>
+      <div className="noticeWrap">
+          <h1>매직포레스트의 새 소식</h1>
+          <div>
+
+          </div>
       </div>
     </MainContainer>
   );
