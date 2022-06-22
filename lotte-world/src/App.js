@@ -1,7 +1,6 @@
 import React, { memo } from "react";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
 
 import { useParams, useLocation } from "react-router-dom";
@@ -10,6 +9,8 @@ import EnjoyList from "./pages/enjoy/EnjoyList";
 import EnjoyView from "./pages/enjoy/EnjoyView";
 import Headers from "./Header";
 import Footer from "./Footer";
+
+import Main from "./pages/Main";
 
 import NoticeList from "./pages/customer/NoticeList";
 import NoticeView from "./pages/customer/NoticeView";
@@ -87,8 +88,12 @@ const App = memo(() => {
       {path === "/TicketingPage" ? <ProductHeader /> : <Headers />}
       <GlobalStyle />
 
+      <Main />
       {/* <EnjoyList/> */}
       <Routes>
+        {/* 메인 */}
+        {/* <Route path="/Main" element={<Main />} /> */}
+
         <Route path="/enjoyList" exact={true} element={<EnjoyList />} />
         <Route path="/enjoyList/*" exact={true} element={<EnjoyView />} />
         <Route path="/enjoyList/guide" exact={true} element={<Guide />} />

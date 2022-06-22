@@ -5,7 +5,7 @@ import styled from "styled-components";
 const HelpPwdConfirmContainer = styled.form`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 0 0 0;
+  padding: 40px 0 100px 0;
 
   .top-area {
     margin-bottom: 65px;
@@ -84,9 +84,9 @@ const HelpPwdConfirm = memo(() => {
           <input type="text" placeholder="비밀번호를 입력해주세요." />
         </div>
       </div>
-      {/* <button type="submit">확인</button> */}
-      {}
-      <Link to="/TicketingPage/Login">확인</Link>
+      <Link to="/TicketingPage/Login">
+        <button type="submit">확인</button>
+      </Link>
     </HelpPwdConfirmContainer>
   );
 });

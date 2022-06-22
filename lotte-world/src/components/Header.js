@@ -5,9 +5,10 @@ import styled from "styled-components";
 const NavCon = styled.nav`
   border: 1px solid #000;
   position: relative;
-  padding:10px;
-background-color: #fff;
-`
+  padding: 10px;
+  background-color: #fff;
+`;
+
 const header = memo(() => {
   return (
     <div>

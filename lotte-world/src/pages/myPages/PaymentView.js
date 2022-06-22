@@ -125,10 +125,11 @@ const PaymentView = memo(() => {
             <td>email1234@gmail.com</td>
           </tr>
         </table>
-        {/* <button className="orderCancel" type="button">
-          예매취소
-        </button> */}
-        <Link to="/TicketingPage/PaymentList">예매취소</Link>
+        <Link to="/TicketingPage/PaymentList">
+          <button className="orderCancel" type="button">
+            예매취소
+          </button>
+        </Link>
       </div>
     </MypageContainer>
   );

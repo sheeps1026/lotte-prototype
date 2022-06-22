@@ -5,7 +5,7 @@ import styled from "styled-components";
 const HelpIdConfirmContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 0 0 0;
+  padding: 40px 0 100px 0;
 
   .top-area {
     margin-bottom: 65px;
@@ -82,8 +82,9 @@ const HelpIdConfirm = memo(() => {
             <p>*** 아이디 보여지는 칸</p>
           </div>
         </div>
-        {/* <button type="submit">로그인</button> */}
-        <Link to="/TicketingPage/Login">로그인</Link>
+        <Link to="/TicketingPage/Login">
+          <button type="submit">로그인</button>
+        </Link>
       </form>
     </HelpIdConfirmContainer>
   );

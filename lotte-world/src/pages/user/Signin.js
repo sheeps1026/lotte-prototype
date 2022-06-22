@@ -1,5 +1,4 @@
 // @filename    : Signin.js
-// @author      :
 // @description : 이름, 아이디, 비밀번호, 비밀번호 확인, 주민번호,
 //                성별, 휴대전화, 이메일 정보를 입력하여 가입
 
@@ -10,6 +9,7 @@ import styled from "styled-components";
 const SigninContainer = styled.form`
   width: 460px;
   margin: 0 auto;
+  padding-bottom: 100px;
 
   h2 {
     text-align: center;
@@ -58,6 +58,7 @@ const SigninContainer = styled.form`
     width: 100%;
     padding: 15px 0;
     border: none;
+    border-radius: 3px;
     background-color: #000;
     color: #fff;
     font-size: 18px;
@@ -92,7 +93,9 @@ const Signin = memo(() => {
         <label htmlFor="">이메일</label>
         <input type="email" />
       </div>
-      <Link to="/TicketingPage/SigninConfirm">회원가입</Link>
+      <Link to="/TicketingPage/SigninConfirm">
+        <button type="submit">확인</button>
+      </Link>
     </SigninContainer>
   );
 });

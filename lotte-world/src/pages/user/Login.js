@@ -1,5 +1,4 @@
 // @filename    : Login.js
-// @author      :
 // @description : 로그인 폼 (아이디&비밀번호 찾기, 회원가입 버튼이 있음)
 
 import React, { memo } from "react";
@@ -9,6 +8,7 @@ import styled from "styled-components";
 const LoginContainer = styled.div`
   width: 460px;
   margin: 0 auto;
+  padding-bottom: 100px;
 
   h2 {
     text-align: center;
@@ -39,6 +39,7 @@ const LoginContainer = styled.div`
       width: 100%;
       padding: 15px 0;
       border: none;
+    border-radius: 3px;
       background-color: #000;
       color: #fff;
       font-size: 18px;
@@ -80,8 +81,9 @@ const Login = memo(() => {
           <input type="checkbox" />
           <label htmlFor="">아이디저장</label>
         </div>
-        {/* <button type="submit">로그인</button> */}
-        <Link to="/TicketingPage">로그인</Link>
+        <Link to="/TicketingPage">
+          <button type="submit">로그인</button>
+        </Link>
       </form>
       <ul>
         <li>

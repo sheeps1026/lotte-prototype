@@ -10,6 +10,7 @@ const SigninConfirmContainer = styled.div`
   align-items: center;
   width: 460px;
   margin: 0 auto;
+  padding-bottom: 100px;
 
   h2 {
     margin-bottom: 50px;
@@ -41,9 +42,10 @@ const SigninConfirmContainer = styled.div`
   }
 
   button {
-    width: 100%;
+    width: 140px;
     padding: 15px 0;
     border: none;
+    border-radius: 3px;
     background-color: #000;
     color: #fff;
     font-size: 18px;
@@ -63,8 +65,9 @@ const SigninConfirm = memo(() => {
         완료되었습니다.
       </p>
       <p>회원가입을 축하합니다.</p>
-      {/* <button type="submit">로그인</button> */}
-      <Link to="/TicketingPage/Login">로그인</Link>
+      <Link to="/TicketingPage/Login">
+        <button type="submit">로그인</button>
+      </Link>
     </SigninConfirmContainer>
   );
 });

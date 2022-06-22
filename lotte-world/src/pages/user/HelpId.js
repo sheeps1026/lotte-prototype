@@ -1,5 +1,4 @@
 // @filename    : HelpId.js
-// @author      :
 // @description : 등록되어 있는 회원 정보 중 택 1 확인 (전화번호, 이메일)
 
 import React, { memo } from "react";
@@ -9,7 +8,7 @@ import styled from "styled-components";
 const HelpIdContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 0 0 0;
+  padding: 40px 0 100px 0;
 
   .top-area {
     margin-bottom: 65px;
@@ -122,8 +121,9 @@ const HelpId = memo(() => {
             />
           </div>
         </div>
-        {/* <button type="submit">확인</button> */}
-        <Link to="/TicketingPage/HelpIdConfirm">확인</Link>
+        <Link to="/TicketingPage/HelpIdConfirm">
+          <button type="submit">확인</button>
+        </Link>
       </form>
     </HelpIdContainer>
   );

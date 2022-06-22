@@ -7,7 +7,7 @@
  */
 import React, { memo, useCallback, useState } from "react";
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //  import logo from '../assets/img/logo.png';
 const HeaderWrap = styled.div`
@@ -128,19 +128,19 @@ const HeaderWrap = styled.div`
     }
   }
   /* .dimd {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 3;
-    background-color: rgba(0, 0, 0, 0.5);
-    &.opendimd {
-      display: block;
-      animation: menu .3s;
-    }
-   } */
+     display: none;
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     z-index: 3;
+     background-color: rgba(0, 0, 0, 0.5);
+     &.opendimd {
+       display: block;
+       animation: menu .3s;
+     }
+    } */
   @keyframes menu {
     from {
       opacity: 0;
@@ -200,10 +200,10 @@ const Header = memo(() => {
                 <Link to="/customer/">공지사항</Link>
               </li>
               <li>
-              <Link to="/customer/FAQ/all">자주묻는질문</Link>
+                <Link to="/customer/FAQ/all">자주묻는질문</Link>
               </li>
               <li>
-              <Link to="/customer/inquiry/">문의사항</Link>
+                <Link to="/customer/inquiry/">문의사항</Link>
               </li>
             </ul>
           </li>
