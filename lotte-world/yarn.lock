@@ -2417,7 +2417,11 @@ ajv@^8.0.0, ajv@^8.6.0, ajv@^8.8.0:
 
 animate.css@^4.1.1:
   version "4.1.1"
+<<<<<<< HEAD
   resolved "https://registry.yarnpkg.com/animate.css/-/animate.css-4.1.1.tgz#614ec5a81131d7e4dc362a58143f7406abd68075"
+=======
+  resolved "https://registry.npmjs.org/animate.css/-/animate.css-4.1.1.tgz"
+>>>>>>> 69d4ab78acd00ade49c6db7b2c06ecf36f1583d8
   integrity sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==
 
 ansi-escapes@^4.2.1, ansi-escapes@^4.3.1:
@@ -7389,7 +7393,11 @@ react-router@6.3.0:
 
 react-scripts@^5.0.1:
   version "5.0.1"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/react-scripts/-/react-scripts-5.0.1.tgz"
+=======
+  resolved "https://registry.yarnpkg.com/react-scripts/-/react-scripts-5.0.1.tgz#6285dbd65a8ba6e49ca8d651ce30645a6d980003"
+>>>>>>> 69d4ab78acd00ade49c6db7b2c06ecf36f1583d8
   integrity sha512-8VAmEm/ZAwQzJ+GOMLbBsTdDKOpuZh7RPs0UymvBR2vRk4iZWCskjbFnxqjrzoIvlNNRZ3QJFx6/qDSi6zSnaQ==
   dependencies:
     "@babel/core" "^7.16.0"

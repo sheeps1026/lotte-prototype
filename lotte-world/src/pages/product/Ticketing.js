@@ -15,7 +15,9 @@
  import plus from "../../assets/images/pages/product/btn_plus_on.png";
  import thumbnail from "../../assets/images/pages/product/thumbnail.jpg";
  import arrow from "../../assets/images/pages/product/bg_accordion_arrow.png";
- 
+ import close from "../../assets/images/pages/product/btn_pop_close.png";
+ import nodata from "../../assets/images/pages/product/nodata.png";
+
  import confirmBg from '../../assets/images/pages/product/bg_notice.png';
  import icon from '../../assets/images/pages/product/bg_popicon.png';
  
@@ -34,7 +36,7 @@
    { tit: "청소년", txt: "13세 이상 ~ 만 18세" },
    { tit: "어린이", txt: "36개월 이상 ~ 만 12세" },
  ];
- 
+
  const TicketingStyled = styled.div`
    width: 100%;
    min-height: calc(100% + 50px);
@@ -247,6 +249,7 @@
    }
    /* 티켓정보 블록 */
    .eventWrap {
+      /* 인원 선택 중 */
        .event {
          display: block;
          padding: 30px 60px;
@@ -311,7 +314,7 @@
            }
            .itemCont {
              float: left;
-             width: 36%;
+             width: 40%;
              padding: 0 2%;
              margin-top: 20px;
              margin-bottom: 6px;
@@ -372,6 +375,32 @@
            }
          }
        }
+      /* 인원 없음 */
+      .noData {
+        display: none;
+        position: relative;
+        padding: 30px 0;
+        text-align: center;
+        img {
+          display: block;
+          margin: 0 auto;
+          width: 288px;
+          max-width: 288px;
+        }
+        span {
+          display: block;
+          width: 70%;
+          height: 65px;
+          position: absolute;
+          top: 119px;
+          left: 50%;
+          margin-left: -35%;
+          font-size: 15px;
+          font-weight: 500;
+          color: #757575;
+          line-height: 65px;
+        }
+      }
      }
      /* 상품안내 블록 */
      .accordion {
@@ -423,7 +452,7 @@
  `;
  // 정보 재확인 모달창 스타일
  const ConfirmPop = styled.div`
- display: block; //날짜 선택 후 등장하게
+ display: block;
  .pop_bg {
      position:fixed;
      width:100%;
@@ -435,7 +464,6 @@
      z-index: 1000;
  }
  .pop_cont {
-     display: block;
      width: 504px;
      border-radius: 15px;
      position: fixed;
@@ -518,28 +546,111 @@
      }
  }
  `;
+ // 방문일자 선택 스타일
+ const DatePopup = styled.div`
+ .pop_bg {
+     position:fixed;
+     width:100%;
+     height:100%;
+     top:0;
+     left:0;
+     background: #000;
+     opacity: .8;
+     z-index: 1000;
+ }
+ .dateWrap {
+ width: 504px;
+ border-radius: 15px;
+ position: fixed;
+ left: 50%;
+ top: 25%;
+ margin-left: -252px;
+ background: #fff;
+ z-index:10000;
+  .dateTitle {
+  line-height: 1.5;
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+ }
+ .datePick {
+  padding: 23px 60px 30px;
+  .infoWrap {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+  }
+ }
+ .dateBtn {
+  font-size: 0;
+  line-height: 0;
+  border-radius: 0 0 4px 4px;
+  border-top: 1px solid #2b72c9;
+  overflow: hidden;
+  button {
+    height: 60px;
+    font-size: 16px;
+    width: 50%;
+    display: inline-block;
+  }
+  .btn_cancel {
+    color: #2b72c9;
+  }
+  .btn_complete {
+    color: white;
+    background-color: #2b72c9;
+    border-radius: 0 0 15px 0;
+  }
+ }
+ .dateClose {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 20px;
+  height: 20px;
+  background-size: 100% !important;
+  background: url(${close});
+  font-size: 0;
+  line-height: 0;
+ }
+}
+ `;
  const Ticketing = memo(() => {
    const [startDate, setStartDate] = useState(new Date());
    const [selectDate, setSelectDate] = useState();
-   const [Open, setOpen] = useState(false);
+   // 재확인 모달창 상태값
+   const [confOpen, setConfOpen] = useState(false);
+  //  달력 모달창 상태값
+   const [dateOpen, setDateOpen] = useState(false);
+   // 공지사항 토글 상태값
    const [toggleOn, setToggleOn] = useState(false);
+   const [select, setSelect] = useState([]);
  
+  //  재확인 모달창 이벤트
    const confirmOpen = useCallback(()=>{
-     setOpen(true);
-     document.body.style.overflow = "hidden"; // 스크롤 불가능
+    setConfOpen(true);
+     document.body.style.overflow = "hidden"; // 스크롤 불가능 but 화면 움직임 오류
    });
    const confirmClose = useCallback(()=>{
-     setOpen(false);
+    setConfOpen(false);
      document.body.style.overflow = "unset"; // 스크롤 가능
    });
-   const toggle = useCallback((e)=>{
-     setToggleOn(!toggleOn);
+  //  달력 모달창 이벤트
+   const calenderOpen = useCallback(()=>{
+    setDateOpen(true);
    });
- 
-   const calendar = useCallback(()=>{
- 
-   })
- 
+   const calenderClose = useCallback(()=>{
+    setDateOpen(false);
+   });
+
+  // 메뉴 토글 수정 필요 (동시에 열리지 않게)
+   const toggle = useCallback((e)=>{
+    // console.log(e.currentTarget.id);
+    setToggleOn(!toggleOn);
+   });
+  
    return (
      <TicketingStyled>
        <div className="containerWrap">
@@ -558,7 +669,7 @@
                      <p className="tit">방문일자/인원 선택</p>
                      <div className="titRight">
                        <span className="today">01.21 화</span>
-                       <button type="button" className="btnCal">
+                       <button onClick={calenderOpen} type="button" className="btnCal">
                          달력
                        </button>
                      </div>
@@ -595,7 +706,7 @@
                                </div>
                                <div className="countWrap">
                                  {/* .count : 버튼 조작에 따라 달라지는 상태값 */}
-                                 <em className="count">1</em>
+                                 <em className="count">0</em>
                                  <span className="btnWrap">
                                    <button type="button" className="minus">
                                      인원수 제거
@@ -618,6 +729,7 @@
                  <hr className="division" />
  
                  <div className="eventWrap">
+                   {/* .event : 인원이 선택된 기본화면 */}
                    <ul className="event">
                      <li>
                        <div className="event_tit">
@@ -660,11 +772,17 @@
                        </div>
                      </li>
                    </ul>
+                   {/* .noData -> 인원 없음. 상태값 변경됐을 때 나타나야 함 */}
+                   <p className="noData">
+                    <img src={nodata} alt=''/>
+                    <span>예약인원을 선택해 주세요.</span>
+                   </p>
                  </div>
- 
+
                  <hr className="division" />
  
-                 <ul className={toggleOn?'accordion open':'accordion'} onClick={toggle}>
+                 <ul id={0} className={toggleOn?'accordion open':'accordion'} onClick={toggle}>
+                 {/* <ul id={0} className='accordion' onClick={toggle}> */}
                    <li>
                      <div className="acco_title">
                        <div className="tit">상품 안내</div>
@@ -724,23 +842,161 @@
                      </div>
                    </li>
                  </ul>
- 
-                 <div className='popup'>
-                     <div className="datePick">
-                         <DatePicker selected={startDate}  locale={ko} onChange={(date) => setStartDate(date)}/>
+                 <ul id={1} className={toggleOn?'accordion open':'accordion'} onClick={toggle}>
+                 {/* <ul id={1} className='accordion' onClick={toggle}> */}
+                   <li>
+                     <div className="acco_title">
+                       <div className="tit">이용안내</div>
                      </div>
-                     <div className='dateBtn'>
-                         <button type='button' className='btn_cancel'>취소</button>
-                         <button type='button' className='btn_complete'>적용</button>
+                     <div className="acco_contents">
+                       롯데월드 어드벤처 부산 입장 및 놀이시설 이용을 위한
+                       티켓입니다.
+                       <br />
+                       • 종일권 (1-Day)
+                       <br />
+                       - 어 른 : 47,000원
+                       <br />
+                       - 청소년 : 39,000원
+                       <br />
+                       - 어린이/경로 : 33,000원
+                       <br />
+                       - 베이비 : 12,000원
+                       <br />
+                       <br />
+                       • 오후권 (After 4)
+                       <br />
+                       - 어 른 : 33,000원
+                       <br />
+                       - 청소년 : 31,000원
+                       <br />
+                       - 어린이/경로 : 29,000원
+                       <br />
+                       - 베이비 : 12,000원
+                       <br />
+                       <br />
+                       ※ 연령 기준
+                       <br />
+                       (나이 확인이 가능한 신분증 또는 서류를 제시해주세요)
+                       <br />
+                       - 경로 : 만 65세 이상 (기타 우대 적용 불가)
+                       <br />
+                       - 어른 : 만 19세 이상
+                       <br />
+                       - 청소년 : 만 13세 ~ 만 18세 (학교 및 학년 무관)
+                       <br />
+                       - 어린이 : 만 36개월 이상 ~ 만 12세
+                       <br />
+                       - 베이비
+                       <br />
+                       1) 0~12개월 미만 - 파크 입장 및 유아 놀이시설에 대하여
+                       <br />
+                       &nbsp;&nbsp;&nbsp;무료 이용
+                       <br />
+                       2) 12개월 이상 ~ 36개월 미만 - 파크 입장 무료
+                       <br />
+                       <span>
+                       &nbsp;&nbsp;&nbsp;유아 어트랙션에 대하여 베이비이용권(베이비권종합/베이비권(1회)/
+                         <br />
+                         &nbsp;&nbsp;&nbsp;키즈토리아이용권) 구매 후 이용 가능
+                       </span>
+                       <br />
                      </div>
-                     <button type='button'>닫기</button>
-                 </div>
+                   </li>
+                 </ul>
+                 <ul id={2} className={toggleOn?'accordion open':'accordion'} onClick={toggle}>
+                 {/* <ul id={2} className='accordion' onClick={toggle}> */}
+                   <li>
+                     <div className="acco_title">
+                       <div className="tit">취소/환불</div>
+                     </div>
+                     <div className="acco_contents">
+                       롯데월드 어드벤처 부산 입장 및 놀이시설 이용을 위한
+                       티켓입니다.
+                       <br />
+                       • 종일권 (1-Day)
+                       <br />
+                       - 어 른 : 47,000원
+                       <br />
+                       - 청소년 : 39,000원
+                       <br />
+                       - 어린이/경로 : 33,000원
+                       <br />
+                       - 베이비 : 12,000원
+                       <br />
+                       <br />
+                       • 오후권 (After 4)
+                       <br />
+                       - 어 른 : 33,000원
+                       <br />
+                       - 청소년 : 31,000원
+                       <br />
+                       - 어린이/경로 : 29,000원
+                       <br />
+                       - 베이비 : 12,000원
+                       <br />
+                       <br />
+                       ※ 연령 기준
+                       <br />
+                       (나이 확인이 가능한 신분증 또는 서류를 제시해주세요)
+                       <br />
+                       - 경로 : 만 65세 이상 (기타 우대 적용 불가)
+                       <br />
+                       - 어른 : 만 19세 이상
+                       <br />
+                       - 청소년 : 만 13세 ~ 만 18세 (학교 및 학년 무관)
+                       <br />
+                       - 어린이 : 만 36개월 이상 ~ 만 12세
+                       <br />
+                       - 베이비
+                       <br />
+                       1) 0~12개월 미만 - 파크 입장 및 유아 놀이시설에 대하여
+                       <br />
+                       &nbsp;&nbsp;&nbsp;무료 이용
+                       <br />
+                       2) 12개월 이상 ~ 36개월 미만 - 파크 입장 무료
+                       <br />
+                       <span>
+                       &nbsp;&nbsp;&nbsp;유아 어트랙션에 대하여 베이비이용권(베이비권종합/베이비권(1회)/
+                         <br />
+                         &nbsp;&nbsp;&nbsp;키즈토리아이용권) 구매 후 이용 가능
+                       </span>
+                       <br />
+                     </div>
+                   </li>
+                 </ul>
+                  
+                 {dateOpen&&<DatePopup>
+                     <div className="dateWrap">
+                       <div className="dateTitle">방문일자 선택</div>
+                       <div className="datePick">
+                           <DatePicker selected={startDate} inline locale={ko} onChange={(date) => setStartDate(date)}/>
+                           <div className="infoWrap">
+                            <span>
+                              <em/> 선택가능
+                            </span>
+                            <span>
+                              <em/> 선택불가
+                            </span>
+                            <span>
+                              <em/> 선택완료
+                            </span>
+                           </div>
+                       </div>
+                       <div className='dateBtn'>
+                           <button onClick={calenderClose} type='button' className='btn_cancel'>취소</button>
+                           <button type='button' className='btn_complete'>적용</button>
+                       </div>
+                       <button onClick={calenderClose} type='button' className="dateClose">닫기</button>
+                     </div>
+                     <div className='pop_bg'></div>
+                 </DatePopup>}
+
                </TicketForm>
              </div>
            </div>
          </div>
        </div>
-       {Open && <ConfirmPop>
+       {confOpen && <ConfirmPop>
              <div className='pop_bg'></div>
              <div className='pop_cont'>
                  <span className='pop_icon'></span>
