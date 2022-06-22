@@ -2,7 +2,7 @@
  * @filename: TicketingConfirm.js
  * @description: 예매할 날짜가 맞는지 재확인
  */
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import styled from 'styled-components';
 import bg from '../../assets/images/pages/product/bg_notice.png';
 import icon from '../../assets/images/pages/product/bg_popicon.png';
@@ -104,7 +104,6 @@ display: block; //날짜 선택 후 등장하게
 }
 `;
 const TicketingConfirm = memo(() => {
-    // 클릭 이벤트 아직 없음
     return (
         <ConfirmPop>
             <div className='pop_bg'></div>

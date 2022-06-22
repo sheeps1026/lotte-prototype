@@ -97,81 +97,85 @@ const App = memo(() => {
 
   return (
     <div>
-      <GlobalStyle />
-
-      {openEmail && <Email setOpenEmail={setOpenEmail} />}
-      {/* {openPayment && <PaymentChk4 setOpenPayment={setOpenPayment} />} */}
-
       {path === "/TicketingPage" ? <ProductHeader /> : <Headers />}
+      <GlobalStyle />
+      {path === "/" ? (
+        <Main />
+      ) : (
+        <Routes>
+          <Route path="/enjoyList" exact={true} element={<EnjoyList />} />
+          <Route path="/enjoyList/*" exact={true} element={<EnjoyView />} />
+          <Route path="/enjoyList/guide" exact={true} element={<Guide />} />
+          <Route path="/customer/*" exact={true} element={<NoticeList />} />
+          <Route path="/customer/notice-list" element={<NoticeView />} />
+          <Route path="/customer/FAQ/*" element={<FAQ />} />
+          <Route path="/customer/inquiry/" element={<Inquiry />} />
+          <Route path="/customer/InquiryWrite" element={<InquiryWrite />} />
+          <Route path="/customer/LostList" element={<LostList />} />
 
-      <Main />
-      {/* <EnjoyList/> */}
-      <Routes>
-        {/* 메인 */}
-        <Route path="/SideTab" exact={true} element={<SideTab />} />
+          {/* 마이페이지 */}
+          <Route path="/TicketingPage/InfoChange" element={<InfoChange />} />
+          <Route path="/TicketingPage/paymentList" element={<PaymentList />} />
+          <Route path="/TicketingPage/paymentView" element={<PaymentView />} />
+          <Route
+            path="/TicketingPage/paymentResult"
+            element={<PaymentResult />}
+          />
 
-        <Route path="/enjoyList" exact={true} element={<EnjoyList />} />
-        <Route path="/enjoyList/*" exact={true} element={<EnjoyView />} />
-        <Route path="/enjoyList/guide" exact={true} element={<Guide />} />
-        <Route path="/customer/*" exact={true} element={<NoticeList />} />
-        <Route path="/customer/notice-list" element={<NoticeView />} />
-        <Route path="/customer/FAQ/*" element={<FAQ />} />
-        <Route path="/customer/inquiry/" element={<Inquiry />} />
-        <Route path="/customer/InquiryWrite" element={<InquiryWrite />} />
-        <Route path="/customer/LostList" element={<LostList />} />
+          {/*푸터 연결  */}
+          <Route path="/Sitemap" element={<Sitemap />} />
+          <Route path="/Introduce" element={<Introduce />} />
+          <Route path="/AgreementHome" element={<AgreementHome />} />
+          <Route path="/AgreementAdventure" element={<AgreementAdventure />} />
+          <Route
+            path="/AgreementMembership"
+            element={<AgreementMembership />}
+          />
+          <Route path="/Email" element={<Email />} />
+          {/* <Route path="/Login" element={<Login />} /> */}
+          {/* <Route path="/HelpId" element={<HelpId />} /> */}
+          {/* <Route path="/HelpIdConfirm" element={<HelpIdConfirm />} /> */}
+          {/* <Route path="/HelpPwd" element={<HelpPwd />} /> */}
+          {/* <Route path="/HelpPwdChange" element={<HelpPwdChange />} /> */}
+          {/* <Route path="/HelpPwdConfirm" element={<HelpPwdConfirm />} /> */}
+          {/* <Route path="/Signin" element={<Signin />} /> */}
+          <Route path="/SigninConfirm" element={<SigninConfirm />} />
+          <Route path="/PaymentChk1" element={<PaymentChk1 />} />
+          <Route path="/PaymentChk2" element={<PaymentChk2 />} />
+          <Route path="/PaymentChk3" element={<PaymentChk3 />} />
+          <Route path="/PaymentChk4" element={<PaymentChk4 />} />
+          {/* 예매 페이지 */}
 
-        {/* 마이페이지 */}
-        <Route path="/TicketingPage/InfoChange" element={<InfoChange />} />
-        <Route path="/TicketingPage/paymentList" element={<PaymentList />} />
-        <Route path="/TicketingPage/paymentView" element={<PaymentView />} />
-        <Route
-          path="/TicketingPage/paymentResult"
-          element={<PaymentResult />}
-        />
-
-        {/*푸터 연결  */}
-        <Route path="/Sitemap" element={<Sitemap />} />
-        <Route path="/Introduce" element={<Introduce />} />
-        <Route path="/AgreementHome" element={<AgreementHome />} />
-        <Route path="/AgreementAdventure" element={<AgreementAdventure />} />
-        <Route path="/AgreementMembership" element={<AgreementMembership />} />
-        <Route path="/Email" element={<Email />} />
-        <Route path="/SigninConfirm" element={<SigninConfirm />} />
-        <Route path="/PaymentChk1" element={<PaymentChk1 />} />
-        <Route path="/PaymentChk2" element={<PaymentChk2 />} />
-        <Route path="/PaymentChk3" element={<PaymentChk3 />} />
-        <Route path="/PaymentChk4" element={<PaymentChk4 />} />
-        {/* 예매 페이지 */}
-
-        <Route path="/TicketingPage" element={<TicketingMain />} />
-        <Route path="/TicketingPage/Ticketing" element={<Ticketing />} />
-        {/* 결제완료 후 페이지 */}
-        <Route
-          path="/TicketingPage/PaymentResult"
-          element={<PaymentResult />}
-        />
-        <Route path="/TicketingPage/Login" element={<Login />} />
-        <Route path="/TicketingPage/HelpId" element={<HelpId />} />
-        <Route
-          path="/TicketingPage/HelpIdConfirm"
-          element={<HelpIdConfirm />}
-        />
-        <Route path="/TicketingPage/HelpPwd" element={<HelpPwd />} />
-        <Route
-          path="/TicketingPage/HelpPwdConfirm"
-          element={<HelpPwdConfirm />}
-        />
-        <Route
-          path="/TicketingPage/HelpPwdChange"
-          element={<HelpPwdChange />}
-        />
-        <Route path="/TicketingPage/Signin" element={<Signin />} />
-        <Route
-          path="/TicketingPage/SigninConfirm"
-          element={<SigninConfirm />}
-        />
-      </Routes>
-      <Footer openEmail={openEmail} setOpenEmail={setOpenEmail} />
+          <Route path="/TicketingPage" element={<TicketingMain />} />
+          <Route path="/TicketingPage/Ticketing" element={<Ticketing />} />
+          {/* 결제완료 후 페이지 */}
+          <Route
+            path="/TicketingPage/PaymentResult"
+            element={<PaymentResult />}
+          />
+          <Route path="/TicketingPage/Login" element={<Login />} />
+          <Route path="/TicketingPage/HelpId" element={<HelpId />} />
+          <Route
+            path="/TicketingPage/HelpIdConfirm"
+            element={<HelpIdConfirm />}
+          />
+          <Route path="/TicketingPage/HelpPwd" element={<HelpPwd />} />
+          <Route
+            path="/TicketingPage/HelpPwdConfirm"
+            element={<HelpPwdConfirm />}
+          />
+          <Route
+            path="/TicketingPage/HelpPwdChange"
+            element={<HelpPwdChange />}
+          />
+          <Route path="/TicketingPage/Signin" element={<Signin />} />
+          <Route
+            path="/TicketingPage/SigninConfirm"
+            element={<SigninConfirm />}
+          />
+        </Routes>
+      )}
+      <Footer />
     </div>
   );
 });
