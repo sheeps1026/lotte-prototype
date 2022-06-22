@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 const FooterArea = styled.footer`
   position: relative;
-  width: 100%;
+  width: calc(100% - 240px);
   padding: 100px 120px;
   border-top: 1px solid #e5e5e5;
   background: #fff;
