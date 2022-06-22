@@ -1,9 +1,9 @@
-import React, { memo } from "react";
-import { createGlobalStyle } from "styled-components";
+import React, { memo, useState } from "react";
+import { Routes, Route, useParams, useLocation } from "react-router-dom";
 import reset from "styled-reset";
-import { Routes, Route } from "react-router-dom";
+import styled from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
-import { useParams, useLocation } from "react-router-dom";
 import ProductHeader from "./ProductHeader";
 import EnjoyList from "./pages/enjoy/EnjoyList";
 import EnjoyView from "./pages/enjoy/EnjoyView";
@@ -11,6 +11,7 @@ import Headers from "./Header";
 import Footer from "./Footer";
 
 import Main from "./pages/Main";
+import SideTab from "./components/SideTab";
 
 import NoticeList from "./pages/customer/NoticeList";
 import NoticeView from "./pages/customer/NoticeView";
@@ -77,22 +78,37 @@ const GlobalStyle = createGlobalStyle`
     outline: none;
     border: 0 none;
   }
+  // 박스 사이즈
+  div {
+    box-sizing: border-box;
+  }
 `;
 
 const App = memo(() => {
   const location = useLocation();
   console.log(location.pathname.substring(0, 14));
   const path = location.pathname.substring(0, 14);
+
+  // 이메일 모달
+  let [openEmail, setOpenEmail] = useState(false);
+
+  // PaymentChk 모달 (나중에 props로 전달해서 연결)
+  // let [openPayment, setOpenPayment] = useState(false);
+
   return (
     <div>
-      {path === "/TicketingPage" ? <ProductHeader /> : <Headers />}
       <GlobalStyle />
+
+      {openEmail && <Email setOpenEmail={setOpenEmail} />}
+      {/* {openPayment && <PaymentChk4 setOpenPayment={setOpenPayment} />} */}
+
+      {path === "/TicketingPage" ? <ProductHeader /> : <Headers />}
 
       <Main />
       {/* <EnjoyList/> */}
       <Routes>
         {/* 메인 */}
-        {/* <Route path="/Main" element={<Main />} /> */}
+        <Route path="/SideTab" exact={true} element={<SideTab />} />
 
         <Route path="/enjoyList" exact={true} element={<EnjoyList />} />
         <Route path="/enjoyList/*" exact={true} element={<EnjoyView />} />
@@ -120,13 +136,6 @@ const App = memo(() => {
         <Route path="/AgreementAdventure" element={<AgreementAdventure />} />
         <Route path="/AgreementMembership" element={<AgreementMembership />} />
         <Route path="/Email" element={<Email />} />
-        {/* <Route path="/Login" element={<Login />} /> */}
-        {/* <Route path="/HelpId" element={<HelpId />} /> */}
-        {/* <Route path="/HelpIdConfirm" element={<HelpIdConfirm />} /> */}
-        {/* <Route path="/HelpPwd" element={<HelpPwd />} /> */}
-        {/* <Route path="/HelpPwdChange" element={<HelpPwdChange />} /> */}
-        {/* <Route path="/HelpPwdConfirm" element={<HelpPwdConfirm />} /> */}
-        {/* <Route path="/Signin" element={<Signin />} /> */}
         <Route path="/SigninConfirm" element={<SigninConfirm />} />
         <Route path="/PaymentChk1" element={<PaymentChk1 />} />
         <Route path="/PaymentChk2" element={<PaymentChk2 />} />
@@ -162,7 +171,7 @@ const App = memo(() => {
           element={<SigninConfirm />}
         />
       </Routes>
-      <Footer />
+      <Footer openEmail={openEmail} setOpenEmail={setOpenEmail} />
     </div>
   );
 });

@@ -1,106 +1,111 @@
 import React, { memo } from "react";
 import styled from "styled-components";
 
-import Close from "../assets/images/components/Email/close.png";
+import CloseBtn from "../assets/images/components/Email/close.png";
 import Img from "../assets/images/components/Email/email.png";
 
+const Background = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+`;
+
 const EmailContainer = styled.div`
-  width: 100%;
-  position: relative;
-  height:100vh;
+  width: 820px;
+  height: 675px;
+  padding: 0 40px;
+  background-color: #fff;
 
-  div {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 820px;
-    height: 700px;
-    padding: 0 40px;
-    // background-color: yellow;
-    transform: translate(-50%, -50%);
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      h2 {
-        padding: 39px 0;
-        color: rgb(51, 51, 51);
-        font-size: 26px;
-        font-weight: 700;
-        letter-spacing: -1.56px;
-        line-height: 39px;
-      }
-
-      button {
-        border: none;
-        background-color: #fff;
-        font-size: 30px;
-        cursor: pointer;
-
-        img {
-          width: 24px;
-          height: 24px;
-        }
-      }
+    h2 {
+      padding: 39px 0;
+      color: rgb(51, 51, 51);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -1.56px;
+      line-height: 39px;
     }
 
-    div.emailInner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    button {
+      border: none;
+      background: none;
+      font-size: 30px;
+      cursor: pointer;
+      z-index: 20;
 
       img {
-        width: 200px;
-        height: 200px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+
+  div.inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 40px;
+
+    img {
+      width: 200px;
+      height: 200px;
+    }
+
+    h3 {
+      margin-top: 60px;
+      color: rgb(51, 51, 51);
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.36px;
+      line-height: 48px;
+    }
+
+    p {
+      text-align: center;
+      margin-top: 25px;
+      color: rgb(102, 102, 102);
+      font-size: 18px;
+      letter-spacing: -0.36px;
+      line-height: 30px;
+
+      strong {
+        color: #000;
+        font-weight: 700;
       }
 
-      h3 {
+      &:nth-child(4) {
         margin-top: 60px;
-        color: rgb(51, 51, 51);
-        font-size: 32px;
-        font-weight: 600;
-        letter-spacing: -0.36px;
-        line-height: 48px;
-      }
-
-      p {
-        text-align: center;
-        margin-top: 25px;
-        color: rgb(102, 102, 102);
+        color: rgb(136, 136, 136);
         font-size: 18px;
         letter-spacing: -0.36px;
-        line-height: 30px;
-
-        strong {
-          color: #000;
-          font-weight: 700;
-        }
-
-        &:nth-child(4) {
-          margin-top: 60px;
-          color: rgb(136, 136, 136);
-          font-size: 18px;
-          letter-spacing: -0.36px;
-          line-height: 27px;
-        }
+        line-height: 27px;
       }
     }
   }
 `;
 
-const Email = memo(() => {
+const Email = memo(({ setOpenEmail }) => {
   return (
-    <EmailContainer>
-      <div>
+    <Background>
+      <EmailContainer>
         <header>
           <h2>이메일무단수집거부</h2>
-          <button>
-            <img src={Close} alt="" />
+          <button onClick={() => setOpenEmail(false)}>
+            <img src={CloseBtn} alt="" />
           </button>
         </header>
-        <div className="emailInner">
+        <div className="inner">
           <img src={Img} alt="" />
           <h3>롯데월드는 이메일무단수집을 거부합니다.</h3>
           <p>
@@ -114,8 +119,8 @@ const Email = memo(() => {
           </p>
           <p>2007.07.25</p>
         </div>
-      </div>
-    </EmailContainer>
+      </EmailContainer>
+    </Background>
   );
 });
 

@@ -3,9 +3,11 @@
  * @description: 하단 메뉴
  */
 import React, { memo } from "react";
-import styled from "styled-components";
-import logo from "./assets/images/footer-logo.png";
 import { Link } from "react-router-dom";
+
+import styled from "styled-components";
+
+import logo from "./assets/images/footer-logo.png";
 
 const FooterArea = styled.footer`
   position: relative;
@@ -71,7 +73,8 @@ const FooterArea = styled.footer`
     }
   }
 `;
-const Footer = memo(() => {
+
+const Footer = memo(({ setOpenEmail, setOpenPayment }) => {
   return (
     <FooterArea>
       <p className="logo">
@@ -82,7 +85,14 @@ const Footer = memo(() => {
           <Link to="/Introduce">롯데월드 어드벤처 부산 소개</Link>
           <Link to="/AgreementHome">이용약관</Link>
           <Link to="/Sitemap">사이트맵</Link>
-          <Link to="/Email">이메일무단수집거부</Link>
+          <Link
+            to="/"
+            onClick={() => {
+              setOpenEmail(true);
+            }}
+          >
+            이메일무단수집거부
+          </Link>
         </div>
         <div className="address">
           <p>
