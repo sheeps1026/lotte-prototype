@@ -541,7 +541,7 @@ const Main = memo(() => {
   const mouseRemove = (e) => {
     e.target.parentNode.parentNode.classList.remove("active");
     e.target.parentNode.classList.remove("active");
-
+  };
   // 탑 버튼
   const onTopScroll = () => {
     window.scrollTo({
