@@ -23,11 +23,7 @@ import wave from "./../assets/images/wave-bg5.png";
 import wave2 from "./../assets/images/zone-wave3.png";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-<<<<<<< HEAD
 import { Link } from "react-router-dom";
-=======
-
->>>>>>> 59956a708ff59d526bf859350bff62239bf688da
 const MainContainer = styled.div`
   .mainSlider {
     .slick-track {
@@ -536,7 +532,7 @@ const Main = memo(() => {
     // }
   };
 
-<<<<<<< HEAD
+
   const mouseHandle = (e) => {
     e.target.parentNode.parentNode.classList.add("active");
     e.target.parentNode.classList.add("active");
@@ -545,13 +541,12 @@ const Main = memo(() => {
   const mouseRemove = (e) => {
     e.target.parentNode.parentNode.classList.remove("active");
     e.target.parentNode.classList.remove("active");
-=======
+
   // 탑 버튼
   const onTopScroll = () => {
     window.scrollTo({
       top: 0,
     });
->>>>>>> 59956a708ff59d526bf859350bff62239bf688da
   };
 
   return (
