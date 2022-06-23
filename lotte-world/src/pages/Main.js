@@ -87,7 +87,9 @@ const MainContainer = styled.div`
   }
   .animationWrap {
     padding: 200px 0 0;
-    
+    &.lastAnimation{
+      padding: 0 0 200px;
+    }
     p {
       font-size: 105px;
       font-weight: bold;
@@ -127,6 +129,7 @@ const MainContainer = styled.div`
       bottom: 0;
     }
     h2 {
+      padding: 150px 0 30px 0;
       font-size: 63px;
       letter-spacing: -4px;
       font-weight: bold;
@@ -152,6 +155,12 @@ const MainContainer = styled.div`
     }
 
     .slick-slide {
+      /* &:nth-child(odd) {
+        &.slick-center {
+          border: 1px solid #000;
+        }
+      } */
+
       opacity: 0.75;
       outline: none !important;
       img {
@@ -193,7 +202,7 @@ const MainContainer = styled.div`
     .slick-dots {
       z-index: 999;
       position: absolute;
-      top: -75px;
+      top: -100px;
       bottom: auto;
       ul {
         li {
@@ -457,44 +466,38 @@ const Main = memo(() => {
     variableWidth: true,
     variableHeight: true,
   };
+  const maskBg = React.useRef();
 
+  const [position,setPosition]=React.useState(5);
+  const dotClick = () => {
+    setPosition(position+5);
+    console.log(parseInt(position))
+    maskBg.current.style.backgroundPositionX = `${position}`+"%";
+    maskBg.current.style.transition = "all .5s";
+  };
   const enjoySettings = {
     infinite: true,
     dots: true,
     slidesToShow: 3,
     slidesToScroll: 3,
     centerMode: true,
+    // afterChange: (current, next) => setSlide({ activeSlide: next }),
     appendDots: (dots) => (
-      <div
-        style={{
-          // backgroundColor: "#ddd",
-          borderRadius: "10px",
-          padding: "10px",
-        }}
-      >
+      <div onClick={dotClick} style={{ padding: "10px" }}>
         <ul style={{ margin: "0px" }}> {dots} </ul>
       </div>
     ),
-    customPaging: (i) => (
-      <div
-        style={{
-          // width: "30px",
-          color: "rgba(0,0,0,0)",
-          // border: "1px blue solid",
-        }}
-      >
-        {i + 1}
-      </div>
-    ),
+    customPaging: (i) => <div style={{ color: "rgba(0,0,0,0)" }}>{i + 1}</div>,
   };
   const active1 = React.useRef();
   const active2 = React.useRef();
+  const noticeList = React.useRef();
   // console.log(active.current.childNodes[0]);
 
   // console.log(active1);
   // active1.style.borer="1px solid red";
   // 스크롤이 50px 이상 내려올경우 true값을 넣어줄 useState
-  const [scroll, setScroll] = React.useState(false);
+  
 
   React.useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -504,9 +507,9 @@ const Main = memo(() => {
   }, []);
 
   const handleScroll = () => {
-    // console.log(window.scrollY);
+    
     // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌
-    if (window.scrollY >= 300) {
+    if (window.scrollY >= 500) {
       //   setScroll(true);
 
       active1.current.childNodes[0].classList =
@@ -516,9 +519,15 @@ const Main = memo(() => {
       active1.current.childNodes[2].classList =
         "active-txt animate__animated animate__fadeInRight";
     }
-    if (window.scrollY >= 1800) {
+    if (window.scrollY >= 1466) {
+      maskBg.current.style.backgroundPosition = "-500px";
+      maskBg.current.style.transition = "all 1s";
+      // console.log(maskBg.current);
+    }
+
+    if (window.scrollY >= 2898) {
       // console.log(scroll);
-      console.log(window.scrollY)
+      
       active2.current.childNodes[0].classList =
         "active-txt animate__animated animate__fadeInRight";
       active2.current.childNodes[1].classList =
@@ -526,12 +535,22 @@ const Main = memo(() => {
       active2.current.childNodes[2].classList =
         "active-txt animate__animated animate__fadeInRight";
     }
+    //
+    if (window.scrollY >= 4972) {
+      // noticeList.current
+      noticeList.current.childNodes[0].classList=
+      "animate__animated animate__fadeInUp";
+      noticeList.current.childNodes[1].classList=
+      "animate__animated animate__fadeInUp";
+      noticeList.current.childNodes[2].classList=
+      "animate__animated animate__fadeInUp";
+    }
+
     // } else {
     // 스크롤이 50px 미만일경우 false를 넣어줌
     //   setScroll(false);
     // }
   };
-
 
   const mouseHandle = (e) => {
     e.target.parentNode.parentNode.classList.add("active");
@@ -572,7 +591,7 @@ const Main = memo(() => {
         <p className="active-txt">완벽하게 즐겨라</p>
       </div>
       <div className="enjoywrap">
-        <div className="mask-bg"></div>
+        <div className="mask-bg" ref={maskBg}></div>
         <h2>신나고 즐거운 어트랙션</h2>
         <div className="badgesWrap">
           {/* <button type="button">언더랜드 존</button>
@@ -628,7 +647,7 @@ const Main = memo(() => {
         </div>
         <div className="mask-bg-2"></div>
       </div>
-      <div className="animationWrap" ref={active2}>
+      <div className="animationWrap lastAnimation" ref={active2}>
         <p className="active-txt">언제나 즐겁고</p>
         <p className="active-txt">신나는 공연과</p>
         <p className="active-txt">퍼레이드를 경험하라</p>
@@ -673,7 +692,7 @@ const Main = memo(() => {
         <Link className="ListBtn" to="/customer/notice-list">
           더 많은 소식보기
         </Link>
-        <div className="noticeList">
+        <div className="noticeList"  ref={noticeList}>
           <Link to="/customer/notice-list">
             <h3>공지</h3>
             <h4>코로나19 예방을 위한 롯데월드 어드벤처 부산 종합안내</h4>
