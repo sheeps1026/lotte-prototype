@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /**
  * @filename: Ticketing.js
  * @description: 예매할 날짜, 인원 선택
@@ -577,10 +578,79 @@
  }
  .datePick {
   padding: 23px 60px 30px;
+  .react-datepicker {
+    width: 100%;
+    border: none;
+    .react-datepicker__navigation--previous {
+      left: 100px;
+    }
+    .react-datepicker__navigation--next {
+      right: 100px;
+    }
+  }
+  .react-datepicker__month-container {
+    width: 100%;
+    .react-datepicker__header {
+      background: #fff;
+      font-size: 15px;
+      border: none;
+      .react-datepicker__current-month {
+        margin-bottom: 15px;
+        font-size: 22px;
+      }
+      .react-datepicker__day-name {
+        width: 36px;
+        height: 36px;
+      }
+    }
+    .react-datepicker__day-names {
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+    }
+    .react-datepicker__month {
+      width: 100%;
+      margin: 0;
+      .react-datepicker__week {
+        display: flex;
+        justify-content: space-evenly;
+        .react-datepicker__day {
+          width: 36px;
+          height: 36px;
+          font-size: 16px;
+          
+        }
+        .react-datepicker__day--keyboard-selected {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: #2b72c9;
+          color: #fff;
+        }
+      }
+    }
+  }
   .infoWrap {
     text-align: center;
     margin-top: 15px;
     font-size: 14px;
+    .selectIcon {
+      width: 6px;
+      height: 6px;
+      margin-bottom: 2px;
+      margin-left: 20px;
+      text-align: center;
+      border-radius: 50%;
+      display: inline-block;
+      font-size: 14px;
+      color: #777;
+      &.type1 {
+        background:#505050;
+        margin-left: 0;
+      }
+      &.type2 {background:#cfcfcf;}
+      &.type3 {background:#2b72c9;}
+    }
   }
  }
  .dateBtn {
@@ -618,6 +688,7 @@
 }
  `;
  const Ticketing = memo(() => {
+  // Date picker 날짜 선택 상태값
    const [startDate, setStartDate] = useState(new Date());
    const [selectDate, setSelectDate] = useState();
    // 재확인 모달창 상태값
@@ -625,7 +696,6 @@
   //  달력 모달창 상태값
    const [dateOpen, setDateOpen] = useState(false);
    // 공지사항 토글 상태값
-   const [toggleOn, setToggleOn] = useState(false);
    const [select, setSelect] = useState([]);
  
   //  재확인 모달창 이벤트
@@ -647,8 +717,13 @@
 
   // 메뉴 토글 수정 필요 (동시에 열리지 않게)
    const toggle = useCallback((e)=>{
-    // console.log(e.currentTarget.id);
-    setToggleOn(!toggleOn);
+    const item = e.currentTarget.id;
+    !select.includes(item)
+            ? setSelect((select) => [...select, item])
+            : setSelect(select.filter((e) => e !== item));
+    console.log(select);
+
+    // setToggleOn(!toggleOn);
    });
   
    return (
@@ -780,9 +855,10 @@
                  </div>
 
                  <hr className="division" />
- 
-                 <ul id={0} className={toggleOn?'accordion open':'accordion'} onClick={toggle}>
-                 {/* <ul id={0} className='accordion' onClick={toggle}> */}
+ {/* 토글 */}
+                 <ul id={0}
+                 className={select.includes('0') ? 'accordion open':'accordion'}
+                 onClick={toggle}>
                    <li>
                      <div className="acco_title">
                        <div className="tit">상품 안내</div>
@@ -842,8 +918,9 @@
                      </div>
                    </li>
                  </ul>
-                 <ul id={1} className={toggleOn?'accordion open':'accordion'} onClick={toggle}>
-                 {/* <ul id={1} className='accordion' onClick={toggle}> */}
+                 <ul id={1}
+                 className={select.includes('1') ? 'accordion open':'accordion'}
+                 onClick={toggle}>
                    <li>
                      <div className="acco_title">
                        <div className="tit">이용안내</div>
@@ -903,8 +980,10 @@
                      </div>
                    </li>
                  </ul>
-                 <ul id={2} className={toggleOn?'accordion open':'accordion'} onClick={toggle}>
-                 {/* <ul id={2} className='accordion' onClick={toggle}> */}
+                 
+                 <ul id={2}
+                 className={select.includes('2') ? 'accordion open':'accordion'}
+                 onClick={toggle}>
                    <li>
                      <div className="acco_title">
                        <div className="tit">취소/환불</div>
@@ -969,16 +1048,16 @@
                      <div className="dateWrap">
                        <div className="dateTitle">방문일자 선택</div>
                        <div className="datePick">
-                           <DatePicker selected={startDate} inline locale={ko} onChange={(date) => setStartDate(date)}/>
+                           <DatePicker classselected={selectDate} inline locale={ko} dateFormat="yyyy-MM-dd" minDate={new Date()} onChange={(date) => setStartDate(date)}/>
                            <div className="infoWrap">
                             <span>
-                              <em/> 선택가능
+                              <em className="selectIcon type1"/> 선택가능
                             </span>
                             <span>
-                              <em/> 선택불가
+                              <em className="selectIcon type2"/> 선택불가
                             </span>
                             <span>
-                              <em/> 선택완료
+                              <em className="selectIcon type3"/> 선택완료
                             </span>
                            </div>
                        </div>
