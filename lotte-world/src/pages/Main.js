@@ -1,5 +1,7 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import "animate.css";
+
+import SideTab from "../components/SideTab";
 
 import styled from "styled-components";
 import Slider from "react-slick";
@@ -12,6 +14,7 @@ import enjoy3 from "./../assets/images/enjoy3.jpeg";
 import show1 from "./../assets/images/show1.jpeg";
 import show2 from "./../assets/images/show2.png";
 import show3 from "./../assets/images/show3.jpeg";
+import plusIcon from "../assets/images/pages/main/plus-icon.png";
 
 import arrow from "./../assets/images/arrow-right.png";
 import enjoyBg from "./../assets/images/zone-mask-bg5.jpeg";
@@ -20,6 +23,7 @@ import wave from "./../assets/images/wave-bg5.png";
 import wave2 from "./../assets/images/zone-wave3.png";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
 const MainContainer = styled.div`
   .mainSlider {
     .slick-track {
@@ -193,9 +197,77 @@ const MainContainer = styled.div`
       }
     }
   }
+
+  .quick-btn {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    bottom: 50px;
+    right: 50px;
+    z-index: 20;
+
+    .quick-today {
+      button {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        width: 140px;
+        height: 140px;
+        padding: 40px 20px 20px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #e50019 0%, #e88522 75%);
+
+        &::after {
+          content: "";
+          display: block;
+          position: absolute;
+          bottom: 20px;
+          left: 50%;
+          right: auto;
+          width: 30px;
+          height: 30px;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 50%;
+          background: url(${plusIcon}) no-repeat center;
+          transform: translateX(-50%);
+        }
+
+        p {
+          color: #fff;
+          font-size: 13px;
+          font-weight: 700;
+          line-height: 1.5;
+        }
+      }
+    }
+
+    .quick-top {
+      button {
+        text-align: center;
+        width: 48px;
+        height: 48px;
+        margin: 10px auto 0;
+        border: 1px solid #888;
+        border-radius: 50%;
+        background: #fff;
+
+        p {
+          color: #333;
+          font-size: 12px;
+          line-height: 46px;
+        }
+      }
+    }
+  }
 `;
 
 const Main = memo(() => {
+  // 인덱스 운휴정보 모달
+  let [openSideTab, setOpenSideTab] = useState(false);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -258,8 +330,17 @@ const Main = memo(() => {
     // }
   };
 
+  // 탑 버튼
+  const onTopScroll = () => {
+    window.scrollTo({
+      top: 0,
+    });
+  };
+
   return (
     <MainContainer>
+      {openSideTab && <SideTab setOpenSideTab={setOpenSideTab} />}
+
       <div className="mainSlider">
         <Slider {...settings}>
           <div className="slider-img">
@@ -363,6 +444,17 @@ const Main = memo(() => {
       <div className="noticeWrap">
         <h1>매직포레스트의 새 소식</h1>
         <div></div>
+      </div>
+      <div className="quick-btn">
+        <div className="quick-today" onClick={() => setOpenSideTab(true)}>
+          <button>
+            <p>오늘의 운영시간</p>
+            <p>10:00 - 21:00</p>
+          </button>
+        </div>
+        <div className="quick-top" onClick={onTopScroll}>
+          <button>TOP</button>
+        </div>
       </div>
     </MainContainer>
   );
