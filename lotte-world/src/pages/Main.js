@@ -689,7 +689,7 @@ const Main = memo(() => {
       </div>
       <div className="noticeWrap">
         <h1>매직포레스트의 새 소식</h1>
-        <Link className="ListBtn" to="/customer/notice-list">
+        <Link className="ListBtn" to="/customer">
           더 많은 소식보기
         </Link>
         <div className="noticeList"  ref={noticeList}>

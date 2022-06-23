@@ -3,11 +3,14 @@ import styled from "styled-components";
 import TtitleArea from "../../components/title_area/TitleArea";
 import placeIcon from "../../assets/images/place-icon.png";
 import NoResultWrap from "../../components/NoResultsFound";
+import LostNotice from "../../components/LostNotice";
 
 const FlexBox = styled.div`
-  width: 90%;
-  margin: 25vh auto 30px;
+  width: 100%;
+  /* margin: 25vh auto 30px; */
+  padding: 200px 5% 0 5%;
   min-height: 1200px;
+  
   .ulList {
     display: flex;
     flex-wrap: wrap;
@@ -153,6 +156,9 @@ const LostListArry = [
   },
 ];
 const LostList = memo(() => {
+  // 분실물 모달
+  let [openLost, setOpenLost] = React.useState(false);
+  console.log(openLost)
   return (
     <FlexBox>
       <TtitleArea title={title} />
@@ -161,7 +167,9 @@ const LostList = memo(() => {
           <div>
             총 <span>{}</span>개
           </div>
-          <button>분실물 처리절차 보기</button>
+          <button type="button" onClick={() => {
+              setOpenLost(true);
+            }}>분실물 처리절차 보기</button>
         </div>
         <ul className="ulList">
           {LostListArry  ? (
@@ -183,6 +191,8 @@ const LostList = memo(() => {
           )}
         </ul>
       </LostListWrap>
+      {openLost && <LostNotice setOpenLost={setOpenLost} />}
+      {/* <LostNotice/> */}
     </FlexBox>
   );
 });
