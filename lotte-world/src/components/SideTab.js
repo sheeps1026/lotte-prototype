@@ -1,14 +1,15 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import styled from "styled-components";
 
-import Img from "../assets/images/components/enjoy.jpg";
+import SideTabContent from "./SideTabContent";
+
 import CloseBtn from "../assets/images/components/close.png";
 
 const Background = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   display: flex;
@@ -20,11 +21,13 @@ const Background = styled.div`
 const SideTabContainer = styled.div`
   position: fixed;
   bottom: 0;
-  right: 0;
+  right: -1220px;
   width: 1220px;
   height: 620px;
   padding: 43px 0 37px 60px;
   background-color: #fff;
+  transform: translateX(-1220px);
+  transition: transform 5s;
   z-index: 60;
 
   header {
@@ -35,12 +38,16 @@ const SideTabContainer = styled.div`
     p {
       height: 36px;
       padding-right: 15px;
-      color: rgb(47, 125, 78);
+      color: #aaa;
       font-size: 24px;
-      font-weight: 700;
       letter-spacing: -0.36px;
       line-height: 36px;
       cursor: pointer;
+
+      &.active {
+        color: rgb(47, 125, 78);
+        font-weight: 700;
+      }
 
       &:nth-child(2) {
         display: flex;
@@ -110,21 +117,34 @@ const SideTabContainer = styled.div`
   }
 `;
 
-const SideTab = memo(() => {
+const SideTab = memo(({ setOpenSideTab }) => {
+  let [tab, setTab] = useState(0);
+
   return (
     <Background>
       <SideTabContainer>
         <header>
-          <p class="active">운휴 어트랙션</p>
-          <p>운휴 공연</p>
-          <button>
+          <p
+            onClick={() => {
+              setTab(0);
+            }}
+          >
+            운휴 어트랙션
+          </p>
+          <p
+            onClick={() => {
+              setTab(1);
+            }}
+          >
+            운휴 공연
+          </p>
+          <button onClick={() => setOpenSideTab(false)}>
             <img src={CloseBtn} alt="" />
           </button>
         </header>
-        <div className="sidetab-mid">
-          <img src={Img} alt="" />
-          <p>오거스후룸</p>
-        </div>
+        {/* <img src={Img} alt="" />
+          <p>오거스후룸</p> */}
+        <SideTabContent tab={tab} />
         <div className="sidetab-bottom">
           <p>
             오늘의 운영시간 : <span>10:00 - 21:00</span>

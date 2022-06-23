@@ -104,10 +104,13 @@ const App = memo(() => {
       {openEmail && <Email setOpenEmail={setOpenEmail} />}
 
       <GlobalStyle />
+
       {path === "/" ? (
         <Main />
       ) : (
         <Routes>
+          <Route path="/SideTab" exact={true} element={<SideTab />} />
+
           <Route path="/enjoyList" exact={true} element={<EnjoyList />} />
           <Route path="/enjoyList/*" exact={true} element={<EnjoyView />} />
           <Route path="/enjoyList/guide" exact={true} element={<Guide />} />
