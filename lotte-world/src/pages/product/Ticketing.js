@@ -22,6 +22,7 @@
  import confirmBg from '../../assets/images/pages/product/bg_notice.png';
  import icon from '../../assets/images/pages/product/bg_popicon.png';
  
+ import Payment from "../myPages/Payment";
  const weekArr = [
    { day: "월", date: 20 },
    { day: "화", date: 21 },
@@ -715,7 +716,7 @@
     setDateOpen(false);
    });
 
-  // 메뉴 토글 수정 필요 (동시에 열리지 않게)
+  // 메뉴 토글
    const toggle = useCallback((e)=>{
     const item = e.currentTarget.id;
     !select.includes(item)
@@ -1103,7 +1104,7 @@
                  </div>
              </div>
          </ConfirmPop>}
-       
+       <Payment/>
      </TicketingStyled>
    );
  });
