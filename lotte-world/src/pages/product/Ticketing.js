@@ -22,7 +22,6 @@
  import confirmBg from '../../assets/images/pages/product/bg_notice.png';
  import icon from '../../assets/images/pages/product/bg_popicon.png';
  
- import Payment from "../myPages/Payment";
  const weekArr = [
    { day: "월", date: 20 },
    { day: "화", date: 21 },
@@ -1104,7 +1103,6 @@
                  </div>
              </div>
          </ConfirmPop>}
-       <Payment/>
      </TicketingStyled>
    );
  });
