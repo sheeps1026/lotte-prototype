@@ -181,7 +181,7 @@ const EnjoyList = memo(() => {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <a href='#!'>
+                                    <NavLink to='/enjoyList/view2' href='#!'>
                                         <div className='cardimg'>
                                             <p className='img'>
                                                 <img src={att2} alt='쿠키열차'/>
@@ -196,7 +196,7 @@ const EnjoyList = memo(() => {
                                                 <p>#롤러코스터</p>
                                             </div>
                                         </div>
-                                    </a>
+                                    </NavLink>
                                 </li>
                                 <li>
                                     <a href='#!'>
