@@ -9,9 +9,11 @@ import React, { memo, useCallback, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-//  import logo from '../assets/img/logo.png';
+// import headerLogo from "./assets/images/header-logo.png";
 const HeaderWrap = styled.div`
   position: absolute;
+  // display: flex;
+  // justify-content: space-between;
   top: 0;
   width: 100%;
   background: #fff;
@@ -19,9 +21,11 @@ const HeaderWrap = styled.div`
   transition: all 0.4s ease;
   max-height: 120px;
   z-index: 20;
+
   &.open {
     max-height: 400px;
   }
+
   &::after {
     content: "";
     position: absolute;
@@ -32,23 +36,30 @@ const HeaderWrap = styled.div`
     display: block;
     border-top: 1px solid #ddd;
   }
-  h1 {
-    position: absolute;
-    top: 0;
-    left: 120px;
-    z-index: 2;
-    a {
-      display: block;
-      background: url(https://adventurebusan.lotteworld.com/common/images/logo.png)
-        no-repeat center;
-      background-size: 100% auto;
-      width: 110px;
-      height: 120px;
+
+  .test {
+    position: relative;
+
+    a.logo-btn {
+      position: absolute;
+      top: 0;
+      left: 120px;
+
+      h1 {
+        display: block;
+        background: url(https://adventurebusan.lotteworld.com/common/images/logo.png)
+          no-repeat center;
+        background-size: 100% auto;
+        width: 110px;
+        height: 120px;
+      }
     }
   }
+
   nav {
     position: relative;
     z-index: 25;
+
     .gnb {
       width: 670px;
       margin: 0 auto;
@@ -171,9 +182,12 @@ const Header = memo(() => {
   });
   return (
     <HeaderWrap onMouseEnter={openMenu} className={`${openList ? "open" : ""}`}>
-      <h1>
-        <a href="/" />
-      </h1>
+      <div className="test">
+        <Link to="/" className="logo-btn">
+          {/* <h1>버튼</h1> */}
+          <h1></h1>
+        </Link>
+      </div>
 
       <nav onMouseLeave={closeMenu}>
         <ul className="gnb">

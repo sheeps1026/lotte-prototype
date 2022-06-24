@@ -23,7 +23,7 @@ const FooterArea = styled.footer`
     display: block;
     clear: both;
   }
-  .logo {
+  a.logo {
     float: left;
     margin-right: 400px;
   }
@@ -85,9 +85,9 @@ const Footer = memo(({ setOpenEmail, setOpenSideTab }) => {
 
   return (
     <FooterArea>
-      <p className="logo">
+      <Link to="/" className="logo">
         <img src={logo} alt="롯데월드 어드벤처 로고" />
-      </p>
+      </Link>
       <div className="footerdiv">
         <div className="links">
           <Link to="/Introduce">롯데월드 어드벤처 부산 소개</Link>

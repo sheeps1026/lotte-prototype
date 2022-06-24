@@ -48,6 +48,7 @@ import Ticketing from "./pages/product/Ticketing";
 
 import PaymentResult from "./pages/myPages/PaymentResult";
 import InfoChange from "./pages/myPages/InfoChange";
+import InfoDelete from "./components/alert/InfoDelete";
 
 // const Wrap = styled.div`
 // padding-top: 120px;
@@ -123,6 +124,7 @@ const App = memo(() => {
 
           {/* 마이페이지 */}
           <Route path="/TicketingPage/InfoChange" element={<InfoChange />} />
+          <Route path="/TicketingPage/InfoDelete" element={<InfoDelete />} />
           <Route path="/TicketingPage/paymentList" element={<PaymentList />} />
           <Route path="/TicketingPage/paymentView" element={<PaymentView />} />
           <Route

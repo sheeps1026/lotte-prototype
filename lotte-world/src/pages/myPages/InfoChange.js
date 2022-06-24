@@ -1,9 +1,13 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+
+import InfoDelete from "../../components/alert/InfoDelete";
 
 const InfoContainer = styled.form`
   width: 460px;
   margin: 0 auto;
+  padding-bottom: 100px;
 
   h2 {
     text-align: center;
@@ -52,22 +56,35 @@ const InfoContainer = styled.form`
     display: flex;
     justify-content: space-between;
 
-    button {
-      width: 230px;
-      padding: 15px 0;
-      border: none;
-      background-color: #000;
-      color: #fff;
-      font-size: 18px;
-      font-weight: 700;
-      cursor: pointer;
+    a {
+      button {
+        width: 270px;
+        padding: 15px 0;
+        border: none;
+        background-color: #000;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      &.info-delete {
+        button {
+          width: 130px;
+        }
+      }
     }
   }
 `;
 
 const InfoChange = memo(() => {
+  // 회원탈퇴 모달
+  let [openDelete, setOpenDelete] = useState(false);
+
   return (
     <InfoContainer>
+      {openDelete && <InfoDelete setOpenDelete={setOpenDelete} />}
+
       <h2>회원정보 변경</h2>
       <div className="info">
         <label htmlFor="">아이디</label>
@@ -92,8 +109,18 @@ const InfoChange = memo(() => {
         <input type="email" />
       </div>
       <div className="info-bottom">
-        <button type="button">회원탈퇴</button>
-        <button type="submit">정보수정</button>
+        <Link
+          to="/TicketingPage/InfoChange"
+          className="info-delete"
+          onClick={() => {
+            setOpenDelete(true);
+          }}
+        >
+          <button type="button">회원탈퇴</button>
+        </Link>
+        <Link to="/TicketingPage/Login">
+          <button type="submit">정보수정</button>
+        </Link>
       </div>
     </InfoContainer>
   );
