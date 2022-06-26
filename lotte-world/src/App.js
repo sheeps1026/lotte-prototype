@@ -164,12 +164,15 @@ const App = memo(() => {
           />
 
           {/*푸터 연결  */}
-          <Route path="/Sitemap" element={<Sitemap />} />
-          <Route path="/Introduce" element={<Introduce />} />
-          <Route path="/AgreementHome" element={<AgreementHome />} />
-          <Route path="/AgreementAdventure" element={<AgreementAdventure />} />
           <Route
-            path="/AgreementMembership"
+            path="/Sitemap"
+            element={<Sitemap setOpenEmail={setOpenEmail} />}
+          />
+          <Route path="/Introduce" element={<Introduce />} />
+          <Route path="/Agreement/Home" element={<AgreementHome />} />
+          <Route path="/Agreement/Adventure" element={<AgreementAdventure />} />
+          <Route
+            path="/Agreement/Membership"
             element={<AgreementMembership />}
           />
           <Route path="/Email" element={<Email />} />

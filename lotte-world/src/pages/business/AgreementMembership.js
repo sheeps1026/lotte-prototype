@@ -7,7 +7,7 @@ const AgreementContainer = styled.div`
   margin: 0 auto;
 
   h2 {
-    margin-top: 120px;
+    margin-top: 240px;
     font-size: 60px;
     font-weight: 700;
     letter-spacing: -3.6px;
@@ -150,13 +150,13 @@ const AgreementMembership = memo(() => {
       <h2>이용약관</h2>
       <ul className="document-tab">
         <li>
-          <Link to="/AgreementHome">홈페이지</Link>
+          <Link to="/Agreement/Home">홈페이지</Link>
         </li>
         <li>
-          <Link to="/AgreementAdventure">롯데월드 어드벤처 부산</Link>
+          <Link to="/Agreement/Adventure">롯데월드 어드벤처 부산</Link>
         </li>
         <li>
-          <Link to="/AgreementMembership" className="active">
+          <Link to="/Agreement/Membership" className="active">
             연간이용
           </Link>
         </li>

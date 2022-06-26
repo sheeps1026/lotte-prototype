@@ -420,6 +420,14 @@ const Payment = memo(() => {
   let [paymentChk3, setPaymentChk3] = useState(false);
   let [paymentChk4, setPaymentChk4] = useState(false);
 
+  // 전체 동의
+  let [allCheck, setAllCheck] = useState(false);
+  let [check1, setCheck1] = useState(false);
+  let [check2, setCheck2] = useState(false);
+  let [check3, setCheck3] = useState(false);
+  let [check4, setCheck4] = useState(false);
+
+  // 결제 구현
   function onClickPayment(e) {
     e.preventDefault();
 
@@ -677,21 +685,14 @@ const Payment = memo(() => {
                         개인정보 제3자 제공 동의<span>선택</span>
                       </label>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setPaymentChk4(true);
-                      }}
-                    >
-                      전문보기
-                    </button>
+                    <button type="button">전문보기</button>
                   </div>
                   <p>
                     필수 항목에 모두 동의하셔야 서비스를 이용하실 수 있습니다.
                   </p>
                 </div>
                 <div className="agree-bottom">
-                  <button>결제하기</button>
+                  <button onClick={onClickPayment}>결제하기</button>
                 </div>
               </div>
             </TitleArea>

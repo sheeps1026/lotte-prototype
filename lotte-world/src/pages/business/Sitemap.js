@@ -93,7 +93,7 @@ const SitemapContainer = styled.div`
   }
 `;
 
-const Sitemap = memo(() => {
+const Sitemap = memo(({ setOpenEmail }) => {
   return (
     <SitemapContainer>
       <div>
@@ -101,59 +101,59 @@ const Sitemap = memo(() => {
         <div>
           <ul>
             <li>
-              <Link to="/">즐길거리</Link>
+              <Link to="/Sitemap">즐길거리</Link>
               <ul>
                 <li>
-                  <Link to="/">어트랙션</Link>
+                  <Link to="/enjoyList">어트랙션</Link>
                 </li>
               </ul>
             </li>
             <li>
-              <Link to="/">이용가이드</Link>
+              <Link to="/Sitemap">이용가이드</Link>
               <ul>
                 <li>
-                  <Link to="/">가이드맵</Link>
+                  <Link to="/enjoyList/guide">가이드맵</Link>
                 </li>
               </ul>
             </li>
             <li>
-              <Link to="/">소통공간</Link>
+              <Link to="/Sitemap">소통공간</Link>
               <ul>
                 <li>
-                  <Link to="/">공지사항</Link>
+                  <Link to="/customer/">공지사항</Link>
                 </li>
                 <li>
-                  <Link to="/">자주 묻는 질문</Link>
+                  <Link to="/customer/FAQ/all">자주 묻는 질문</Link>
                 </li>
                 <li>
-                  <Link to="/">문의사항</Link>
+                  <Link to="/customer/inquiry">문의사항</Link>
                   <ul>
                     <li>
-                      <Link to="/">분실물 센터</Link>
+                      <Link to="/customer/LostList">분실물 센터</Link>
                     </li>
                   </ul>
                 </li>
               </ul>
             </li>
             <li>
-              <Link to="/Introduce">유틸리티</Link>
+              <Link to="/Sitemap">유틸리티</Link>
               <ul>
                 <li>
                   <Link to="/Introduce">롯데월드 어드벤처 부산 소개</Link>
                 </li>
                 <li>
-                  <Link to="/AgreementHome">이용약관</Link>
+                  <Link to="/Agreement/Home">이용약관</Link>
                   <ul>
                     <li>
-                      <Link to="/AgreementHome">홈페이지</Link>
+                      <Link to="/Agreement/Home">홈페이지</Link>
                     </li>
                     <li>
-                      <Link to="/AgreementAdventure">
+                      <Link to="/Agreement/Adventure">
                         롯데월드 어드벤처 부산
                       </Link>
                     </li>
                     <li>
-                      <Link to="/AgreementMembership">연간이용</Link>
+                      <Link to="/Agreement/Membership">연간이용</Link>
                     </li>
                   </ul>
                 </li>
@@ -161,15 +161,17 @@ const Sitemap = memo(() => {
                   <Link to="/Sitemap">사이트맵</Link>
                 </li>
                 <li>
-                  <Link to="/Email">이메일무단수집거부</Link>
+                  <Link to="/Sitemap" onClick={() => setOpenEmail(true)}>
+                    이메일무단수집거부
+                  </Link>
                 </li>
               </ul>
             </li>
             <li>
-              <Link to="/">온라인예매</Link>
+              <Link to="/Sitemap">온라인예매</Link>
               <ul>
                 <li>
-                  <Link to="/">예매</Link>
+                  <Link to="/TicketingPage">예매</Link>
                 </li>
               </ul>
             </li>

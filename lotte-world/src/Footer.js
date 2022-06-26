@@ -91,7 +91,7 @@ const Footer = memo(({ setOpenEmail }) => {
       <div className="footerdiv">
         <div className="links">
           <Link to="/Introduce">롯데월드 어드벤처 부산 소개</Link>
-          <Link to="/AgreementHome">이용약관</Link>
+          <Link to="/Agreement/Home">이용약관</Link>
           <Link to="/Sitemap">사이트맵</Link>
           <Link
             to={`${pathname}`}
