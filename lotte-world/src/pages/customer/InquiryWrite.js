@@ -5,7 +5,7 @@ import checkboxOn from "../../assets/images/checkbox-icon-on.png";
 import selectBg from "../../assets/images/select-icon2.png";
 const InquiryWriteWrap = styled.div`
   width: 50%;
-  margin: 40px auto;
+  margin: 240px auto;
   position: relative;
   ul {
     padding: 30px 40px;
@@ -59,12 +59,11 @@ const InquiryWriteWrap = styled.div`
     }
     &::-webkit-scrollbar-thumb {
       background-color: #ccc;
-      border-radius:20px;
-      border:3px solid #fff;
+      border-radius: 20px;
+      border: 3px solid #fff;
     }
     &::-webkit-scrollbar-track {
       background-color: #fff;
-      
     }
     h3 {
       font-weight: bold;
@@ -144,15 +143,34 @@ const InquiryWriteWrap = styled.div`
     height: 230px;
     padding: 10px;
   }
-  .fileAddBtn {
-    display: none;
-    & + label {
-      display: inline-block;
-      font-size: 18px;
-      border: 1px solid #000;
-      padding: 15px 20px;
-      font-weight: bold;
-      border: 1px solid #222;
+  .fileCon {
+    display: flex;
+    align-items: center;
+
+    .fileAddBtn {
+      display: none;
+      & + label {
+        display: inline-block;
+        font-size: 18px;
+        border: 1px solid #000;
+        padding: 15px 20px;
+        font-weight: bold;
+        border: 1px solid #222;
+      }
+    }
+    .fileWrap{
+      display: flex;
+    align-items: center;
+      span{
+        display: inline-block;
+      }
+      .fileName {
+        line-height: 1.5;
+        width: 150px;
+        text-overflow: ellipsis;
+        overflow: hidden; 
+        margin: 0 0 0 10px;
+      }
     }
   }
   .noticeTxt {
@@ -211,6 +229,7 @@ const InquiryWriteWrap = styled.div`
     position: relative;
     overflow: hidden;
     z-index: 1;
+    margin: 0 0 0 20px;
     /* &:hover {
       color: #fff; */
     &:after {
@@ -263,12 +282,11 @@ const InquiryWrite = memo(() => {
         <h3>개인 정보 수집 , 이용 동의서</h3>
         <p>
           1. 본인은 방문 전 이용문의 작성과 관련하여 귀사가 아래와 같이 본인의
-          개인정보를 수집, 이용하는데 동의합니다.
-          2. 수집하는 개인정보의 항목
-          고객의 요청ㆍ문의사항 확인, 사실조사를 위한 연락ㆍ통지, 처리결과 통보 등의 목적
-          3. 개인정보의 보유, 이용기간
-          본인은 방문 전 이용문의 작성과 관련하여 귀사가 아래와 같이 본인의
-          개인정보를 수집, 이용하는데 동의합니다.
+          개인정보를 수집, 이용하는데 동의합니다. 2. 수집하는 개인정보의 항목
+          고객의 요청ㆍ문의사항 확인, 사실조사를 위한 연락ㆍ통지, 처리결과 통보
+          등의 목적 3. 개인정보의 보유, 이용기간 본인은 방문 전 이용문의 작성과
+          관련하여 귀사가 아래와 같이 본인의 개인정보를 수집, 이용하는데
+          동의합니다.
         </p>
       </div>
       <form name="">
@@ -309,8 +327,16 @@ const InquiryWrite = memo(() => {
           placeholder="내용을 입력하세요."
         />
         <h5>첨부파일</h5>
-        <input type="file" className="fileAddBtn" id="fileAdd" />
-        <label for="fileAdd">첨부파일</label>
+        <div className="fileCon">
+          <input type="file" className="fileAddBtn" id="fileAdd" />
+          <label for="fileAdd">첨부파일</label>
+          <div className="fileWrap">
+            <span className="fileName">
+              filenamefilenamefilenamefilenamefilenamefilename
+            </span>
+            <span>.png</span>
+          </div>
+        </div>
         <p className="noticeTxt">
           ※ 파일 (jpg,png,jpeg,pdf,pptx,xisx,docx)만 최대 1개 등록 가능합니다.
         </p>
