@@ -90,7 +90,7 @@ const GuideStyled = styled.div`
               border: 1px solid #333;
               font-weight: 600;
               position: relative;
-              overflow:hidden;
+              overflow: hidden;
 
               &:after {
                 left: -14px;
@@ -155,7 +155,7 @@ const Guide = memo(() => {
               <div className="download">
                 {/* 파일 첨부 기능 추가 필요 */}
                 <a className="downBtn">
-                  <span>전체 가이드맵 다운로드</span>
+                  <button type="submit">전체 가이드맵 다운로드</button>
                 </a>
               </div>
             </div>

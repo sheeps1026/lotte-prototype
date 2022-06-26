@@ -87,7 +87,7 @@ const MainContainer = styled.div`
   }
   .animationWrap {
     padding: 200px 0 0;
-    &.lastAnimation{
+    &.lastAnimation {
       padding: 0 0 200px;
     }
     p {
@@ -390,7 +390,7 @@ const MainContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    bottom: 50px;
+    bottom: 100px;
     right: 50px;
     z-index: 20;
 
@@ -430,24 +430,6 @@ const MainContainer = styled.div`
         }
       }
     }
-
-    .quick-top {
-      button {
-        text-align: center;
-        width: 48px;
-        height: 48px;
-        margin: 10px auto 0;
-        border: 1px solid #888;
-        border-radius: 50%;
-        background: #fff;
-
-        p {
-          color: #333;
-          font-size: 12px;
-          line-height: 46px;
-        }
-      }
-    }
   }
 `;
 
@@ -468,11 +450,11 @@ const Main = memo(() => {
   };
   const maskBg = React.useRef();
 
-  const [position,setPosition]=React.useState(5);
+  const [position, setPosition] = React.useState(5);
   const dotClick = () => {
-    setPosition(position+5);
-    console.log(parseInt(position))
-    maskBg.current.style.backgroundPositionX = `${position}`+"%";
+    setPosition(position + 5);
+    console.log(parseInt(position));
+    maskBg.current.style.backgroundPositionX = `${position}` + "%";
     maskBg.current.style.transition = "all .5s";
   };
   const enjoySettings = {
@@ -497,7 +479,6 @@ const Main = memo(() => {
   // console.log(active1);
   // active1.style.borer="1px solid red";
   // 스크롤이 50px 이상 내려올경우 true값을 넣어줄 useState
-  
 
   React.useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -507,7 +488,6 @@ const Main = memo(() => {
   }, []);
 
   const handleScroll = () => {
-    
     // 스크롤이 Top에서 50px 이상 내려오면 true값을 useState에 넣어줌
     if (window.scrollY >= 500) {
       //   setScroll(true);
@@ -527,7 +507,7 @@ const Main = memo(() => {
 
     if (window.scrollY >= 2898) {
       // console.log(scroll);
-      
+
       active2.current.childNodes[0].classList =
         "active-txt animate__animated animate__fadeInRight";
       active2.current.childNodes[1].classList =
@@ -538,12 +518,12 @@ const Main = memo(() => {
     //
     if (window.scrollY >= 4972) {
       // noticeList.current
-      noticeList.current.childNodes[0].classList=
-      "animate__animated animate__fadeInUp";
-      noticeList.current.childNodes[1].classList=
-      "animate__animated animate__fadeInUp";
-      noticeList.current.childNodes[2].classList=
-      "animate__animated animate__fadeInUp";
+      noticeList.current.childNodes[0].classList =
+        "animate__animated animate__fadeInUp";
+      noticeList.current.childNodes[1].classList =
+        "animate__animated animate__fadeInUp";
+      noticeList.current.childNodes[2].classList =
+        "animate__animated animate__fadeInUp";
     }
 
     // } else {
@@ -560,12 +540,6 @@ const Main = memo(() => {
   const mouseRemove = (e) => {
     e.target.parentNode.parentNode.classList.remove("active");
     e.target.parentNode.classList.remove("active");
-  };
-  // 탑 버튼
-  const onTopScroll = () => {
-    window.scrollTo({
-      top: 0,
-    });
   };
 
   return (
@@ -692,7 +666,7 @@ const Main = memo(() => {
         <Link className="ListBtn" to="/customer">
           더 많은 소식보기
         </Link>
-        <div className="noticeList"  ref={noticeList}>
+        <div className="noticeList" ref={noticeList}>
           <Link to="/customer/notice-list">
             <h3>공지</h3>
             <h4>코로나19 예방을 위한 롯데월드 어드벤처 부산 종합안내</h4>
@@ -716,9 +690,6 @@ const Main = memo(() => {
             <p>오늘의 운영시간</p>
             <p>10:00 - 21:00</p>
           </button>
-        </div>
-        <div className="quick-top" onClick={onTopScroll}>
-          <button>TOP</button>
         </div>
       </div>
     </MainContainer>

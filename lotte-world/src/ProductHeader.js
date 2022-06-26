@@ -30,12 +30,14 @@ const ProHeaderWrap = styled.div`
     display: block;
     border-top: 1px solid #ddd;
   }
-  h1 {
+
+  a.logo-btn {
     position: absolute;
     top: 0;
     left: 520px;
-    z-index: 2;
-    a {
+    z-index: 30;
+
+    h1 {
       display: block;
       background: url(https://adventurebusan.lotteworld.com/common/images/logo.png)
         no-repeat center;
@@ -44,6 +46,7 @@ const ProHeaderWrap = styled.div`
       height: 58px;
     }
   }
+
   nav {
     position: relative;
     z-index: 25;
@@ -164,9 +167,9 @@ const ProductHeader = memo(() => {
   });
   return (
     <ProHeaderWrap className={`${openList ? "open" : ""}`}>
-      <h1>
-        <a href="/" />
-      </h1>
+      <Link to="/" className="logo-btn">
+        <h1></h1>
+      </Link>
 
       <nav>
         <ul className="gnb">

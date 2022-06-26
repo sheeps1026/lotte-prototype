@@ -92,13 +92,13 @@ const PaymentChkContainer = styled.div`
   }
 `;
 
-const PaymentChk1 = memo(({ setOpenPayment }) => {
+const PaymentChk1 = memo(({ setPaymentChk1 }) => {
   return (
     <Background>
       <PaymentChkContainer>
         <header>
           <h1>전자상거래 이용약관</h1>
-          <button onClick={() => setOpenPayment(false)}>
+          <button onClick={() => setPaymentChk1(false)}>
             <img src={CloseBtn} alt="" />
           </button>
         </header>
@@ -464,7 +464,7 @@ const PaymentChk1 = memo(({ setOpenPayment }) => {
           </ul>
         </div>
         <div className="pop-bottom">
-          <button onClick={() => setOpenPayment(false)}>취소</button>
+          <button onClick={() => setPaymentChk1(false)}>취소</button>
           <button>확인</button>
         </div>
       </PaymentChkContainer>

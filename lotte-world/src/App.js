@@ -36,13 +36,14 @@ import HelpPwdConfirm from "./pages/user/HelpPwdConfirm";
 import Login from "./pages/user/Login";
 import Signin from "./pages/user/Signin";
 import SigninConfirm from "./pages/user/SigninConfirm";
+
+import Guide from "./pages/enjoy/Guide";
+
+import Payment from "./pages/myPages/Payment";
 import PaymentChk1 from "./components/alert/PaymentChk1";
 import PaymentChk2 from "./components/alert/PaymentChk2";
 import PaymentChk3 from "./components/alert/PaymentChk3";
 import PaymentChk4 from "./components/alert/PaymentChk4";
-
-import Guide from "./pages/enjoy/Guide";
-
 import TicketingMain from "./pages/product/TicketingMain";
 import Ticketing from "./pages/product/Ticketing";
 
@@ -85,6 +86,29 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const TopBtn = styled.div`
+  position: fixed;
+  bottom: 45px;
+  right: 95px;
+  z-index: 20;
+
+  button {
+    text-align: center;
+    width: 48px;
+    height: 48px;
+    margin: 10px auto 0;
+    border: 1px solid #888;
+    border-radius: 50%;
+    background: #fff;
+
+    p {
+      color: #333;
+      font-size: 12px;
+      line-height: 46px;
+    }
+  }
+`;
+
 const App = memo(() => {
   const location = useLocation();
   console.log(location.pathname.substring(0, 14));
@@ -94,10 +118,17 @@ const App = memo(() => {
   let [openEmail, setOpenEmail] = useState(false);
 
   // PaymentChk 모달 (나중에 props로 전달해서 연결)
-  // let [openPayment, setOpenPayment] = useState(false);
-  {
-    /* {openPayment && <PaymentChk4 setOpenPayment={setOpenPayment} />} */
-  }
+  // let [paymentChk1, setPaymentChk1] = useState(false);
+  // let [paymentChk2, setPaymentChk2] = useState(false);
+  // let [paymentChk3, setPaymentChk3] = useState(false);
+  // let [paymentChk4, setPaymentChk4] = useState(false);
+
+  // 탑 버튼
+  const onTopScroll = () => {
+    window.scrollTo({
+      top: 0,
+    });
+  };
 
   return (
     <div>
@@ -142,22 +173,21 @@ const App = memo(() => {
             element={<AgreementMembership />}
           />
           <Route path="/Email" element={<Email />} />
-          {/* <Route path="/Login" element={<Login />} /> */}
-          {/* <Route path="/HelpId" element={<HelpId />} /> */}
-          {/* <Route path="/HelpIdConfirm" element={<HelpIdConfirm />} /> */}
-          {/* <Route path="/HelpPwd" element={<HelpPwd />} /> */}
-          {/* <Route path="/HelpPwdChange" element={<HelpPwdChange />} /> */}
-          {/* <Route path="/HelpPwdConfirm" element={<HelpPwdConfirm />} /> */}
-          {/* <Route path="/Signin" element={<Signin />} /> */}
           <Route path="/SigninConfirm" element={<SigninConfirm />} />
+
+          {/* 예매 페이지 */}
+
+          <Route path="/Payment" element={<Payment />} />
           <Route path="/PaymentChk1" element={<PaymentChk1 />} />
           <Route path="/PaymentChk2" element={<PaymentChk2 />} />
           <Route path="/PaymentChk3" element={<PaymentChk3 />} />
           <Route path="/PaymentChk4" element={<PaymentChk4 />} />
-          {/* 예매 페이지 */}
-
           <Route path="/TicketingPage" element={<TicketingMain />} />
           <Route path="/TicketingPage/Ticketing" element={<Ticketing />} />
+          <Route
+            path="/TicketingPage/Ticketing/Payment"
+            element={<Payment />}
+          />
           {/* 결제완료 후 페이지 */}
           <Route
             path="/TicketingPage/PaymentResult"
@@ -186,6 +216,9 @@ const App = memo(() => {
         </Routes>
       )}
 
+      <TopBtn onClick={onTopScroll}>
+        <button>TOP</button>
+      </TopBtn>
       <Footer setOpenEmail={setOpenEmail} />
     </div>
   );

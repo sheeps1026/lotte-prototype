@@ -1,5 +1,11 @@
 import React, { memo, useState, useCallback } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+
+import PaymentChk1 from "../../components/alert/PaymentChk1";
+import PaymentChk2 from "../../components/alert/PaymentChk2";
+import PaymentChk3 from "../../components/alert/PaymentChk3";
+import PaymentChk4 from "../../components/alert/PaymentChk4";
 
 import arrow from "../../assets/images/pages/product/bg_accordion_arrow.png";
 import bg from "../../assets/images/pages/product/bg_pc_visual_busan.png";
@@ -8,26 +14,28 @@ import shadow from "../../assets/images/pages/product/bg_con_shadow.png";
 const TicketingStyled = styled.div`
   width: 100%;
   min-height: calc(100% + 50px);
-  background-color: #fff9e4;
   padding: 50px 0;
-  background: url(${bg}) no-repeat 50% 0;
+  background: #fff9e4 url(${bg}) no-repeat left top;
+
   .containerWrap {
     margin: 0 auto;
     position: relative;
     width: 900px;
-    min-height: 100%;
-    margin-top: -62px;
+    // min-height: 100%;
+    // margin-top: -62px;
     margin-bottom: -191px;
+
     .container {
       position: relative;
-      padding: 65px 0 271px;
+      padding: 0 0 271px;
       width: 100%;
-      height: 100%;
+
       .titleWrap {
         position: static;
         width: 100%;
         height: 80px;
         background: #fff;
+
         &::after {
           content: "";
           display: block;
@@ -38,6 +46,7 @@ const TicketingStyled = styled.div`
           height: 8px;
           background: url(${shadow}) repeat-x 0 0;
         }
+
         h1 {
           font-size: 26px;
           font-weight: 500;
@@ -45,8 +54,10 @@ const TicketingStyled = styled.div`
           text-align: center;
         }
       }
+
       .reserveWrap {
         background: #fff;
+
         .reserve {
           box-sizing: border-box;
           width: 100%;
@@ -55,6 +66,7 @@ const TicketingStyled = styled.div`
       }
     }
   }
+
   /* hr 구분선 */
   .division {
     display: block;
@@ -68,19 +80,22 @@ const TicketingStyled = styled.div`
 // 제목 섹션 스타일
 const TitleArea = styled.div`
   .accordion {
+    transition: all 0.4s ease;
+    max-height: 61px;
+    overflow: hidden;
+
     &.open {
       max-height: 500px;
       padding-bottom: 50px;
     }
-    transition: all 0.4s ease;
-    max-height: 61px;
-    overflow: hidden;
+
     .acco_title {
       padding: 20px 60px;
       border-bottom: 1px solid #e4e4e4;
       background: url(${arrow}) no-repeat 94% 50%;
       background-size: 12px 7px;
       background-color: #fafafa;
+
       &:after {
         content: "";
         display: block;
@@ -97,33 +112,314 @@ const TitleArea = styled.div`
       padding: 20px 60px;
       border-bottom: 1px solid #e4e4e4;
       background-color: #fafafa;
+
       &:after {
         content: "";
         display: block;
         clear: both;
       }
+
       .tit {
         font-size: 20px;
         color: #222;
         font-weight: 500;
         float: left;
+
+        &.agree {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+
+          h3 {
+            color: rgb(34, 34, 34);
+            font-size: 20px;
+            font-weight: 500;
+          }
+
+          div {
+            display: flex;
+            align-items: center;
+
+            input {
+              width: 20px;
+              height: 20px;
+              margin-right: 10px;
+            }
+
+            label {
+              color: rgb(80, 80, 80);
+              font-size: 15px;
+              font-weight: 200;
+              line-height: 22px;
+            }
+          }
+        }
       }
     }
+
     .acco_contents {
-      background: #fff;
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 1.2;
-      span {
-        color: #ff0000;
+      &.buy {
+        padding: 25px 60px;
+        padding-bottom: 0;
+
+        div {
+          display: flex;
+          margin-bottom: 10px;
+
+          p {
+            width: 229px;
+            color: rgb(51, 51, 51);
+            font-size: 16px;
+
+            &:last-child {
+              color: rgb(80, 80, 80);
+              font-size: 14px;
+            }
+          }
+        }
+      }
+
+      &.kakao {
+        padding: 25px 60px;
+        padding-bottom: 0;
+
+        button {
+          width: 150px;
+          height: 48px;
+          font-size: 16px;
+        }
+      }
+
+      &.info {
+        padding: 25px 60px;
+        padding-bottom: 0;
+
+        .info-top {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+
+          input {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            margin-left: 0;
+          }
+        }
+
+        .info-mid {
+          .info-input {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+
+            label {
+              margin-bottom: 7px;
+            }
+
+            input {
+              width: 28%;
+              border: 1px solid rgb(207, 207, 207);
+              color: rgb(204, 204, 204);
+              font-size: 14px;
+              line-height: 37px;
+              padding-left: 20px;
+            }
+
+            div {
+              span {
+                margin: 0 10px;
+                color: rgb(119, 119, 119);
+                font-size: 14px;
+              }
+
+              select {
+                width: 28%;
+                height: 41px;
+                margin-left: 20px;
+                padding-left: 5px;
+                border: 1px solid rgb(207, 207, 207);
+              }
+            }
+
+            &.phone {
+              div {
+                select {
+                  margin-left: 0;
+                  margin-right: 20px;
+                }
+
+                input {
+                  &:first-child {
+                    margin-right: 20px;
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
-  .btnArea {
+
+  .terms-agree {
+    padding: 25px 0;
+    background-color: #fff;
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 60px;
+
+      h3 {
+        color: rgb(34, 34, 34);
+        font-size: 20px;
+        font-weight: 500;
+      }
+
+      > div {
+        display: flex;
+        align-items: center;
+
+        input {
+          width: 20px;
+          height: 20px;
+          margin-right: 10px;
+        }
+
+        p {
+          color: rgb(80, 80, 80);
+          font-size: 15px;
+          font-weight: 200;
+          line-height: 22px;
+        }
+      }
+    }
+
+    hr {
+      margin-top: 20px;
+      opacity: 0.3;
+    }
+
+    .agree-mid {
+      padding: 20px 60px;
+
+      .mid-item {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 13px;
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        div.agree-btn {
+          display: flex;
+          justify-content: space-between;
+
+          input {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+          }
+
+          label {
+            color: rgb(80, 80, 80);
+            font-size: 15px;
+            font-weight: 200;
+            line-height: 22px;
+          }
+        }
+      }
+
+      p {
+        margin-top: 15px;
+        color: rgb(80, 80, 80);
+        font-size: 14px;
+
+        &::before {
+          content: "·";
+          width: 2px;
+          height: 2px;
+          margin-left: 5px;
+          margin-right: 9px;
+          color: rgb(80, 80, 80);
+        }
+      }
+    }
+
+    .agree-bottom {
+      text-align: center;
+      margin-bottom: 60px;
+
+      button {
+        width: 390px;
+        height: 48px;
+        background-color: #2b72c9;
+        color: #fff;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .detail {
+    padding-top: 25px;
+    background-color: #fff;
+
+    ul {
+      padding: 0 140px;
+      padding-bottom: 25px;
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        font-size: 16px;
+
+        &:first-child {
+          color: rgb(255, 91, 98);
+          font-weight: 600;
+        }
+
+        &:last-child {
+          color: rgb(80, 80, 80);
+        }
+      }
+
+      hr {
+        margin: 10px 0;
+        opacity: 0.5;
+      }
+    }
+
+    p {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 140px;
+      background-color: #61656a;
+      color: #fff;
+      font-size: 14px;
+
+      span {
+        color: rgb(255, 91, 98);
+        font-size: 23px;
+        font-weight: 700;
+      }
+    }
   }
 `;
 
 const Payment = memo(() => {
+  // 약관 동의 모달창들
+  let [paymentChk1, setPaymentChk1] = useState(false);
+  let [paymentChk2, setPaymentChk2] = useState(false);
+  let [paymentChk3, setPaymentChk3] = useState(false);
+  let [paymentChk4, setPaymentChk4] = useState(false);
+
   function onClickPayment(e) {
     e.preventDefault();
 
@@ -160,31 +456,37 @@ const Payment = memo(() => {
     }
   }
 
-  const [select, setSelect] = useState([]);
+  const [openSelect, setOpenSelect] = useState([]);
   const toggle = useCallback((e) => {
     const item = e.currentTarget.id;
-    !select.includes(item)
-      ? setSelect((select) => [...select, item])
-      : setSelect(select.filter((e) => e !== item));
-    console.log(select);
+    !openSelect.includes(item)
+      ? setOpenSelect((openSelect) => [...openSelect, item])
+      : setOpenSelect(openSelect.filter((e) => e !== item));
+    console.log(openSelect);
 
     // setToggleOn(!toggleOn);
   });
   return (
     <TicketingStyled>
+      {paymentChk1 && <PaymentChk1 setPaymentChk1={setPaymentChk1} />}
+      {paymentChk2 && <PaymentChk2 setPaymentChk2={setPaymentChk2} />}
+      {paymentChk3 && <PaymentChk3 setPaymentChk3={setPaymentChk3} />}
+      {paymentChk4 && <PaymentChk4 setPaymentChk4={setPaymentChk4} />}
+
       <div className="containerWrap">
         <div className="container">
           <div className="titleWrap">
-            <div className="title">
+            <div>
               <h1>이용권 결제</h1>
             </div>
           </div>
           <div className="reserveWrap">
             <TitleArea>
+              {/* 구매자 정보 */}
               <ul
                 id={0}
                 className={
-                  select.includes("0") ? "accordion" : "accordion open"
+                  openSelect.includes("0") ? "accordion" : "accordion open"
                 }
                 onClick={toggle}
               >
@@ -192,14 +494,28 @@ const Payment = memo(() => {
                   <div className="acco_title">
                     <div className="tit">구매자 정보</div>
                   </div>
-                  <div className="acco_contents"></div>
+                  <div className="acco_contents buy">
+                    <div>
+                      <p>이름</p>
+                      <p>구매자이름</p>
+                    </div>
+                    <div>
+                      <p>이메일</p>
+                      <p>구매자이메일</p>
+                    </div>
+                    <div>
+                      <p>휴대폰</p>
+                      <p>구매자핸드폰</p>
+                    </div>
+                  </div>
                 </li>
               </ul>
               <hr className="division" />
+              {/* 방문자 정보 */}
               <ul
                 id={1}
                 className={
-                  select.includes("1") ? "accordion" : "accordion open"
+                  openSelect.includes("1") ? "accordion" : "accordion open"
                 }
                 onClick={toggle}
               >
@@ -207,59 +523,169 @@ const Payment = memo(() => {
                   <div className="acco_title">
                     <div className="tit">방문자 정보</div>
                   </div>
-                  <div className="acco_contents"></div>
-                </li>
-              </ul>
-              <hr className="division" />
-              <ul
-                id={2}
-                className={
-                  select.includes("2") ? "accordion" : "accordion open"
-                }
-                onClick={toggle}>
-                <li>
-                  <div className="acco_title">
-                    <div className="tit">추가 할인</div>
+                  <div className="acco_contents info">
+                    <div className="info-top">
+                      <input type="checkbox" />
+                      <label htmlFor="">구매자 정보와 동일</label>
+                    </div>
+                    <div className="info-mid">
+                      <div className="info-input">
+                        <label htmlFor="">
+                          이름 <span>*</span>
+                        </label>
+                        <input type="text" />
+                      </div>
+                      <div className="info-input">
+                        <label htmlFor="">
+                          이메일 <span>*</span>
+                        </label>
+                        <div>
+                          <input type="text" />
+                          <span>@</span>
+                          <input type="text" placeholder="naver.com" />
+                          <select name="" id="">
+                            <option value="">naver.com</option>
+                            <option value="">gmail.com</option>
+                            <option value="">daum.net</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className="info-input phone">
+                        <label htmlFor="">
+                          휴대폰 <span>*</span>
+                        </label>
+                        <div>
+                          <select name="" id="">
+                            <option value="010">010</option>
+                            <option value="011">011</option>
+                            <option value="016">016</option>
+                            <option value="017">017</option>
+                            <option value="018">018</option>
+                            <option value="019">019</option>
+                          </select>
+                          <input type="text" />
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="acco_contents"></div>
                 </li>
               </ul>
               <hr className="division" />
+              {/* 결제 수단 */}
               <ul
                 id={3}
                 className={
-                  select.includes("3") ? "accordion" : "accordion open"
+                  openSelect.includes("3") ? "accordion" : "accordion open"
                 }
-                onClick={toggle}>
+                onClick={toggle}
+              >
                 <li>
                   <div className="acco_title">
                     <div className="tit">결제 수단</div>
                   </div>
-                  <div className="acco_contents"></div>
+                  <div className="acco_contents kakao">
+                    <button>카카오페이</button>
+                  </div>
                 </li>
               </ul>
               <hr className="division" />
-              <ul>
-                <li>
-                  {/* 이 부분은 결제 예정 금액 */}
-                  {/* <div className="acco_title">
-                    <div className="tit">결제 수단</div>
-                  </div>
-                  <div className="acco_contents"></div> */}
-                </li>
-              </ul>
-
+              {/* 결제 예정 금액 */}
+              <div className="detail">
+                <ul>
+                  <li>카카오페이 - 선택한 날짜</li>
+                  <hr />
+                  <li>
+                    어른 x 1 <span>16,500원</span>
+                  </li>
+                </ul>
+                <p>
+                  결제예정금액 <span>16,500원</span>
+                </p>
+              </div>
               <hr className="division" />
-              <ul className="accordion">
-                <li>
-                  <div className="normal_title">
-                    <div className="tit">약관 동의</div>
+              {/* 약관 동의 */}
+              <div className="terms-agree">
+                <header>
+                  <h3>약관 동의</h3>
+                  <div>
+                    <input type="checkbox" />
+                    <label htmlFor="">전체동의</label>
                   </div>
-                  <div className="acco_contents"></div>
-                </li>
-              </ul>
-              <div className="btnArea">
-                <button onClick={onClickPayment}>결제하기</button>
+                </header>
+                <hr />
+                <div className="agree-mid">
+                  <div className="mid-item">
+                    <div className="agree-btn">
+                      <input type="checkbox" />
+                      <label htmlFor="">
+                        전자상거래 이용약관<span>필수</span>
+                      </label>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPaymentChk1(true);
+                      }}
+                    >
+                      전문보기
+                    </button>
+                  </div>
+                  <div className="mid-item">
+                    <div className="agree-btn">
+                      <input type="checkbox" />
+                      <label htmlFor="">
+                        개인정보 수집·이용<span>필수</span>
+                      </label>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPaymentChk2(true);
+                      }}
+                    >
+                      전문보기
+                    </button>
+                  </div>
+                  <div className="mid-item">
+                    <div className="agree-btn">
+                      <input type="checkbox" />
+                      <label htmlFor="">
+                        마케팅 정보 활용 및 관련 정보 수신 동의
+                        <span>선택</span>
+                      </label>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPaymentChk3(true);
+                      }}
+                    >
+                      전문보기
+                    </button>
+                  </div>
+                  <div className="mid-item">
+                    <div className="agree-btn">
+                      <input type="checkbox" />
+                      <label htmlFor="">
+                        개인정보 제3자 제공 동의<span>선택</span>
+                      </label>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPaymentChk4(true);
+                      }}
+                    >
+                      전문보기
+                    </button>
+                  </div>
+                  <p>
+                    필수 항목에 모두 동의하셔야 서비스를 이용하실 수 있습니다.
+                  </p>
+                </div>
+                <div className="agree-bottom">
+                  <button>결제하기</button>
+                </div>
               </div>
             </TitleArea>
           </div>

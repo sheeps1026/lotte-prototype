@@ -44,6 +44,7 @@ const HeaderWrap = styled.div`
       position: absolute;
       top: 0;
       left: 120px;
+      z-index: 30;
 
       h1 {
         display: block;

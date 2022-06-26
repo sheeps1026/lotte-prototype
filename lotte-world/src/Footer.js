@@ -74,7 +74,7 @@ const FooterArea = styled.footer`
   }
 `;
 
-const Footer = memo(({ setOpenEmail, setOpenSideTab }) => {
+const Footer = memo(({ setOpenEmail }) => {
   // 현재 컴포넌트 위치에 따라 모달창 열리게
   const location = useLocation();
   let pathname = location.pathname;
