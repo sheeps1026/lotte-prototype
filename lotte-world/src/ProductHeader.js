@@ -155,6 +155,7 @@ const ProHeaderWrap = styled.div`
     }
   }
 `;
+
 const ProductHeader = memo(() => {
   const [isLogin, setIsLogin] = useState(false);
   const [openList, setOpenList] = useState(false);
@@ -165,6 +166,7 @@ const ProductHeader = memo(() => {
   const closeMenu = useCallback(() => {
     setOpenList(false);
   });
+
   return (
     <ProHeaderWrap className={`${openList ? "open" : ""}`}>
       <Link to="/" className="logo-btn">

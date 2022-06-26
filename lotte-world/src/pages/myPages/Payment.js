@@ -459,13 +459,20 @@ const Payment = memo(() => {
   const [openSelect, setOpenSelect] = useState([]);
   const toggle = useCallback((e) => {
     const item = e.currentTarget.id;
+
     !openSelect.includes(item)
       ? setOpenSelect((openSelect) => [...openSelect, item])
       : setOpenSelect(openSelect.filter((e) => e !== item));
-    console.log(openSelect);
+
+    // console.log(openSelect);
 
     // setToggleOn(!toggleOn);
   });
+
+  const notToggle = (e) => {
+    e.stopPropagation();
+  };
+
   return (
     <TicketingStyled>
       {paymentChk1 && <PaymentChk1 setPaymentChk1={setPaymentChk1} />}
@@ -494,7 +501,7 @@ const Payment = memo(() => {
                   <div className="acco_title">
                     <div className="tit">구매자 정보</div>
                   </div>
-                  <div className="acco_contents buy">
+                  <div className="acco_contents buy" onClick={notToggle}>
                     <div>
                       <p>이름</p>
                       <p>구매자이름</p>
@@ -523,7 +530,7 @@ const Payment = memo(() => {
                   <div className="acco_title">
                     <div className="tit">방문자 정보</div>
                   </div>
-                  <div className="acco_contents info">
+                  <div className="acco_contents info" onClick={notToggle}>
                     <div className="info-top">
                       <input type="checkbox" />
                       <label htmlFor="">구매자 정보와 동일</label>
@@ -583,7 +590,7 @@ const Payment = memo(() => {
                   <div className="acco_title">
                     <div className="tit">결제 수단</div>
                   </div>
-                  <div className="acco_contents kakao">
+                  <div className="acco_contents kakao" onClick={notToggle}>
                     <button>카카오페이</button>
                   </div>
                 </li>
