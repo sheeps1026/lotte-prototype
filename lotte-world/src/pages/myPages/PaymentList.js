@@ -122,8 +122,7 @@ const PaymentListWrap = styled.div`
         border-style: solid;
         border-color: ${({ ticket }) => (ticket === "Yes" ? "red" : "blue")};
         &:before {
-          content: "${({ ticket }) =>
-            ticket === "Yes" ? "예약완료" : "취소완료"}";
+          content: "${({ ticket }) =>(ticket === "Yes" ? "예약완료" : "취소완료")}";
           color: ${({ ticket }) => (ticket === "Yes" ? "red" : "blue")};
         }
 
@@ -165,6 +164,7 @@ const PaymentListWrap = styled.div`
 
 const PaymentList = memo(() => {
   const [startDate, setStartDate] = useState(new Date());
+
   const datePicker1 = React.useRef();
   const prevBtn = React.useCallback(() => {
     // const date = datePicker1.current.props.selected;
@@ -183,8 +183,8 @@ const PaymentList = memo(() => {
       startDate.toISOString().substring(0, 7).replaceAll("-", ".")
       // startDate.getFullYear(),startDate.getMonth()-1,
     );
-    // console.log("시간"+new Date());
-    //console.log("스테이트"+startDate);
+    console.log("시간"+new Date());
+    console.log("스테이트"+startDate);
   });
   //   const nextBtn = React.useCallback(() => {});
 
