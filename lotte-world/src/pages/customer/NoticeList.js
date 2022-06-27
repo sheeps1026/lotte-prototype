@@ -1,9 +1,9 @@
 import React, { memo, useCallback } from "react";
 import TtitleArea from "../../components/title_area/TitleArea";
 import NoticeView from "./NoticeView";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link ,useParams} from "react-router-dom";
 import styled from "styled-components";
-
+import axios from "axios";
 const FlexBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -64,18 +64,34 @@ const FlexBox = styled.div`
 
 const NoticeList = memo(() => {
   const title = "공지사항";
-  // const [hoverMouse,setHoverMouse]= React.useState("red");
 
   const colorChange = useCallback((e) => {
     e.target.parentNode.classList.add("colorChange");
-    console.log("마우스 들어옴", e.target.parentNode);
+    // console.log("마우스 들어옴", e.target.parentNode);
   });
 
   const colorReChange = useCallback((e) => {
     e.target.parentNode.classList.remove("colorChange");
-    console.log("마우스 나감", e.target.parentNode);
+    // console.log("마우스 나감", e.target.parentNode);
   });
 
+  const [notice,setNotice] = React.useState([]);
+  React.useEffect(() => {
+    (async () => {
+      let json = null;
+      try {
+        const response = await axios.get(`http://localhost:3001/bbs_notices`);
+        json = response.data;
+        // console.log(json);
+      } catch (e) {
+        console.log(e);
+      }
+      if(json != null){
+        setNotice(json);
+      }
+    })();
+    
+  },[]);
   return (
     <FlexBox>
       <TtitleArea title={title} />
@@ -84,19 +100,23 @@ const NoticeList = memo(() => {
         <li className="NoticeFirst">
           총 <span>2</span>개
         </li>
-        <li>
-          <Link
-            to="/customer/notice-list"
-            onMouseOver={colorChange}
-            onMouseLeave={colorReChange}
-          >
-            <h3>공지</h3>
-            <div className="title-wrap">
-              <p>제목 구구절절</p>
-              <span>YYYY-MM-DD</span>
-            </div>
-          </Link>
-        </li>
+        {notice.map((v, i) => {
+          return (
+            <li key={i}>
+              <Link
+                to="/customer/notice-list"
+                onMouseOver={colorChange}
+                onMouseLeave={colorReChange}
+              >
+                <h3>{v.N_division}</h3>
+                <div className="title-wrap">
+                  <p>{v.N_title}</p>
+                  <span>{v.N_reg_date}</span>
+                </div>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </FlexBox>
   );

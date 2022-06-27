@@ -116,6 +116,16 @@ const TitleArea = memo(({ title }) => {
   const [startDate, setStartDate] = React.useState("");
   const [endDate, setEndDate] = React.useState("");
 
+  //검색 키워드 가져오기
+  const [keyword,setKeyword] = React.useState("");
+
+  //검색어 입력요소에 연결한 참조 변수
+  const keywordInput = React.useRef();
+  
+  //검색 버튼을 누르면 실행되는 함수 , 성능 최적화를 위해 콜백함수 적용
+  const onSearch = React.useCallback((e)=>{
+    setKeyword(keywordInput.current.value);
+  },[]);
   return (
     <SearchWrap>
       <h1>{title}</h1>
@@ -160,7 +170,7 @@ const TitleArea = memo(({ title }) => {
                 id=""
                 placeholder="검색어를 입력하세요."
               />
-              <button>검색</button>
+              <button onClick={onSearch}>검색</button>
             </div>
           </div>
         </>
