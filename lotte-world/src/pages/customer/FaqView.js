@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Customer from "./Customer";
+import axios from "axios";
 import q from "../../assets/images/faq-icon-q.png";
 import a from "../../assets/images/faq-icon-a.png";
 import toggle from "../../assets/images/toggle.png";
@@ -109,7 +110,7 @@ const FaqView = memo(() => {
     console.log(mother);
     if (clicked) {
       clicked = 0;
-      console.log("클릭됨");
+      // console.log("클릭됨");
       // mother.lastChild.lastChild.style.border = "1px solid red"
       mother.lastChild.lastChild.style.transform = "rotate(180deg)";
       mother.lastChild.lastChild.style.transition = "all 0.4s";
@@ -120,87 +121,44 @@ const FaqView = memo(() => {
       mother.style.backgroundColor='#f1f1f1';
     }else{
       clicked = 1;
-      console.log("토글");
+      // console.log("토글");
       mother.lastChild.lastChild.style.transform = "rotate(0deg)";
       mother.lastChild.childNodes[2].style.padding="0";
       mother.lastChild.childNodes[2].style.height="0";
       mother.style.background='#fff';
     }
   };
-  // const toggleEvent = (e) => {
-  //   if (clicked) {
-  //     //토글 버튼
-  //     e.target.style.transform = "rotate(0deg)";
-  //     e.target.style.transition = "all 0.4s";
-  //     clicked = 0;
-  //     // console.log(clicked);
+  
 
-  //     //타이틀 글자 색
-  //     e.target.parentNode.parentNode.classList = "click-area";
-
-  //     //배경색
-  //     e.target.parentNode.parentNode.parentNode.style.backgroundColor = "#fff";
-  //   } else {
-  //     e.target.style.transform = "rotate(180deg)";
-  //     clicked = 1;
-  //     // console.log(clicked);
-
-  //     //타이틀 글자 색
-  //     e.target.parentNode.parentNode.classList = "click-area active";
-
-  //     //배경색
-  //     e.target.parentNode.parentNode.parentNode.style.backgroundColor = "#eee";
-  //   }
-  // };
-
-  const FaqList = [
-    {
-      category: "이용문의",
-      title:
-        "질문 롯데월드 어드벤처 부산에는 어떤 티켓이 있으며, 티켓의 사용범위는 어디까지인가요?",
-      content:
-        "롯데월드 어드벤처 부산은 종합이용권을 통해 파크 입장 및 자유로운 어트랙션 이용이 가능합니다. 단, 게임, 물품보관소 등의 유료시설의 이용은 별도의 비용을 지불하셔야 합니다.",
-    },
-    {
-      category: "문의이용",
-      title:
-        "질문 롯데월드 어드벤처 부산에는 어떤 티켓이 있으며, 티켓의 사용범위는 어디까지인가요?",
-      content:
-        "롯데월드 어드벤처 부산은 종합이용권을 통해 파크 입장 및 자유로운 어트랙션 이용이 가능합니다. 단, 게임, 물품보관소 등의 유료시설의 이용은 별도의 비용을 지불하셔야 합니다.",
-    },
-  ];
+  const [faqList,setFaqList] = React.useState([]);
+  React.useEffect(()=>{
+      (async ()=>{
+        let json = null;
+        try{
+          const response = await axios.get(`http://localhost:3001/bbs_faq`);
+          json = response.data;
+        }catch(e){
+            console.log(e);
+        }
+        if(json != null){
+          setFaqList(json);
+        }
+      })()
+  },[])
   return (
     <FaqViewWrap>
-      {FaqList.map((v, i) => {
+      {faqList.map((v, i) => {
         return (
-          <button className="toggle-btn" key={i} onClick={toggleBtnHandle}>
+          <button className="toggle-btn" key={i} onClick={toggleBtnHandle} >
             <div className="notice-title">
-              <h4>{v.category}</h4>
-              <h2>{v.title}</h2>
-              <div className="notice-description">{v.content}</div>
+              <h4>{v.F_division}</h4>
+              <h2>{v.F_title}</h2>
+              <div className="notice-description">{v.F_content}</div>
               <img src={toggle} alt="토글버튼" />
             </div>
           </button>
         );
       })}
-
-      {/* <div className="click-area">
-              <div>
-                <h4>이용정보</h4>
-                <h2>
-                질문 롯데월드 어드벤처 부산에는 어떤 티켓이 있으며, 티켓의
-                사용범위는 어디까지인가요?
-                </h2>
-                <div className="notice-description">
-                롯데월드 어드벤처 부산은 종합이용권을 통해 파크 입장 및
-                자유로운 어트랙션 이용이 가능합니다. 단, 게임, 물품보관소 등의
-                유료시설의 이용은 별도의 비용을 지불하셔야 합니다.
-                </div>
-                </div>
-                <button className="toggle-btn" onClick={toggleEvent}>
-                <img src={toggle} alt="토글버튼" />
-              </button>
-            </div> */}
     </FaqViewWrap>
   );
 });

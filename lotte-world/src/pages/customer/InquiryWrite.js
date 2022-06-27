@@ -5,7 +5,7 @@ import checkboxOn from "../../assets/images/checkbox-icon-on.png";
 import selectBg from "../../assets/images/select-icon2.png";
 const InquiryWriteWrap = styled.div`
   width: 50%;
-  margin: 240px auto;
+  margin: 40px auto;
   position: relative;
   ul {
     padding: 30px 40px;
@@ -229,7 +229,7 @@ const InquiryWriteWrap = styled.div`
     position: relative;
     overflow: hidden;
     z-index: 1;
-    margin: 0 0 0 20px;
+    
     /* &:hover {
       color: #fff; */
     &:after {

@@ -4,18 +4,19 @@ import TtitleArea from "../../components/title_area/TitleArea";
 import placeIcon from "../../assets/images/place-icon.png";
 import NoResultWrap from "../../components/NoResultsFound";
 import LostNotice from "../../components/LostNotice";
+import axios from "axios";
 
 const FlexBox = styled.div`
   width: 100%;
   /* margin: 25vh auto 30px; */
   padding: 200px 5% 0 5%;
   min-height: 1200px;
-  
+
   .ulList {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    
+
     li {
       position: relative;
       padding: 40px;
@@ -67,7 +68,7 @@ const LostListWrap = styled.div`
   width: 50%;
   position: relative;
   right: calc(-50%);
-  top: -189px;
+  top: -382px;
   .CountWrap {
     display: flex;
     justify-content: space-between;
@@ -75,90 +76,27 @@ const LostListWrap = styled.div`
 `;
 const title = "분실물 센터";
 
-const LostListArry = [
-  {
-    category: "안경",
-    name: "검정 금테 안경",
-    loc: "자이언트 스플래쉬 대기라인",
-    date: "2022.06.17",
-    how: "A",
-  },
-  {
-    category: "지갑",
-    name: "고야드 카드지갑 최*진님",
-    loc: "팅커폴스 간판 앞",
-    date: "2022.06.17",
-    how: "B",
-  },
-
-  {
-    category: "지갑",
-    name: "고야드 카드지갑 최*진님",
-    loc: "팅커폴스 간판 앞",
-    date: "2022.06.17",
-    how: "B",
-  },
-  {
-    category: "안경",
-    name: "검정 금테 안경",
-    loc: "자이언트 스플래쉬 대기라인",
-    date: "2022.06.17",
-    how: "A",
-  },
-  {
-    category: "지갑",
-    name: "고야드 카드지갑 최*진님",
-    loc: "팅커폴스 간판 앞",
-    date: "2022.06.17",
-    how: "B",
-  },
-  {
-    category: "안경",
-    name: "검정 금테 안경",
-    loc: "자이언트 스플래쉬 대기라인",
-    date: "2022.06.17",
-    how: "A",
-  },
-  {
-    category: "지갑",
-    name: "고야드 카드지갑 최*진님",
-    loc: "팅커폴스 간판 앞",
-    date: "2022.06.17",
-    how: "B",
-  },
-  {
-    category: "안경",
-    name: "검정 금테 안경",
-    loc: "자이언트 스플래쉬 대기라인",
-    date: "2022.06.17",
-    how: "A",
-  },
-  {
-    category: "안경",
-    name: "검정 금테 안경",
-    loc: "자이언트 스플래쉬 대기라인",
-    date: "2022.06.17",
-    how: "A",
-  },
-  {
-    category: "지갑",
-    name: "고야드 카드지갑 최*진님",
-    loc: "팅커폴스 간판 앞",
-    date: "2022.06.17",
-    how: "B",
-  },
-  {
-    category: "안경",
-    name: "검정 금테 안경",
-    loc: "자이언트 스플래쉬 대기라인",
-    date: "2022.06.17",
-    how: "A",
-  },
-];
 const LostList = memo(() => {
   // 분실물 모달
   let [openLost, setOpenLost] = React.useState(false);
-  console.log(openLost)
+
+  // console.log(openLost);
+  const [lostList, setLostList] = React.useState([]);
+
+  React.useEffect(() => {
+    (async () => {
+      let json = null;
+      try {
+        const response = await axios.get(`http://localhost:3001/bbs_lost`);
+        json = response.data;
+      } catch (e) {
+        console.log(e);
+      }
+      if (json != null) {
+        setLostList(json);
+      }
+    })();
+  }, []);
   return (
     <FlexBox>
       <TtitleArea title={title} />
@@ -167,27 +105,32 @@ const LostList = memo(() => {
           <div>
             총 <span>{}</span>개
           </div>
-          <button type="button" onClick={() => {
+          <button
+            type="button"
+            onClick={() => {
               setOpenLost(true);
-            }}>분실물 처리절차 보기</button>
+            }}
+          >
+            분실물 처리절차 보기
+          </button>
         </div>
         <ul className="ulList">
-          {LostListArry  ? (
-            LostListArry.map((v, i) => {
+          {lostList? (
+            lostList.map((v, i) => {
               return (
                 <li key={i}>
-                  <HowFind className="howFind" how={v.how}></HowFind>
-                  <p>{v.category}</p>
-                  <h3>{v.name}</h3>
+                  <HowFind className="howFind" how={v.L_state}></HowFind>
+                  <p>{v.L_division}</p>
+                  <h3>{v.L_item}</h3>
                   <h4>
-                    <span>{v.loc}</span>에서 습득
+                    <span>{v.L_loc}</span>에서 습득
                   </h4>
-                  <h5>{v.date}</h5>
+                  <h5>{v.L_reg_date}</h5>
                 </li>
               );
             })
           ) : (
-            <NoResultWrap/>
+            <NoResultWrap />
           )}
         </ul>
       </LostListWrap>
