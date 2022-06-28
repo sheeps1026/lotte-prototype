@@ -111,7 +111,7 @@ const TopBtn = styled.div`
 
 const App = memo(() => {
   const location = useLocation();
-  console.log(location.pathname.substring(0, 14));
+  // console.log(location.pathname.substring(0, 14));
   const path = location.pathname.substring(0, 14);
 
   // 이메일 모달
@@ -144,11 +144,11 @@ const App = memo(() => {
           <Route path="/SideTab" exact={true} element={<SideTab />} />
 
           <Route path="/enjoyList" exact={true} element={<EnjoyList />} />
-          <Route path="/enjoyList/*" exact={true} element={<EnjoyView />} />
+          <Route path="/enjoyList/" exact={true} element={<EnjoyView />} />
           <Route path="/enjoyList/guide" exact={true} element={<Guide />} />
-          <Route path="/customer/*" exact={true} element={<NoticeList />} />
-          <Route path="/customer/notice-list" element={<NoticeView />} />
-          <Route path="/customer/FAQ/*" element={<FAQ />} />
+          <Route path="/customer" exact={true} element={<NoticeList />} />
+          <Route path="/customer/notice-list/:N_id" element={<NoticeView />} />
+          <Route path="/customer/FAQ/:F_division/*" element={<FAQ />} />
           <Route path="/customer/inquiry/" element={<Inquiry />} />
           <Route path="/customer/InquiryWrite" element={<InquiryWrite />} />
           <Route path="/customer/LostList" element={<LostList />} />

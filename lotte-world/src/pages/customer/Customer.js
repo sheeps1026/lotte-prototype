@@ -21,7 +21,7 @@ const Customer = memo(() => {
       <Routes>
         <Route path="/enjoyList" exact={true} element={<EnjoyList />} />
         <Route path="/customer/*" exact={true} element={<NoticeList />} />
-        <Route path="/customer/notice-list" element={<NoticeView />} />
+        <Route path="/customer/notice-list/:id" element={<NoticeView />} />
         <Route path="/customer/FAQ/*" element={<FAQ />} />
         <Route path="/customer/inquiry/" element={<Inquiry />} />
         <Route path="/customer/InquiryWrite" element={<InquiryWrite />} />

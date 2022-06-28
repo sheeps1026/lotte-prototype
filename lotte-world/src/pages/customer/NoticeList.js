@@ -1,7 +1,6 @@
 import React, { memo, useCallback } from "react";
 import TtitleArea from "../../components/title_area/TitleArea";
-import NoticeView from "./NoticeView";
-import { Routes, Route, Link ,useParams} from "react-router-dom";
+import {  Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 const FlexBox = styled.div`
@@ -76,6 +75,7 @@ const NoticeList = memo(() => {
   });
 
   const [notice,setNotice] = React.useState([]);
+  const [N_count,setN_count] = React.useState(0);
   React.useEffect(() => {
     (async () => {
       let json = null;
@@ -88,6 +88,7 @@ const NoticeList = memo(() => {
       }
       if(json != null){
         setNotice(json);
+        setN_count(json.length);
       }
     })();
     
@@ -98,13 +99,13 @@ const NoticeList = memo(() => {
 
       <ul className="NoticeList">
         <li className="NoticeFirst">
-          총 <span>2</span>개
+          총 <span>{N_count}</span>개
         </li>
         {notice.map((v, i) => {
           return (
             <li key={i}>
               <Link
-                to="/customer/notice-list"
+                to={`/customer/notice-list/${v.N_id}`}
                 onMouseOver={colorChange}
                 onMouseLeave={colorReChange}
               >
