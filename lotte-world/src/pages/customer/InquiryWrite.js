@@ -5,7 +5,7 @@ import checkboxOn from "../../assets/images/checkbox-icon-on.png";
 import selectBg from "../../assets/images/select-icon2.png";
 const InquiryWriteWrap = styled.div`
   width: 50%;
-  margin: 40px auto;
+  margin: 240px auto;
   position: relative;
   ul {
     padding: 30px 40px;
