@@ -130,6 +130,8 @@ const GuideStyled = styled.div`
 `;
 
 const Guide = memo(() => {
+  const pdfDownload = () => {};
+
   return (
     <GuideStyled>
       <div className="title">

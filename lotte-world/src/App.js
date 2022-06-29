@@ -117,12 +117,6 @@ const App = memo(() => {
   // 이메일 모달
   let [openEmail, setOpenEmail] = useState(false);
 
-  // PaymentChk 모달 (나중에 props로 전달해서 연결)
-  // let [paymentChk1, setPaymentChk1] = useState(false);
-  // let [paymentChk2, setPaymentChk2] = useState(false);
-  // let [paymentChk3, setPaymentChk3] = useState(false);
-  // let [paymentChk4, setPaymentChk4] = useState(false);
-
   // 탑 버튼
   const onTopScroll = () => {
     window.scrollTo({

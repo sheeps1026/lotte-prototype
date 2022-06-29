@@ -21,12 +21,12 @@ const Background = styled.div`
 const SideTabContainer = styled.div`
   position: fixed;
   bottom: 0;
-  right: -1220px;
+  // right: -1220px;
+  right: 0;
   width: 1220px;
   height: 620px;
   padding: 43px 0 37px 60px;
   background-color: #fff;
-  transform: translateX(-1220px);
   transition: transform 5s;
   z-index: 60;
 
@@ -35,7 +35,7 @@ const SideTabContainer = styled.div`
     align-items: center;
     margin-bottom: 30px;
 
-    p {
+    p.default {
       height: 36px;
       padding-right: 15px;
       color: #aaa;
@@ -119,12 +119,14 @@ const SideTabContainer = styled.div`
 
 const SideTab = memo(({ setOpenSideTab }) => {
   let [tab, setTab] = useState(0);
+  let [color, setColor] = useState();
 
   return (
     <Background>
       <SideTabContainer>
         <header>
           <p
+            className={`default ${color === "active" ? "active" : ""}`}
             onClick={() => {
               setTab(0);
             }}
@@ -132,6 +134,7 @@ const SideTab = memo(({ setOpenSideTab }) => {
             운휴 어트랙션
           </p>
           <p
+            className={`default ${color === "active" ? "active" : ""}`}
             onClick={() => {
               setTab(1);
             }}
@@ -142,8 +145,6 @@ const SideTab = memo(({ setOpenSideTab }) => {
             <img src={CloseBtn} alt="" />
           </button>
         </header>
-        {/* <img src={Img} alt="" />
-          <p>오거스후룸</p> */}
         <SideTabContent tab={tab} />
         <div className="sidetab-bottom">
           <p>

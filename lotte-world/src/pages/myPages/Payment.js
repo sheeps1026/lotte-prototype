@@ -685,7 +685,14 @@ const Payment = memo(() => {
                         개인정보 제3자 제공 동의<span>선택</span>
                       </label>
                     </div>
-                    <button type="button">전문보기</button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPaymentChk4(true);
+                      }}
+                    >
+                      전문보기
+                    </button>
                   </div>
                   <p>
                     필수 항목에 모두 동의하셔야 서비스를 이용하실 수 있습니다.
