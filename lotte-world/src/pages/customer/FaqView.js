@@ -14,7 +14,6 @@ const FaqViewWrap = styled.div`
   position: absolute;
   right: 0;
   button {
-    
     display: flex;
     justify-content: space-between;
     align-items: baseline;
@@ -25,7 +24,7 @@ const FaqViewWrap = styled.div`
     position: relative;
     .notice-title {
       text-align: left;
-      
+
       h4 {
         padding: 40px 20px 10px 20px;
         font-weight: bold;
@@ -50,10 +49,10 @@ const FaqViewWrap = styled.div`
           left: -10px;
         }
       }
-      img{
+      img {
         position: absolute;
         right: 30px;
-        top:50%;
+        top: 50%;
       }
     }
     .notice-description {
@@ -93,7 +92,7 @@ const FaqViewWrap = styled.div`
         line-height: 1.5;
         word-break: keep-all;
       }
-/* 
+      /* 
       img.rotateBtn {
         transform: rotate(180deg);
         transition: all 0.4s;
@@ -102,11 +101,11 @@ const FaqViewWrap = styled.div`
   }
 `;
 
-const FaqView = memo(() => {
+const FaqView = memo((F_id) => {
   let clicked = 1;
   const toggleBtnHandle = (e) => {
     // console.log(e.target.parentNode.parentNode);
-    const mother =e.target.parentNode.parentNode;
+    const mother = e.target.parentNode.parentNode;
     console.log(mother);
     if (clicked) {
       clicked = 0;
@@ -115,43 +114,52 @@ const FaqView = memo(() => {
       mother.lastChild.lastChild.style.transform = "rotate(180deg)";
       mother.lastChild.lastChild.style.transition = "all 0.4s";
       console.log();
-      mother.lastChild.childNodes[2].style.padding="20px 40px";
-      mother.lastChild.childNodes[2].style.height="auto";
-      
-      mother.style.backgroundColor='#f1f1f1';
-    }else{
+      mother.lastChild.childNodes[2].style.padding = "20px 40px";
+      mother.lastChild.childNodes[2].style.height = "auto";
+
+      mother.style.backgroundColor = "#f1f1f1";
+    } else {
       clicked = 1;
       // console.log("토글");
       mother.lastChild.lastChild.style.transform = "rotate(0deg)";
-      mother.lastChild.childNodes[2].style.padding="0";
-      mother.lastChild.childNodes[2].style.height="0";
-      mother.style.background='#fff';
+      mother.lastChild.childNodes[2].style.padding = "0";
+      mother.lastChild.childNodes[2].style.height = "0";
+      mother.style.background = "#fff";
     }
   };
-  
 
-  const [faqList,setFaqList] = React.useState([]);
-  React.useEffect(()=>{
-      (async ()=>{
-        let json = null;
-        try{
-          const response = await axios.get(`http://localhost:3001/bbs_faq`);
+  const { F_division } = useParams();
+  const [faqList, setFaqList] = React.useState([]);
+  console.log("받아옴" + F_division);
+  React.useEffect(() => {
+    (async () => {
+      let json = null;
+      try {
+        if (F_division === "all") {
+          const response = await axios.get(`http://localhost:3001/bbs_faq?`);
           json = response.data;
-        }catch(e){
-            console.log(e);
+        } else {
+          const response = await axios.get(
+            `http://localhost:3001/bbs_faq?F_division=${F_division}`
+          );
+          json = response.data;
         }
-        if(json != null){
-          setFaqList(json);
-        }
-      })()
-  },[])
+      } catch (e) {
+        console.log(e);
+      }
+      if (json != null) {
+        setFaqList(json);
+      }
+    })();
+  }, [F_division]);
   return (
     <FaqViewWrap>
       {faqList.map((v, i) => {
         return (
-          <button className="toggle-btn" key={i} onClick={toggleBtnHandle} >
+          <button className="toggle-btn" key={i} onClick={toggleBtnHandle}>
             <div className="notice-title">
-              <h4>{v.F_division}</h4>
+              <h4>{v.F_division === "y" ? (`연간이용`) : (v.F_division === "a" ?(`기타`):(v.F_division === "u" ?(`우대정보`):(v.F_division === "o" ?(`온라인예매`):(F_division))))}</h4>
+              {/* <h4>{F_division}</h4> */}
               <h2>{v.F_title}</h2>
               <div className="notice-description">{v.F_content}</div>
               <img src={toggle} alt="토글버튼" />

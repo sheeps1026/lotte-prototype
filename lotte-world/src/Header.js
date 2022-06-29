@@ -215,7 +215,7 @@ const Header = memo(() => {
                 <Link to="/customer/">공지사항</Link>
               </li>
               <li>
-                <Link to="/customer/FAQ/all">자주묻는질문</Link>
+                <Link to="/customer/FAQ/y">자주묻는질문</Link>
               </li>
               <li>
                 <Link to="/customer/inquiry/">문의사항</Link>
