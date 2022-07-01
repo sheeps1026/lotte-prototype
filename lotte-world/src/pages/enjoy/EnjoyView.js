@@ -1,4 +1,5 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect } from 'react';
+import axios from "axios";
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 // 슬라이드
@@ -379,6 +380,23 @@ margin: 15px auto 35px;
  }
 `;
 const EnjoyView = memo(() => {
+
+    const [view, setView] = useState([]);
+    useEffect(() => {
+        (async () => {
+            let json = null;
+            try {
+                const response = await axios.get(`http://localhost:3001/enjoyInfoList`);
+                json = response.data;
+            } catch (e) {
+                console.error(e);
+            }
+            if (json!=null) {
+                setView(json);
+            }
+        })();
+    }, []);
+
     // 슬라이드 설정
     const settings = {
         // autoplay: true,
@@ -393,145 +411,150 @@ const EnjoyView = memo(() => {
       };
     return (
         <EnjoyViewStyled>
-            <div className='title'>
-                <h2>쿠키열차</h2>
-                <div className='tag_list'>
-                    <p>#패밀리</p>
-                    <p>#매직패스</p>
-                    <p>#롤러코스터</p>
-                </div>
-            </div>
-            <div className='contents'>
-                <div className='subwrap'>
-                    <div className='sub_visual'>
-                    <Slider {...settings}>
-                        <div>
-                            <img src={slide1} alt="slide1" />
+            {view.map((v, i) => {
+                return (
+                <>
+                    <div className='title'>
+                        <h2>{v.title}</h2>
+                        <div className='tag_list'>
+                            <p>{v.hashtag}</p>
                         </div>
-                        <div>
-                            <img src={slide2} alt="slide2" />
-                        </div>
-                    </Slider>
-                    </div>
+                    </div>     
+                    <div className='contents'>
+                        <div className='subwrap'>
+                            <div className='sub_visual'>
+                            <Slider {...settings}>
+                                <div>
+                                    <img src={slide1} alt="slide1" />
+                                </div>
+                                <div>
+                                    <img src={v.img} alt="slide2" />
+                                </div>
+                            </Slider>
+                            </div>
 
-                    <div className='zone_info'>
-                        <div className='inner'>
-                            <div className='section txt'>
-                                <p className='sub_txt'>우리에게 용기를 주는 신비한 쿠키를 찾으러 열차를 타고 쿠키공장으로 떠나요!</p>
-                            </div>
-                            <div className='section txt'>
-                                <div className='half'>
-                                    <p className='guide_tit'>이용정보</p>
-                                    <ul className='zone_guide'>
-                                        {/* 어트랙션마다 내용이 바뀜 */}
-                                        <li>
-                                            <div className='tit'>
-                                                <span className='icon'>
-                                                    <img src={guideIcon2} alt='icon'/>
-                                                </span>
-                                                탑승인원
-                                            </div>
-                                            <div className='txt'>
-                                                <span className='num'>20</span>
-                                                명
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className='tit'>
-                                                <span className='icon'>
-                                                    <img src={guideIcon3} alt='icon'/>
-                                                </span>
-                                                탑승제한
-                                            </div>
-                                            <div className='txt'>
-                                                <div className='icon_txt'>
-                                                    <img src={boardIcon1} alt='icon'/>
-                                                    <span>음주</span>
-                                                </div>
-                                                <div className='icon_txt'>
-                                                    <img src={boardIcon2} alt='icon'/>
-                                                    <span>임산부</span>
-                                                </div>
-                                                <div className='icon_txt'>
-                                                    <img src={boardIcon3} alt='icon'/>
-                                                    <span>심/혈관계 질환자</span>
-                                                </div>
-                                                <div className='icon_txt'>
-                                                    <img src={boardIcon4} alt='icon'/>
-                                                    <span>디스크환자</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className='tit'>
-                                                <span className='icon'>
-                                                    <img src={guideIcon4} alt='icon'/>
-                                                </span>
-                                                이용안내
-                                            </div>
-                                            <div className='txt'>
-                                                135cm 이상 탑승 가능 <br/>
-                                                105cm 이상 ~ 135cm 미만 보호자 동반 시 탑승 가능
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className='tit'>
-                                                <span className='icon'>
-                                                    <img src={guideIcon9} alt='icon'/>
-                                                </span>
-                                                플러스 팁
-                                            </div>
-                                            <div className='txt'>
-                                                남녀노소 즐길 수 있는 롤러코스터!
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className='half'>
-                                    <p className='guide_tit'>운휴정보</p>
-                                    <Calendar>
-                                        <DatePicker inline locale={ko} showDisabledMonthNavigation/>
-                                    </Calendar>
-                                    <div className='info_box'>
-                                        <ul className='info_list'>
-                                            <li>
-                                                한 달 동안의 운휴정보입니다.
-                                            </li>
-                                            <li>
-                                                한 달 동안의 운휴정보입니다.
-                                            </li>
-                                            <li>
-                                                한 달 동안의 운휴정보입니다.
-                                            </li>
-                                        </ul>
+                            <div className='zone_info'>
+                                <div className='inner'>
+                                    <div className='section txt'>
+                                        <p className='sub_txt'>{v.sub_txt}</p>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='section map'>
-                            <p className='guide_tit inner'>위치정보</p>
-                            <div className='mapWrap'>
-                                <p className='map_txt inner'>
-                                    <span>조이풀메도우존 동물농장</span>
-                                </p>
-                                <div className='map_area'>
-                                    <div className='map_more'>
-                                        <img src={landmap} alt='map'/>
-                                        <div className='picker'>
-                                            <img src={picker} alt='picker'/>
+                                    <div className='section txt'>
+                                        <div className='half'>
+                                            <p className='guide_tit'>이용정보</p>
+                                            {v.limit ? 
+                                            (<ul className='zone_guide'>
+                                                <li>
+                                                    <div className='tit'>
+                                                        <span className='icon'>
+                                                            <img src={guideIcon2} alt='icon'/>
+                                                        </span>
+                                                        탑승인원
+                                                    </div>
+                                                    <div className='txt'>
+                                                        <span className='num'>20</span>
+                                                        명
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div className='tit'>
+                                                        <span className='icon'>
+                                                            <img src={guideIcon3} alt='icon'/>
+                                                        </span>
+                                                        탑승제한
+                                                    </div>
+                                                    <div className='txt'>
+                                                        <div className='icon_txt'>
+                                                            <img src={boardIcon1} alt='icon'/>
+                                                            <span>음주</span>
+                                                        </div>
+                                                        <div className='icon_txt'>
+                                                            <img src={boardIcon2} alt='icon'/>
+                                                            <span>임산부</span>
+                                                        </div>
+                                                        <div className='icon_txt'>
+                                                            <img src={boardIcon3} alt='icon'/>
+                                                            <span>심/혈관계 질환자</span>
+                                                        </div>
+                                                        <div className='icon_txt'>
+                                                            <img src={boardIcon4} alt='icon'/>
+                                                            <span>디스크환자</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div className='tit'>
+                                                        <span className='icon'>
+                                                            <img src={guideIcon4} alt='icon'/>
+                                                        </span>
+                                                        이용안내
+                                                    </div>
+                                                    <div className='txt'>
+                                                        135cm 이상 탑승 가능 <br/>
+                                                        105cm 이상 ~ 135cm 미만 보호자 동반 시 탑승 가능
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    {v.tip&& <div className='tit'>
+                                                        <span className='icon'>
+                                                            <img src={guideIcon9} alt='icon'/>
+                                                        </span>
+                                                        플러스 팁
+                                                    </div>}
+                                                    <div className='txt'>
+                                                        {v.tip}
+                                                    </div>
+                                                </li>
+                                            </ul>) : (<></>)
+                                            }
+                                        </div>
+                                        <div className='half'>
+                                            <p className='guide_tit'>운휴정보</p>
+                                            <Calendar>
+                                                <DatePicker inline locale={ko} showDisabledMonthNavigation/>
+                                            </Calendar>
+                                            <div className='info_box'>
+                                                <ul className='info_list'>
+                                                    <li>
+                                                        한 달 동안의 운휴정보입니다.
+                                                    </li>
+                                                    <li>
+                                                        기상 변화 및 파크 상황에 따라 운휴 일정이 변경될 수 있습니다.
+                                                    </li>
+                                                    <li>
+                                                        기상상태에 따라 일부 어트랙션 운행이 중단될 수 있습니다.
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div className='btnArea inner'>
-                            <div className='listBtn'>
-                                <Link to="/enjoyList">목록</Link>
+                                <div className='section map'>
+                                    <p className='guide_tit inner'>위치정보</p>
+                                    <div className='mapWrap'>
+                                        <p className='map_txt inner'>
+                                            <span>{v.loc}</span>
+                                        </p>
+                                        <div className='map_area'>
+                                            <div className='map_more'>
+                                                <img src={landmap} alt='map'/>
+                                                <div className='picker'>
+                                                    <img src={picker} alt='picker'/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='btnArea inner'>
+                                    <div className='listBtn'>
+                                        <Link to="/enjoyList">목록</Link>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                    </>
+                )
+            })}
         </EnjoyViewStyled>
     );
 });

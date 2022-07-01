@@ -2,7 +2,8 @@
  * @filename: EnjoyList.js
  * @description: 놀이기구 목록
  */
-import React, { memo } from 'react';
+import React, { memo, useEffect,useState } from 'react';
+import axios from "axios";
 import {Routes,Route,NavLink} from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -153,6 +154,23 @@ width: 100%;
 
 `;
 const EnjoyList = memo(() => {
+    const [view, setView] = useState([]);
+    useEffect(() => {
+        (async () => {
+            let json = null;
+            try {
+                const response = await axios.get(`http://localhost:3001/enjoyInfoList`);
+                json = response.data;
+            } catch (e) {
+                console.error(e);
+            }
+            if (json!=null) {
+                setView(json);
+                console.log(view)
+            }
+        })();
+    }, []);
+
     return (
         <EnjoyListStyled>
             <div className='title'>
@@ -164,8 +182,28 @@ const EnjoyList = memo(() => {
                     <div className='inner'>
                         <div className='cardlist'>
                             <ul>
-                                <li>
-                                    <NavLink to='/enjoyList/view1' href='#!'>
+                                {view.map((v,i) => {
+                                    return (
+                                        <li key={i}>
+                                    <NavLink to={`/enjoyView/${v.EN_id}`} href='#!'>
+                                        <div className='cardimg'>
+                                            <p className='img'>
+                                                <img src={v.img} alt='토킹트리'/>
+                                            </p>
+                                            <p className='category'>어트랙션 {`[${v.loc}]`}</p>
+                                        </div>
+                                        <div className='cardtxt'>
+                                            <p className='tit'>{v.title}</p>
+                                            <div className='taglist'>
+                                                <p>{v.hashtag}</p>
+                                            </div>
+                                        </div>
+                                    </NavLink>
+                                </li>
+                                    )
+                                })}
+                                {/* <li>
+                                    <NavLink to={`/enjoyView/${view.EN_id}`} href='#!'>
                                         <div className='cardimg'>
                                             <p className='img'>
                                                 <img src={att1} alt='토킹트리'/>
@@ -181,7 +219,7 @@ const EnjoyList = memo(() => {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to='/enjoyList/view2' href='#!'>
+                                    <NavLink to='/enjoyView/2' href='#!'>
                                         <div className='cardimg'>
                                             <p className='img'>
                                                 <img src={att2} alt='쿠키열차'/>
@@ -323,7 +361,7 @@ const EnjoyList = memo(() => {
                                             </div>
                                         </div>
                                     </a>
-                                </li>
+                                </li> */}
                             </ul>
                         </div>
                     </div>

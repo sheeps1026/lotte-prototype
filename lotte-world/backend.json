@@ -15,5 +15,52 @@
   ],
   "profile": {
     "name": "typicode"
-  }
+  },
+  "enjoyInfoList": [
+    {
+      "EN_id": 1,
+      "title": "토킹트리",
+      "hashtag": "#패밀리",
+      "sub_txt": "로리왕국의 수호자인 토킹트리로부터 신비로운 매직포레스트의 옛 이야기를 들어보아요.",
+      "limit": false,
+      "info": [
+        "105cm 이상 ~ 140cm 미만 탑승 가능",
+        "90cm 이상 ~ 105cm 미만 보호자 동반 시 탑승 가능"
+      ],
+      "tip": "",
+      "loc": "팅거폴스",
+      "img": "https://adventurebusan.lotteworld.com/image/2022/2/202202250148171640_420.jpg",
+      "importImg": "att1"
+    },
+    {
+      "EN_id": 2,
+      "title": "쿠키열차",
+      "hashtag": ["#패밀리", "#매직패스", "#롤러코스터"],
+      "sub_txt": "우리에게 용기를 주는 신비한 쿠키를 찾으러 열차를 타고 쿠키공장으로 떠나요!",
+      "limit": true,
+      "info": [
+        "135cm 이상 탑승 가능",
+        "105cm 이상 ~ 135cm 미만 보호자 동반 시 탑승 가능"
+      ],
+      "tip": "어린이전용 어트랙션으로 36개월 미만 무료입장 유아 손님은 베이비이용권을 구입하셔야 이용할 수 있습니다.",
+      "loc": "조이풀메도우존 동물농장",
+      "img": "../../assets/images/pages/enjoy/202203240224470610.jpg",
+      "importImg": "att2"
+    },
+    {
+      "EN_id": 3,
+      "title": "날아라꼬꼬",
+      "hashtag": "#패밀리",
+      "sub_txt": "여우의 방해를 피해 점프!점프! 꼬꼬들을 타고 날아 보아요!",
+      "limit": true,
+      "info": [
+        "105cm 이상 ~ 140cm 미만 탑승 가능",
+        "90cm 이상 ~ 105cm 미만 보호자 동반 시 탑승 가능"
+      ],
+      "tip": "남녀노소 즐길 수 있는 롤러코스터!",
+      "loc": "조이풀메도우존 동물농장",
+      "img": "../../assets/images/pages/enjoy/202202250150303520.jpg",
+      "importImg": "att3"
+    }
+  ]
 }

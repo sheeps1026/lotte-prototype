@@ -703,11 +703,11 @@ const Ticketing = memo(() => {
   //  재확인 모달창 이벤트
   const confirmOpen = useCallback(() => {
     setConfOpen(true);
-    document.body.style.overflow = "hidden"; // 스크롤 불가능 but 화면 움직임 오류
+    // document.body.style.overflow = "hidden";
   });
   const confirmClose = useCallback(() => {
     setConfOpen(false);
-    document.body.style.overflow = "unset"; // 스크롤 가능
+    document.body.style.overflow = "unset";
   });
   //  달력 모달창 이벤트
   const calenderOpen = useCallback(() => {

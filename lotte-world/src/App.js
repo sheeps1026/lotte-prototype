@@ -138,7 +138,7 @@ const App = memo(() => {
           <Route path="/SideTab" exact={true} element={<SideTab />} />
 
           <Route path="/enjoyList" exact={true} element={<EnjoyList />} />
-          <Route path="/enjoyList/" exact={true} element={<EnjoyView />} />
+          <Route path="/enjoyView/*" exact={true} element={<EnjoyView />} />
           <Route path="/enjoyList/guide" exact={true} element={<Guide />} />
           <Route path="/customer" exact={true} element={<NoticeList />} />
           <Route path="/customer/notice-list/:N_id" element={<NoticeView />} />
