@@ -156,14 +156,11 @@
         "hashtag": "#패밀리",
         "sub_txt": "로리왕국의 수호자인 토킹트리로부터 신비로운 매직포레스트의 옛 이야기를 들어보아요.",
         "limit": false,
-        "info": [
-          "105cm 이상 ~ 140cm 미만 탑승 가능",
-          "90cm 이상 ~ 105cm 미만 보호자 동반 시 탑승 가능"
-        ],
+        "info": "",
         "tip": "",
         "loc": "팅거폴스",
-        "img": "public_img/enjoy/202202250148171640_420.jpg",
-        "visual": "public_img/enjoy/202202250148119610_1519.jpg"
+        "img": "/public_img/enjoy/202202250148171640_420.jpg",
+        "visual": "/public_img/enjoy/202202250148119610_1519.jpg"
       },
       {
         "EN_id": 2,
@@ -171,14 +168,11 @@
         "hashtag": "#롤러코스터",
         "sub_txt": "우리에게 용기를 주는 신비한 쿠키를 찾으러 열차를 타고 쿠키공장으로 떠나요!",
         "limit": true,
-        "info": [
-          "135cm 이상 탑승 가능",
-          "105cm 이상 ~ 135cm 미만 보호자 동반 시 탑승 가능"
-        ],
+        "info": "135cm 이상 탑승 가능",
         "tip": "어린이전용 어트랙션으로 36개월 미만 무료입장 유아 손님은 베이비이용권을 구입하셔야 이용할 수 있습니다.",
         "loc": "조이풀메도우",
-        "img": "public_img/enjoy/202203240224470610.jpg",
-        "visual": "public_img/enjoy/202203240224419361_1519.jpg"
+        "img": "/public_img/enjoy/202203240224470610.jpg",
+        "visual": "/public_img/enjoy/202203240224419361_1519.jpg"
       },
       {
         "EN_id": 3,
@@ -189,8 +183,8 @@
         "info": "105cm 이상 ~ 140cm 미만 탑승 가능",
         "tip": "남녀노소 즐길 수 있는 롤러코스터!",
         "loc": "조이풀메도우",
-        "img": "public_img/enjoy/202202250150303520.jpg",
-        "visual": "public_img/enjoy/202202250150248520_1519.jpg"
+        "img": "/public_img/enjoy/202202250150303520.jpg",
+        "visual": "/public_img/enjoy/202202250150248520_1519.jpg"
       },
       {
         "EN_id": 4,
@@ -201,8 +195,8 @@
         "info": "105cm 이상 ~ 140cm 미만 탑승 가능",
         "tip": "탑승 전 스트레칭 필수!",
         "loc": "언더랜드",
-        "img": "public_img/enjoy/202203240223051550.jpg",
-        "visual": "public_img/enjoy/202203240223018271_1519.jpg"
+        "img": "/public_img/enjoy/202203240223051550.jpg",
+        "visual": "/public_img/enjoy/202203240223018271_1519.jpg"
       },
       {
         "EN_id": 5,
@@ -213,8 +207,8 @@
         "info": "105cm 이상 탑승 가능",
         "tip": "탑승 후 어지러울 수 있어요",
         "loc": "레인보우스프링스",
-        "img": "public_img/enjoy/202203240226587330.jpg",
-        "visual": "public_img/enjoy/202203240226563112_1519.jpg"
+        "img": "/public_img/enjoy/202203240226587330.jpg",
+        "visual": "/public_img/enjoy/202203240226563112_1519.jpg"
       },
       {
         "EN_id": 6,
@@ -225,8 +219,8 @@
         "info": "130cm 이상 탑승 가능",
         "tip": "탑승 전 스트레칭 필수!",
         "loc": "언더랜드",
-        "img": "public_img/enjoy/202203240218146530.jpg",
-        "visual": "public_img/enjoy/202203240218126072_1519.jpg"
+        "img": "/public_img/enjoy/202203240218146530.jpg",
+        "visual": "/public_img/enjoy/202203240218126072_1519.jpg"
       }
     ]
 }

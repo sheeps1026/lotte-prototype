@@ -155,8 +155,7 @@ const Guide = memo(() => {
                 어트랙션, 식음&상품점을 <br />한 눈에 확인할 수 있습니다.
               </p>
               <div className="download">
-                {/* 파일 첨부 기능 추가 필요 */}
-                <a className="downBtn" href="public/2022_Guidemap.pdf" download="2022_Guidemap.pdf">
+                <a className="downBtn" href="/public/2022_Guidemap.pdf" download="2022_Guidemap.pdf">
                   <button type="submit">전체 가이드맵 다운로드</button>
                 </a>
               </div>
