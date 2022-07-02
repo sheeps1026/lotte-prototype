@@ -166,7 +166,6 @@ const EnjoyList = memo(() => {
             }
             if (json!=null) {
                 setView(json);
-                console.log(view)
             }
         })();
     }, []);
@@ -185,21 +184,21 @@ const EnjoyList = memo(() => {
                                 {view.map((v,i) => {
                                     return (
                                         <li key={i}>
-                                    <NavLink to={`/enjoyView/${v.EN_id}`} href='#!'>
-                                        <div className='cardimg'>
-                                            <p className='img'>
-                                                <img src={v.img} alt='토킹트리'/>
-                                            </p>
-                                            <p className='category'>어트랙션 {`[${v.loc}]`}</p>
-                                        </div>
-                                        <div className='cardtxt'>
-                                            <p className='tit'>{v.title}</p>
-                                            <div className='taglist'>
-                                                <p>{v.hashtag}</p>
-                                            </div>
-                                        </div>
-                                    </NavLink>
-                                </li>
+                                            <NavLink to={`/enjoyList/${v.EN_id}`} href='#!'>
+                                                <div className='cardimg'>
+                                                    <p className='img'>
+                                                        <img src={v.img} alt=''/>
+                                                    </p>
+                                                    <p className='category'>어트랙션 {`[${v.loc}]`}</p>
+                                                </div>
+                                                <div className='cardtxt'>
+                                                    <p className='tit'>{v.title}</p>
+                                                    <div className='taglist'>
+                                                        <p>{v.hashtag}</p>
+                                                    </div>
+                                                </div>
+                                            </NavLink>
+                                        </li>
                                     )
                                 })}
                                 {/* <li>
