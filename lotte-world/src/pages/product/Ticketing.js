@@ -4,7 +4,7 @@
  * @description: 예매할 날짜, 인원 선택
  */
 import React, { memo, useCallback, useState } from "react";
-import { Link,useLocation} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
@@ -23,16 +23,6 @@ import nodata from "../../assets/images/pages/product/nodata.png";
 
 import confirmBg from "../../assets/images/pages/product/bg_notice.png";
 import icon from "../../assets/images/pages/product/bg_popicon.png";
-
-// const weekArr = [
-//   { day: "월", date: 20 },
-//   { day: "화", date: 21 },
-//   { day: "수", date: 22 },
-//   { day: "목", date: 23 },
-//   { day: "금", date: 24 },
-//   { day: "토", date: 25 },
-//   { day: "일", date: 26 },
-// ];
 
 const personnalArr = [
   { tit: "어른", txt: "만 19세 이상" },
@@ -729,53 +719,64 @@ const Ticketing = memo(({}) => {
     // setToggleOn(!toggleOn);
   });
 
-
-  // 선택한 티켓 종류 가져오기 
+  // 선택한 티켓 종류 가져오기
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   //티켓종류 출력
-  // console.log(params.get("T_id"))  
-  const [ticketId , setTicketId] = useState("");
+  // console.log(params.get("T_id"))
+  const [ticketId, setTicketId] = useState("");
 
   //오늘 날짜
-//  const [weekArr , setWeekArr] = useState();
+  //  const [weekArr , setWeekArr] = useState();
   // console.log(weekArr);
   // console.log(dayjs().date(),dayjs().day());
-  
-  let currentDay = new Date();  
+
+  let currentDay = new Date();
   let theYear = currentDay.getFullYear();
   let theMonth = currentDay.getMonth();
-  let theDate  = currentDay.getDate();
+  let theDate = currentDay.getDate();
   let theDayOfWeek = currentDay.getDay();
-   
+
   let thisWeek = [];
   let weekArr = [];
-  
-  for(let i=0; i<7; i++) {
+
+  let dayArr = [
+    { day: "월" },
+    { day: "화" },
+    { day: "수" },
+    { day: "목" },
+    { day: "금" },
+    { day: "토" },
+    { day: "일" },
+  ];
+
+  for (let i = 0; i < 7; i++) {
     let resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek));
     // let yyyy = resultDay.getFullYear();
     // let mm = Number(resultDay.getMonth()) + 1;
     let dd = resultDay.getDate();
-    
+
     // mm = String(mm).length === 1 ? '0' + mm : mm;
-    dd = String(dd).length === 1 ? '0' + dd : dd;
-   
+    dd = String(dd).length === 1 ? "0" + dd : dd;
+
     thisWeek[i] = dd;
     // weekArr.push(thisWeek.date[i])
+    dayArr[i].date = thisWeek[i];
   }
 
-  console.log(thisWeek+ "  이번주 날짜");
-   
-const dayArr = [
-  { day: "월" },
-  { day: "화" },
-  { day: "수" },
-  { day: "목" },
-  { day: "금" },
-  { day: "토" },
-  { day: "일" },
-];
- 
+  // console.log(thisWeek);
+
+  console.log(dayArr);
+
+  // const weekArr = [
+  //   { day: "월", date: 20 },
+  //   { day: "화", date: 21 },
+  //   { day: "수", date: 22 },
+  //   { day: "목", date: 23 },
+  //   { day: "금", date: 24 },
+  //   { day: "토", date: 25 },
+  //   { day: "일", date: 26 },
+  // ];
 
   return (
     <TicketingStyled>
@@ -807,8 +808,8 @@ const dayArr = [
                   <div className="calWrap">
                     <div className="inner">
                       <ul>
-                        {/* {weekArr ? (
-                          weekArr.map((v, i) => {
+                        {dayArr ? (
+                          dayArr.map((v, i) => {
                             return (
                               <li key={i}>
                                 <button type="button" className="btnDate">
@@ -820,7 +821,7 @@ const dayArr = [
                           })
                         ) : (
                           <></>
-                        )} */}
+                        )}
                       </ul>
                     </div>
                   </div>
