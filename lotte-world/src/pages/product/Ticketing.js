@@ -761,7 +761,7 @@ const Ticketing = memo(({}) => {
     dd = String(dd).length === 1 ? '0' + dd : dd;
    
     thisWeek[i] = dd;
-    weekArr.push(thisWeek[i])
+    // weekArr.push(thisWeek.date[i])
   }
 
   console.log(thisWeek+ "  이번주 날짜");
