@@ -156,7 +156,7 @@ const Guide = memo(() => {
               </p>
               <div className="download">
                 {/* 파일 첨부 기능 추가 필요 */}
-                <a className="downBtn">
+                <a className="downBtn" href="public/2022_Guidemap.pdf" download="2022_Guidemap.pdf">
                   <button type="submit">전체 가이드맵 다운로드</button>
                 </a>
               </div>

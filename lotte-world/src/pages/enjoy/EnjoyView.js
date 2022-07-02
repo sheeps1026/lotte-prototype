@@ -1,6 +1,6 @@
 import React, { memo, useState, useEffect } from 'react';
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 // 슬라이드
 import Slider from "react-slick";
@@ -12,9 +12,6 @@ import { ko } from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 
 import arrow from "../../assets/images/arrow-right.png";
-import slide1 from "../../assets/images/pages/enjoy/202203240224396860_1519.jpg";
-import slide2 from "../../assets/images/pages/enjoy/202203240224419361_1519.jpg";
-// import slide1 from "../../assets/images/pages/enjoy/202202250148119610_1519.jpg";
 
 import guideIcon2 from "../../assets/images/pages/enjoy/guide-list-icon2.png";
 import guideIcon3 from "../../assets/images/pages/enjoy/guide-list-icon3.png";
@@ -380,13 +377,14 @@ margin: 15px auto 35px;
  }
 `;
 const EnjoyView = memo(() => {
-
+    const {EN_id} = useParams();
+    console.log(EN_id);
     const [view, setView] = useState([]);
     useEffect(() => {
         (async () => {
             let json = null;
             try {
-                const response = await axios.get(`http://localhost:3001/enjoyInfoList`);
+                const response = await axios.get(`http://localhost:3001/enjoyInfoList?EN_id=${EN_id}`);
                 json = response.data;
             } catch (e) {
                 console.error(e);
@@ -413,7 +411,7 @@ const EnjoyView = memo(() => {
         <EnjoyViewStyled>
             {view.map((v, i) => {
                 return (
-                <>
+                <div key={i}>
                     <div className='title'>
                         <h2>{v.title}</h2>
                         <div className='tag_list'>
@@ -425,10 +423,7 @@ const EnjoyView = memo(() => {
                             <div className='sub_visual'>
                             <Slider {...settings}>
                                 <div>
-                                    <img src={slide1} alt="slide1" />
-                                </div>
-                                <div>
-                                    <img src={v.img} alt="slide2" />
+                                    <img src={v.visual} alt='visual'/>
                                 </div>
                             </Slider>
                             </div>
@@ -488,9 +483,12 @@ const EnjoyView = memo(() => {
                                                         </span>
                                                         이용안내
                                                     </div>
-                                                    <div className='txt'>
+                                                    {/* <div className='txt'>
                                                         135cm 이상 탑승 가능 <br/>
                                                         105cm 이상 ~ 135cm 미만 보호자 동반 시 탑승 가능
+                                                    </div> */}
+                                                    <div className='txt'>
+                                                        {v.info}
                                                     </div>
                                                 </li>
                                                 <li>
@@ -537,9 +535,9 @@ const EnjoyView = memo(() => {
                                         <div className='map_area'>
                                             <div className='map_more'>
                                                 <img src={landmap} alt='map'/>
-                                                <div className='picker'>
+                                                {/* <div className='picker'>
                                                     <img src={picker} alt='picker'/>
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
                                     </div>
@@ -552,7 +550,7 @@ const EnjoyView = memo(() => {
                             </div>
                         </div>
                     </div>
-                    </>
+                    </div>
                 )
             })}
         </EnjoyViewStyled>
