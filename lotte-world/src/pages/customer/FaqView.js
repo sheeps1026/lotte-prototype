@@ -130,7 +130,7 @@ const FaqView = memo((F_id) => {
 
   const { F_division } = useParams();
   const [faqList, setFaqList] = React.useState([]);
-  console.log("받아옴" + F_division);
+  // console.log("받아옴" + F_division);
   React.useEffect(() => {
     (async () => {
       let json = null;

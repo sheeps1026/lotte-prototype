@@ -1,8 +1,10 @@
 import React, { memo, useCallback } from "react";
-import TtitleArea from "../../components/title_area/TitleArea";
-import {  Link } from "react-router-dom";
+import btn from "../../assets/images/srch-icon.png";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import NoResultsFound from "../../components/NoResultsFound";
+
 const FlexBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -60,64 +62,171 @@ const FlexBox = styled.div`
     }
   }
 `;
+const SearchWrap = styled.div`
+  position: sticky;
+  position: -webkit-sticky; /* 사파리 브라우저 지원 */
+  top: 50px;
+  .selectSearchWrap {
+    display: flex;
+    .search-border {
+      width: 275px;
+      margin: 0 0 0 20px;
+    }
+  }
+
+  h1 {
+    margin: 20px 0 40px 0;
+    font-size: 60px;
+    letter-spacing: -4px;
+    font-weight: bold;
+  }
+  .search-border {
+    border-bottom: 2px solid #000;
+    width: 350px;
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+
+    input[type="search"] {
+      border: none;
+      font-size: 17px;
+
+      width: 100%;
+      /* margin: 20px 0 25px 0; */
+      padding: 20px 0 25px 0;
+      &:focus {
+        outline: none;
+      }
+      &::placeholder {
+        color: #aaa;
+        font-size: 17px;
+      }
+    }
+    button {
+      background: url(${btn}) no-repeat;
+      border: none;
+      width: 35px;
+      margin: 20px 0 0 0;
+      display: inline-block;
+      height: 35px;
+      /* border: 1px solid red; */
+      text-indent: -999px;
+    }
+  }
+`;
 
 const NoticeList = memo(() => {
-  const title = "공지사항";
+  //검색 키워드 가져오기
+  const [keyword, setKeyword] = React.useState("");
 
+  //검색어 입력요소에 연결한 참조 변수
+  const keywordInput = React.useRef();
+
+  //검색 버튼을 누르면 실행되는 함수 , 성능 최적화를 위해 콜백함수 적용
+  const onSearch = () => {
+    setKeyword(keywordInput.current.value);
+  };
+  //마우스 오버시 부모에 class 추가 
   const colorChange = useCallback((e) => {
     e.target.parentNode.classList.add("colorChange");
     // console.log("마우스 들어옴", e.target.parentNode);
   });
-
+//마우스 오버시 부모에 class 제거  
   const colorReChange = useCallback((e) => {
     e.target.parentNode.classList.remove("colorChange");
     // console.log("마우스 나감", e.target.parentNode);
   });
 
-  const [notice,setNotice] = React.useState([]);
-  const [N_count,setN_count] = React.useState(0);
+  //공지사항 리스트 만드는 상태값
+  const [notice, setNotice] = React.useState([]);
+  //공지사항 리스트 갯수 상태값
+  const [N_count, setN_count] = React.useState(0);
+
+
   React.useEffect(() => {
     (async () => {
       let json = null;
       try {
-        const response = await axios.get(`http://localhost:3001/bbs_notices`);
-        json = response.data;
-        // console.log(json);
+        // 검색 키워드가 없다면
+        if (keyword === "") {
+          // 백엔드 get
+          const response = await axios.get(`http://localhost:3001/bbs_notices`);
+          //json에 리스트 담기
+          json = response.data;
+          
+          console.log("키워드 없다");
+          
+          //뿌려줄 리스트에 json 담기
+          setNotice(json);
+          //json의 갯수에 따라 바뀌는 리스트 갯수
+          setN_count(json.length);
+          //키워드가 있을 경우
+          } else {
+        
+          const response = await axios.get(`http://localhost:3001/bbs_notices`);
+            //입력한 키워드 값이 무엇인지 가져옴
+          console.log("키워드 있다", keyword);
+          json = response.data;
+          
+          //지우셔도 됩니다.. ^^
+          json.filter((keyword) => {
+            keyword = "코로나";
+          });
+          //가져온 json으로 리스트를 바꿈
+          setNotice(json);
+        }
+
+        // 오류 날경우
       } catch (e) {
         console.log(e);
       }
-      if(json != null){
-        setNotice(json);
-        setN_count(json.length);
-      }
     })();
-    
-  },[]);
+    //키워드가 바뀔때마다 실행
+  }, [keyword]);
+
   return (
     <FlexBox>
-      <TtitleArea title={title} />
-
+      {/* <TtitleArea title={title} /> */}
+      <SearchWrap>
+        <h1>공지사항</h1>
+        <div className="search-border">
+          <input
+            type="search"
+            // 키워드 인식하는 ref 함수
+            ref={keywordInput}
+            placeholder="검색어를 입력하세요"
+          />
+          {/* 클릭식 검색 함수 실행 */}
+          <button onClick={onSearch}>검색</button>
+        </div>
+      </SearchWrap>
       <ul className="NoticeList">
         <li className="NoticeFirst">
           총 <span>{N_count}</span>개
         </li>
-        {notice.map((v, i) => {
-          return (
-            <li key={i}>
-              <Link
-                to={`/customer/notice-list/${v.N_id}`}
-                onMouseOver={colorChange}
-                onMouseLeave={colorReChange}
-              >
-                <h3>{v.N_division}</h3>
-                <div className="title-wrap">
-                  <p>{v.N_title}</p>
-                  <span>{v.N_reg_date}</span>
-                </div>
-              </Link>
-            </li>
-          );
-        })}
+        {/* 리스트가 없을경우엔 검색 결과가 없는 페이지 나옴 */}
+        {notice === "[]" ? (
+          <NoResultsFound />
+        ) : (
+          //리스트가 있는 경우에 화면에 뿌려줌
+          notice.map((v, i) => {
+            return (
+              <li key={i}>
+                <Link
+                  to={`/customer/notice-list/${v.N_id}`}
+                  onMouseOver={colorChange}
+                  onMouseLeave={colorReChange}
+                >
+                  <h3>{v.N_division === "1" ? `공지` : `안내`}</h3>
+                  <div className="title-wrap">
+                    <p>{v.N_title}</p>
+                    <span>{v.N_reg_date}</span>
+                  </div>
+                </Link>
+              </li>
+            );
+          })
+        )}
       </ul>
     </FlexBox>
   );

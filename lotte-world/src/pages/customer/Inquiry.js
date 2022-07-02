@@ -51,7 +51,7 @@ const Category = styled(NavLink)`
 const Inquiry = memo(() => {
   const mouseHoverEvent = React.useCallback((e) => {
 
-   console.log(e.target.dataset.number);
+  //  console.log(e.target.dataset.number);
   //  e.target.children[0].src= `${inquiry1On}`;
     if ((e.target.dataset.number == 0)) {
       

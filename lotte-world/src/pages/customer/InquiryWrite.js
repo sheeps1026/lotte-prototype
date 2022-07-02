@@ -292,7 +292,7 @@ const InquiryWrite = memo(() => {
       <form name="">
         <div className="CheckBoxWrap">
           <input type="checkbox" id="checkBoxWrap" />
-          <label for="checkBoxWrap">동의합니다.</label>
+          <label htmlFor="checkBoxWrap">동의합니다.</label>
         </div>
         <div className="titleWrap">
           <h4>문의등록</h4>
@@ -329,7 +329,7 @@ const InquiryWrite = memo(() => {
         <h5>첨부파일</h5>
         <div className="fileCon">
           <input type="file" className="fileAddBtn" id="fileAdd" />
-          <label for="fileAdd">첨부파일</label>
+          <label htmlFor="fileAdd">첨부파일</label>
           <div className="fileWrap">
             <span className="fileName">
               filenamefilenamefilenamefilenamefilenamefilename

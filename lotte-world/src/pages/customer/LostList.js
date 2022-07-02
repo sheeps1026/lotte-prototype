@@ -82,7 +82,7 @@ const LostList = memo(() => {
 
   // console.log(openLost);
   const [lostList, setLostList] = React.useState([]);
-
+  const [count,setCount] = React.useState(0);
   React.useEffect(() => {
     (async () => {
       let json = null;
@@ -94,6 +94,7 @@ const LostList = memo(() => {
       }
       if (json != null) {
         setLostList(json);
+        setCount(json.length);
       }
     })();
   }, []);
@@ -103,7 +104,7 @@ const LostList = memo(() => {
       <LostListWrap>
         <div className="CountWrap">
           <div>
-            총 <span>{}</span>개
+            총 <span>{count}</span>개
           </div>
           <button
             type="button"
