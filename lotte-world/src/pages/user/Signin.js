@@ -2,7 +2,7 @@
 // @description : 이름, 아이디, 비밀번호, 비밀번호 확인, 주민번호,
 //                성별, 휴대전화, 이메일 정보를 입력하여 가입
 
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -68,18 +68,43 @@ const SigninContainer = styled.form`
 `;
 
 const Signin = memo(() => {
+  const initialValues = { name: "" };
+  const [formValues, setFormValues] = useState(initialValues);
+  const [formError, setFormError] = useState({});
+
+  const onValueChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+    // setFormValues({ ...formValues, name: value });
+    console.log(formValues);
+  };
+
+  const onValueSubmit = (e) => {
+    e.preventDefault();
+    setFormError(validation(formValues));
+  };
+
+  const validation = (values) => {};
+
   return (
-    <SigninContainer>
+    <SigninContainer onSubmit={onValueSubmit}>
       <h2>회원가입</h2>
       <div className="info">
         <label htmlFor="">아이디</label>
-        <input type="text" />
+        <input type="text" placeholder="아이디" />
         <label htmlFor="">비밀번호</label>
-        <input type="password" />
-        <label htmlFor="">비밀번호 확인</label>
+        <input type="password" placeholder="비밀번호" />
+        <label htmlFor="" placeholder="비밀번호 확인">
+          비밀번호 확인
+        </label>
         <input type="password" />
         <label htmlFor="">이름</label>
-        <input type="text" />
+        <input
+          type="text"
+          placeholder="이름"
+          value={formValues.name}
+          onChange={onValueChange}
+        />
         <div className="info-rrn">
           <label htmlFor="">주민번호</label>
           <div>
@@ -89,9 +114,9 @@ const Signin = memo(() => {
           </div>
         </div>
         <label htmlFor="">전화번호</label>
-        <input type="number" />
+        <input type="number" placeholder="전화번호" />
         <label htmlFor="">이메일</label>
-        <input type="email" />
+        <input type="email" placeholder="이메일" />
       </div>
       <Link to="/TicketingPage/SigninConfirm">
         <button type="submit">확인</button>

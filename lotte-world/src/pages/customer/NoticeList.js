@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from "react";
+import React, { memo, useCallback, useState, useRef, useEffect } from "react";
 import btn from "../../assets/images/srch-icon.png";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -117,72 +117,78 @@ const SearchWrap = styled.div`
 
 const NoticeList = memo(() => {
   //검색 키워드 가져오기
-  const [keyword, setKeyword] = React.useState("");
+  const [keyword, setKeyword] = useState("");
+
+  const [filterKeyword, setFilterKeyword] = useState([]);
 
   //검색어 입력요소에 연결한 참조 변수
-  const keywordInput = React.useRef();
+  const keywordInput = useRef();
 
   //검색 버튼을 누르면 실행되는 함수 , 성능 최적화를 위해 콜백함수 적용
   const onSearch = () => {
     setKeyword(keywordInput.current.value);
   };
-  //마우스 오버시 부모에 class 추가 
+
+  //마우스 오버시 부모에 class 추가
   const colorChange = useCallback((e) => {
     e.target.parentNode.classList.add("colorChange");
     // console.log("마우스 들어옴", e.target.parentNode);
   });
-//마우스 오버시 부모에 class 제거  
+  //마우스 오버시 부모에 class 제거
   const colorReChange = useCallback((e) => {
     e.target.parentNode.classList.remove("colorChange");
     // console.log("마우스 나감", e.target.parentNode);
   });
 
   //공지사항 리스트 만드는 상태값
-  const [notice, setNotice] = React.useState([]);
+  const [notice, setNotice] = useState([]);
   //공지사항 리스트 갯수 상태값
-  const [N_count, setN_count] = React.useState(0);
+  const [N_count, setN_count] = useState(0);
 
-
-  React.useEffect(() => {
+  useEffect(() => {
     (async () => {
       let json = null;
+
       try {
         // 검색 키워드가 없다면
-        if (keyword === "") {
+        if (filterKeyword === "") {
           // 백엔드 get
           const response = await axios.get(`http://localhost:3001/bbs_notices`);
           //json에 리스트 담기
           json = response.data;
-          
+
           console.log("키워드 없다");
-          
+
           //뿌려줄 리스트에 json 담기
           setNotice(json);
           //json의 갯수에 따라 바뀌는 리스트 갯수
           setN_count(json.length);
+
           //키워드가 있을 경우
-          } else {
-        
+        } else {
           const response = await axios.get(`http://localhost:3001/bbs_notices`);
-            //입력한 키워드 값이 무엇인지 가져옴
-          console.log("키워드 있다", keyword);
+
+          console.log("키워드 있다", filterKeyword);
           json = response.data;
-          
-          //지우셔도 됩니다.. ^^
-          json.filter((keyword) => {
-            keyword = "코로나";
-          });
+
           //가져온 json으로 리스트를 바꿈
           setNotice(json);
         }
-
-        // 오류 날경우
       } catch (e) {
         console.log(e);
       }
     })();
-    //키워드가 바뀔때마다 실행
-  }, [keyword]);
+  }, [filterKeyword]);
+
+  const onFilterKeyword = (e) => {
+    const searchKeyword = e.target.value;
+
+    const newFilter = notice.filter((value) => {
+      return value.N_title.includes(searchKeyword);
+    });
+
+    setFilterKeyword(newFilter);
+  };
 
   return (
     <FlexBox>
@@ -192,12 +198,11 @@ const NoticeList = memo(() => {
         <div className="search-border">
           <input
             type="search"
-            // 키워드 인식하는 ref 함수
             ref={keywordInput}
             placeholder="검색어를 입력하세요"
+            onChange={onFilterKeyword}
           />
-          {/* 클릭식 검색 함수 실행 */}
-          <button onClick={onSearch}>검색</button>
+          <button>검색</button>
         </div>
       </SearchWrap>
       <ul className="NoticeList">
@@ -209,7 +214,7 @@ const NoticeList = memo(() => {
           <NoResultsFound />
         ) : (
           //리스트가 있는 경우에 화면에 뿌려줌
-          notice.map((v, i) => {
+          filterKeyword.map((v, i) => {
             return (
               <li key={i}>
                 <Link
