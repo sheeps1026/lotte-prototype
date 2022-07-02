@@ -157,7 +157,7 @@
                        </dl>
                      </div>
                      <div className="ti_btn">
-                     <Link to="/TicketingPage/Ticketing">
+                     <Link to="/TicketingPage/Ticketing?T_id=1">
                          <div className="arrow">
                            <img src={ticketArrow} alt="" />
                          </div>
@@ -181,7 +181,7 @@
                        </dl>
                      </div>
                      <div className="ti_btn">
-                       <Link to="/TicketingPage/Ticketing">
+                       <Link to="/TicketingPage/Ticketing?T_id=2">
                          <div className="arrow">
                            <img src={ticketArrow} alt="" />
                          </div>
@@ -205,7 +205,7 @@
                        </dl>
                      </div>
                      <div className="ti_btn">
-                       <Link to="/TicketingPage/Ticketing">
+                       <Link to="/TicketingPage/Ticketing?T_id=3">
                          <div className="arrow">
                            <img src={ticketArrow} alt="" />
                          </div>

@@ -179,7 +179,7 @@ const App = memo(() => {
           <Route path="/PaymentChk2" element={<PaymentChk2 />} />
           <Route path="/PaymentChk3" element={<PaymentChk3 />} />
           <Route path="/PaymentChk4" element={<PaymentChk4 />} />
-          <Route path="/TicketingPage" element={<TicketingMain />} />
+          <Route path="/TicketingPage" element={<TicketingMain  />} />
           <Route path="/TicketingPage/Ticketing" element={<Ticketing />} />
           <Route
             path="/TicketingPage/Ticketing/Payment"

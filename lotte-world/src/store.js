@@ -1,12 +1,12 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { createLogger } from "redux-logger";
-import noticeSlice from "./slice/noticeSlice";
 
+import PaymentSlice from "./slice/PaymentSlice";
 const logger = createLogger();
 
 const store = configureStore({
   reducer: {
-      notice:noticeSlice
+    payment:PaymentSlice
   },
   middleware: [...getDefaultMiddleware({serialzableCheck:false})],
   devTools: true,
