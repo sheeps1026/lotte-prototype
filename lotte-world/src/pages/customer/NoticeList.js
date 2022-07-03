@@ -62,6 +62,7 @@ const FlexBox = styled.div`
     }
   }
 `;
+
 const SearchWrap = styled.div`
   position: sticky;
   position: -webkit-sticky; /* 사파리 브라우저 지원 */
@@ -116,72 +117,17 @@ const SearchWrap = styled.div`
 `;
 
 const NoticeList = memo(() => {
-  //검색 키워드 가져오기
-  const [keyword, setKeyword] = useState("");
-
   const [filterKeyword, setFilterKeyword] = useState([]);
 
-  //검색어 입력요소에 연결한 참조 변수
   const keywordInput = useRef();
 
-  //검색 버튼을 누르면 실행되는 함수 , 성능 최적화를 위해 콜백함수 적용
-  const onSearch = () => {
-    setKeyword(keywordInput.current.value);
-  };
-
-  //마우스 오버시 부모에 class 추가
-  const colorChange = useCallback((e) => {
-    e.target.parentNode.classList.add("colorChange");
-    // console.log("마우스 들어옴", e.target.parentNode);
-  });
-  //마우스 오버시 부모에 class 제거
-  const colorReChange = useCallback((e) => {
-    e.target.parentNode.classList.remove("colorChange");
-    // console.log("마우스 나감", e.target.parentNode);
-  });
-
-  //공지사항 리스트 만드는 상태값
+  // 공지사항 리스트 만드는 상태값
   const [notice, setNotice] = useState([]);
-  //공지사항 리스트 갯수 상태값
+  // 공지사항 리스트 갯수 상태값
   const [N_count, setN_count] = useState(0);
 
-  useEffect(() => {
-    (async () => {
-      let json = null;
-
-      try {
-        // 검색 키워드가 없다면
-        if (filterKeyword === "") {
-          // 백엔드 get
-          const response = await axios.get(`http://localhost:3001/bbs_notices`);
-          //json에 리스트 담기
-          json = response.data;
-
-          console.log("키워드 없다");
-
-          //뿌려줄 리스트에 json 담기
-          setNotice(json);
-          //json의 갯수에 따라 바뀌는 리스트 갯수
-          setN_count(json.length);
-
-          //키워드가 있을 경우
-        } else {
-          const response = await axios.get(`http://localhost:3001/bbs_notices`);
-
-          console.log("키워드 있다", filterKeyword);
-          json = response.data;
-
-          //가져온 json으로 리스트를 바꿈
-          setNotice(json);
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    })();
-  }, [filterKeyword]);
-
   const onFilterKeyword = (e) => {
-    const searchKeyword = e.target.value;
+    const searchKeyword = keywordInput.current.value;
 
     const newFilter = notice.filter((value) => {
       return value.N_title.includes(searchKeyword);
@@ -189,6 +135,38 @@ const NoticeList = memo(() => {
 
     setFilterKeyword(newFilter);
   };
+
+  useEffect(() => {
+    (async () => {
+      let json = null;
+
+      try {
+        const response = await axios.get(`http://localhost:3001/bbs_notices`);
+        //json에 리스트 담기
+        json = response.data;
+
+        //뿌려줄 리스트에 json 담기
+        setNotice(json);
+        //json의 갯수에 따라 바뀌는 리스트 갯수
+        // setN_count(json.length);
+
+        notice == ""
+          ? setN_count(json.length)
+          : setN_count(filterKeyword.length);
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  }, [filterKeyword]);
+
+  const colorChange = useCallback((e) => {
+    e.target.parentNode.classList.add("colorChange");
+    // console.log("마우스 들어옴", e.target.parentNode);
+  });
+  const colorReChange = useCallback((e) => {
+    e.target.parentNode.classList.remove("colorChange");
+    // console.log("마우스 나감", e.target.parentNode);
+  });
 
   return (
     <FlexBox>
@@ -200,20 +178,35 @@ const NoticeList = memo(() => {
             type="search"
             ref={keywordInput}
             placeholder="검색어를 입력하세요"
-            onChange={onFilterKeyword}
           />
-          <button>검색</button>
+          <button onClick={onFilterKeyword}>검색</button>
         </div>
       </SearchWrap>
       <ul className="NoticeList">
         <li className="NoticeFirst">
           총 <span>{N_count}</span>개
         </li>
-        {/* 리스트가 없을경우엔 검색 결과가 없는 페이지 나옴 */}
         {notice === "[]" ? (
           <NoResultsFound />
+        ) : filterKeyword == "" ? (
+          notice.map((v, i) => {
+            return (
+              <li key={i}>
+                <Link
+                  to={`/customer/notice-list/${v.N_id}`}
+                  onMouseOver={colorChange}
+                  onMouseLeave={colorReChange}
+                >
+                  <h3>{v.N_division === "1" ? `공지` : `안내`}</h3>
+                  <div className="title-wrap">
+                    <p>{v.N_title}</p>
+                    <span>{v.N_reg_date}</span>
+                  </div>
+                </Link>
+              </li>
+            );
+          })
         ) : (
-          //리스트가 있는 경우에 화면에 뿌려줌
           filterKeyword.map((v, i) => {
             return (
               <li key={i}>

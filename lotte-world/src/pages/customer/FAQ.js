@@ -71,7 +71,7 @@ const FAQ = memo(({ match }) => {
         <NavLink to="/customer/FAQ/o">온라인예매</NavLink>
         <NavLink to="/customer/FAQ/a">기타</NavLink>
         <Routes>
-          <Route path=""  element={<FaqView props={F_division} />} />
+          <Route path="" element={<FaqView props={F_division} />} />
         </Routes>
       </nav>
     </FlexBox>

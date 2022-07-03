@@ -158,7 +158,17 @@ const FaqView = memo((F_id) => {
         return (
           <button className="toggle-btn" key={i} onClick={toggleBtnHandle}>
             <div className="notice-title">
-              <h4>{v.F_division === "y" ? (`연간이용`) : (v.F_division === "a" ?(`기타`):(v.F_division === "u" ?(`우대정보`):(v.F_division === "o" ?(`온라인예매`):(F_division))))}</h4>
+              <h4>
+                {v.F_division === "y"
+                  ? `연간이용`
+                  : v.F_division === "a"
+                  ? `기타`
+                  : v.F_division === "u"
+                  ? `우대정보`
+                  : v.F_division === "o"
+                  ? `온라인예매`
+                  : F_division}
+              </h4>
               {/* <h4>{F_division}</h4> */}
               <h2>{v.F_title}</h2>
               <div className="notice-description">{v.F_content}</div>

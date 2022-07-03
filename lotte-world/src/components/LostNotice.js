@@ -10,7 +10,7 @@ const Background = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
-  left:0;
+  left: 0;
   bottom: 0;
   display: flex;
   justify-content: center;
@@ -66,25 +66,24 @@ const EmailContainer = styled.div`
       letter-spacing: -0.36px;
       line-height: 48px;
     }
-    img{
+    img {
       width: 100%;
     }
   }
 `;
 
-const Email = memo(({ setOpenLost }) => {
+const Email = memo(({ setOpenLostModal }) => {
   return (
     <Background>
       <EmailContainer>
         <header>
           <h2>분실물 처리 절차</h2>
-          <button onClick={() => setOpenLost(false)}>
+          <button onClick={() => setOpenLostModal(false)}>
             <img src={CloseBtn} alt="" />
           </button>
         </header>
         <div className="inner">
           <img src={Img} alt="" />
-         
         </div>
       </EmailContainer>
     </Background>
