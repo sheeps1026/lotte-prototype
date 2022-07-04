@@ -1,9 +1,13 @@
-import React, { memo } from "react";
-import styled from "styled-components";
-import TtitleArea from "../../components/title_area/TitleArea";
-import FaqView from "../customer/FaqView";
+import React, { memo, useState, useEffect, useRef } from "react";
 import { Routes, Route, NavLink, useParams } from "react-router-dom";
 import axios from "axios";
+
+import styled from "styled-components";
+
+import FaqView from "../customer/FaqView";
+
+import btn from "../../assets/images/srch-icon.png";
+
 const FlexBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -39,31 +43,107 @@ const FlexBox = styled.div`
   }
 `;
 
-const FAQ = memo(({ match }) => {
-  const { F_division } = useParams();
-  // console.log(F_id);
-  // console.log(N_id);
-  const title = "자주묻는 질문";
+const SearchWrap = styled.div`
+  position: sticky;
+  position: -webkit-sticky; /* 사파리 브라우저 지원 */
+  top: 50px;
 
-  const [faqList, setFaq] = React.useState([]);
-  React.useEffect(() => {
+  .selectSearchWrap {
+    display: flex;
+  }
+
+  h1 {
+    margin: 20px 0 40px 0;
+    font-size: 60px;
+    letter-spacing: -4px;
+    font-weight: bold;
+  }
+  .search-border {
+    border-bottom: 2px solid #000;
+    width: 350px;
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+
+    input[type="search"] {
+      border: none;
+      font-size: 17px;
+
+      width: 100%;
+      /* margin: 20px 0 25px 0; */
+      padding: 20px 0 25px 0;
+      &:focus {
+        outline: none;
+      }
+      &::placeholder {
+        color: #aaa;
+        font-size: 17px;
+      }
+    }
+    button {
+      background: url(${btn}) no-repeat;
+      border: none;
+      width: 35px;
+      margin: 20px 0 0 0;
+      display: inline-block;
+      height: 35px;
+      /* border: 1px solid red; */
+      text-indent: -999px;
+    }
+  }
+`;
+
+const FAQ = memo(() => {
+  const { F_division } = useParams();
+  const keywordInput = useRef();
+
+  const [filterKeyword, setFilterKeyword] = useState([]);
+
+  // 리스트 만드는 상태값
+  const [list, setList] = useState([]);
+
+  const onFilterKeyword = (e) => {
+    const searchKeyword = keywordInput.current.value;
+
+    const newFilter = list.filter((value) => {
+      return value.F_title.includes(searchKeyword);
+    });
+
+    setFilterKeyword(newFilter);
+  };
+
+  useEffect(() => {
     (async () => {
       let json = null;
+
       try {
         const response = await axios.get(`http://localhost:3001/bbs_faq`);
+        //json에 리스트 담기
         json = response.data;
-      } catch (e) {
-        console.error(e);
-      }
 
-      if (json != null) {
-        setFaq(json);
+        //뿌려줄 리스트에 json 담기
+        setList(json);
+      } catch (e) {
+        console.log(e);
       }
     })();
-  }, []);
+  }, [filterKeyword]);
+
   return (
     <FlexBox>
-      <TtitleArea title={title} />
+      <SearchWrap>
+        <h1>자주묻는질문</h1>
+        <div className="selectSearchWrap">
+          <div className="search-border">
+            <input
+              type="search"
+              ref={keywordInput}
+              placeholder="검색어를 입력하세요."
+            />
+            <button onClick={onFilterKeyword}>검색</button>
+          </div>
+        </div>
+      </SearchWrap>
       <nav>
         <NavLink to="/customer/FAQ/all">전체</NavLink>
         <NavLink to="/customer/FAQ/y">연간이용</NavLink>
@@ -71,7 +151,17 @@ const FAQ = memo(({ match }) => {
         <NavLink to="/customer/FAQ/o">온라인예매</NavLink>
         <NavLink to="/customer/FAQ/a">기타</NavLink>
         <Routes>
-          <Route path="" element={<FaqView props={F_division} />} />
+          <Route
+            path=""
+            element={
+              <FaqView
+                F_division={F_division}
+                filterKeyword={filterKeyword}
+                setFilterKeyword={setFilterKeyword}
+                list={list}
+              />
+            }
+          />
         </Routes>
       </nav>
     </FlexBox>

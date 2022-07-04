@@ -1,8 +1,11 @@
-import React, { memo } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
-import Customer from "./Customer";
 import axios from "axios";
+
+import styled from "styled-components";
+
+import NoResultsFound from "../../components/NoResultsFound";
+
 import q from "../../assets/images/faq-icon-q.png";
 import a from "../../assets/images/faq-icon-a.png";
 import toggle from "../../assets/images/toggle.png";
@@ -101,84 +104,110 @@ const FaqViewWrap = styled.div`
   }
 `;
 
-const FaqView = memo((F_id) => {
-  let clicked = 1;
-  const toggleBtnHandle = (e) => {
-    // console.log(e.target.parentNode.parentNode);
-    const mother = e.target.parentNode.parentNode;
-    console.log(mother);
-    if (clicked) {
-      clicked = 0;
-      // console.log("클릭됨");
-      // mother.lastChild.lastChild.style.border = "1px solid red"
-      mother.lastChild.lastChild.style.transform = "rotate(180deg)";
-      mother.lastChild.lastChild.style.transition = "all 0.4s";
-      console.log();
-      mother.lastChild.childNodes[2].style.padding = "20px 40px";
-      mother.lastChild.childNodes[2].style.height = "auto";
+const FaqView = memo(
+  ({ F_division, filterKeyword, setFilterKeyword, list }) => {
+    let clicked = 1;
 
-      mother.style.backgroundColor = "#f1f1f1";
-    } else {
-      clicked = 1;
-      // console.log("토글");
-      mother.lastChild.lastChild.style.transform = "rotate(0deg)";
-      mother.lastChild.childNodes[2].style.padding = "0";
-      mother.lastChild.childNodes[2].style.height = "0";
-      mother.style.background = "#fff";
-    }
-  };
+    const toggleBtnHandle = (e) => {
+      const mother = e.target.parentNode.parentNode;
 
-  const { F_division } = useParams();
-  const [faqList, setFaqList] = React.useState([]);
-  // console.log("받아옴" + F_division);
-  React.useEffect(() => {
-    (async () => {
-      let json = null;
-      try {
-        if (F_division === "all") {
-          const response = await axios.get(`http://localhost:3001/bbs_faq?`);
-          json = response.data;
-        } else {
-          const response = await axios.get(
-            `http://localhost:3001/bbs_faq?F_division=${F_division}`
-          );
-          json = response.data;
+      if (clicked) {
+        clicked = 0;
+        mother.lastChild.lastChild.style.transform = "rotate(180deg)";
+        mother.lastChild.lastChild.style.transition = "all 0.4s";
+        console.log();
+        mother.lastChild.childNodes[2].style.padding = "20px 40px";
+        mother.lastChild.childNodes[2].style.height = "auto";
+
+        mother.style.backgroundColor = "#f1f1f1";
+      } else {
+        clicked = 1;
+        mother.lastChild.lastChild.style.transform = "rotate(0deg)";
+        mother.lastChild.childNodes[2].style.padding = "0";
+        mother.lastChild.childNodes[2].style.height = "0";
+        mother.style.background = "#fff";
+      }
+    };
+
+    useEffect(() => {
+      (async () => {
+        let json = null;
+
+        try {
+          if (F_division === "all") {
+            const response = await axios.get(`http://localhost:3001/bbs_faq?`);
+
+            json = response.data;
+          } else {
+            const response = await axios.get(
+              `http://localhost:3001/bbs_faq?F_division=${F_division}`
+            );
+            json = response.data;
+          }
+        } catch (e) {
+          console.log(e);
         }
-      } catch (e) {
-        console.log(e);
-      }
-      if (json != null) {
-        setFaqList(json);
-      }
-    })();
-  }, [F_division]);
-  return (
-    <FaqViewWrap>
-      {faqList.map((v, i) => {
-        return (
-          <button className="toggle-btn" key={i} onClick={toggleBtnHandle}>
-            <div className="notice-title">
-              <h4>
-                {v.F_division === "y"
-                  ? `연간이용`
-                  : v.F_division === "a"
-                  ? `기타`
-                  : v.F_division === "u"
-                  ? `우대정보`
-                  : v.F_division === "o"
-                  ? `온라인예매`
-                  : F_division}
-              </h4>
-              {/* <h4>{F_division}</h4> */}
-              <h2>{v.F_title}</h2>
-              <div className="notice-description">{v.F_content}</div>
-              <img src={toggle} alt="토글버튼" />
-            </div>
-          </button>
-        );
-      })}
-    </FaqViewWrap>
-  );
-});
+
+        if (json != null) {
+          setFilterKeyword(json);
+        }
+      })();
+    }, [F_division]);
+
+    return (
+      <FaqViewWrap>
+        {list === "[]" ? (
+          <NoResultsFound />
+        ) : filterKeyword == "" ? (
+          list.map((v, i) => {
+            return (
+              <button className="toggle-btn" key={i} onClick={toggleBtnHandle}>
+                <div className="notice-title">
+                  <h4>
+                    {v.F_division === "y"
+                      ? `연간이용`
+                      : v.F_division === "a"
+                      ? `기타`
+                      : v.F_division === "u"
+                      ? `우대정보`
+                      : v.F_division === "o"
+                      ? `온라인예매`
+                      : F_division}
+                  </h4>
+                  <h2>{v.F_title}</h2>
+                  <div className="notice-description">{v.F_content}</div>
+                  <img src={toggle} alt="토글버튼" />
+                </div>
+              </button>
+            );
+          })
+        ) : (
+          filterKeyword.map((v, i) => {
+            return (
+              <button className="toggle-btn" key={i} onClick={toggleBtnHandle}>
+                <div className="notice-title">
+                  <h4>
+                    {v.F_division === "y"
+                      ? `연간이용`
+                      : v.F_division === "a"
+                      ? `기타`
+                      : v.F_division === "u"
+                      ? `우대정보`
+                      : v.F_division === "o"
+                      ? `온라인예매`
+                      : F_division}
+                  </h4>
+                  <h2>{v.F_title}</h2>
+                  <div className="notice-description">{v.F_content}</div>
+                  <img src={toggle} alt="토글버튼" />
+                </div>
+              </button>
+            );
+          })
+        )}
+      </FaqViewWrap>
+    );
+  }
+);
 
 export default FaqView;
