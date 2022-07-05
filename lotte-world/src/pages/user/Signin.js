@@ -134,6 +134,7 @@ const Signin = memo(() => {
     } catch (e) {
       window.alert(e.message);
       e.field.focus();
+
       return;
     }
 

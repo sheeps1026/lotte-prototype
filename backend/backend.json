@@ -149,17 +149,6 @@
       "L_state": "A"
     }
   ],
-  "bbs_inquire": [
-    {
-      "I_id": "1",
-      "I_division": "금액문의",
-      "I_name": "홍길동",
-      "I_email": "",
-      "I_title": "",
-      "I_content": "",
-      "I_img": ""
-    }
-  ],
   "enjoyInfoList": [
     {
       "EN_id": 1,
@@ -236,36 +225,52 @@
   ],
   "info": [
     {
-      "id": "dsadsad1"
-    },
-    {
-      "id": "testeq"
-    },
-    {
-      "id": "eeps1026",
-      "pwd": "S!heeps1026",
-      "name": "dasda"
-    },
-    {
-      "id": "sheeps1026",
-      "pwd": "sheeps1026!Q",
-      "name": "dasdasd",
-      "tel": "01012345678",
-      "email": "sheeps1026@naver.com"
-    },
-    {
-      "id": "test1234",
-      "pwd": "test1234!Q",
-      "name": "테ㅐ스트",
+      "id": "3213das",
+      "pwd": "3213das!Q",
+      "name": "양승갑",
       "tel": "01012345678",
       "email": "dasd@dasd.com"
+    }
+  ],
+  "bbs_inquire": [
+    {
+      "id": 1
     },
     {
-      "id": "3123adsad",
-      "pwd": "test1234!Q",
-      "name": "테ㅐ스트",
-      "tel": "01012345678",
-      "email": "dasd@dasd.com"
+      "id": 2
+    },
+    {
+      "I_name": "유다현",
+      "I_division": "2",
+      "I_mail": "ekgus1129@gmail.com",
+      "I_title": "제목입니다",
+      "I_content": "내용입니다",
+      "I_file": "C:\\fakepath\\사용자.png",
+      "id": 3
+    },
+    {
+      "I_name": "유다현",
+      "I_division": "2",
+      "I_mail": "ekgus1129@gmail.com",
+      "I_title": "제목입니다",
+      "I_content": "내용입니다",
+      "I_file": "C:\\fakepath\\사용자.png",
+      "id": 4
+    },
+    {
+      "id": 5
+    },
+    {
+      "id": 6
+    },
+    {
+      "I_name": "테스트",
+      "I_division": "1",
+      "I_mail": "231@dsa.com",
+      "I_title": "ㅂㅈㄷㄱ",
+      "I_content": "123",
+      "I_file": "",
+      "id": 7
     }
   ]
 }
