@@ -4,7 +4,7 @@ class RegexHelper {
   // 값의 존재 여부를 검사
   value(field, msg) {
     const content = field.value;
-
+    
     if (
       content == undefined ||
       content == null ||
