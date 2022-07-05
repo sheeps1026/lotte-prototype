@@ -682,8 +682,8 @@ const DatePopup = styled.div`
 `;
 const Ticketing = memo(({}) => {
   // Date picker 날짜 선택 상태값
-  const [startDate, setStartDate] = useState(new Date());
-  const [selectDate, setSelectDate] = useState();
+  const [startDate, setStartDate] = useState(dayjs());
+
   // 재확인 모달창 상태값
   const [confOpen, setConfOpen] = useState(false);
   //  달력 모달창 상태값
@@ -703,11 +703,17 @@ const Ticketing = memo(({}) => {
   //  달력 모달창 이벤트
   const calenderOpen = useCallback(() => {
     setDateOpen(true);
+    console.log("창열기");
   });
   const calenderClose = useCallback(() => {
     setDateOpen(false);
+    setStartDate(dayjs());
   });
 
+  const calenderSelect = useCallback(() => {
+    setDateOpen(false);
+    console.log("창닫기");
+  });
   // 메뉴 토글
   const toggle = useCallback((e) => {
     const item = e.currentTarget.id;
@@ -738,16 +744,14 @@ const Ticketing = memo(({}) => {
   let theDayOfWeek = currentDay.getDay();
 
   let thisWeek = [];
-  let weekArr = [];
-
   let dayArr = [
+    { day: "일" },
     { day: "월" },
     { day: "화" },
     { day: "수" },
     { day: "목" },
     { day: "금" },
     { day: "토" },
-    { day: "일" },
   ];
 
   for (let i = 0; i < 7; i++) {
@@ -764,20 +768,17 @@ const Ticketing = memo(({}) => {
     dayArr[i].date = thisWeek[i];
   }
 
-  // console.log(thisWeek);
 
-  console.log(dayArr);
+  const selectDay = (e) => {
+    console.log("값 클릭댐");
+    setStartDate(dayjs(e));
+  };
 
-  // const weekArr = [
-  //   { day: "월", date: 20 },
-  //   { day: "화", date: 21 },
-  //   { day: "수", date: 22 },
-  //   { day: "목", date: 23 },
-  //   { day: "금", date: 24 },
-  //   { day: "토", date: 25 },
-  //   { day: "일", date: 26 },
-  // ];
-
+  const btnSelectDate = (e)=>{
+    console.log("아노ㅏ");
+    
+  }
+  var now = new Date();
   return (
     <TicketingStyled>
       <div className="containerWrap">
@@ -795,7 +796,14 @@ const Ticketing = memo(({}) => {
                   <TitleArea>
                     <p className="tit">방문일자/인원 선택</p>
                     <div className="titRight">
-                      <span className="today">01.21 화</span>
+                      {/* <span className="today">{startDate}</span> */}
+                      <span className="today">
+                        {dayjs(startDate).format("MM-DD")}
+                      </span>
+                      {/* <span className="today">{startDate.get("day")}</span> */}
+                      <span className="today">
+                        {dayjs(startDate).format("d")=== "0" ? (`일`):(dayjs(startDate).format("d")=== "1" ? (`월`):(dayjs(startDate).format("d")=== "2" ? (`화`):(dayjs(startDate).format("d")=== "3" ? (`수`):(dayjs(startDate).format("d")=== "4" ? (`목`):(dayjs(startDate).format("d")=== "5" ? (`금`):(`토`))))))}
+                      </span>
                       <button
                         onClick={calenderOpen}
                         type="button"
@@ -812,7 +820,7 @@ const Ticketing = memo(({}) => {
                           dayArr.map((v, i) => {
                             return (
                               <li key={i}>
-                                <button type="button" className="btnDate">
+                                <button type="button" className="btnDate" onClick={btnSelectDate}>
                                   <em className="date">{v.date}</em>
                                   <em className="day">{v.day}</em>
                                 </button>
@@ -1121,12 +1129,11 @@ const Ticketing = memo(({}) => {
                       <div className="dateTitle">방문일자 선택</div>
                       <div className="datePick">
                         <DatePicker
-                          classselected={selectDate}
                           inline
                           locale={ko}
-                          dateFormat="yyyy-MM-dd"
-                          minDate={new Date()}
-                          onChange={(date) => setStartDate(date)}
+                          minDate={now}
+                          onChange={selectDay}
+
                         />
                         <div className="infoWrap">
                           <span>
@@ -1148,7 +1155,11 @@ const Ticketing = memo(({}) => {
                         >
                           취소
                         </button>
-                        <button type="button" className="btn_complete">
+                        <button
+                          type="button"
+                          className="btn_complete"
+                          onClick={calenderSelect}
+                        >
                           적용
                         </button>
                       </div>
