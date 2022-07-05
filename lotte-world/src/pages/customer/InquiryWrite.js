@@ -3,6 +3,9 @@ import styled from "styled-components";
 import checkboxOff from "../../assets/images/checkbox-icon.png";
 import checkboxOn from "../../assets/images/checkbox-icon-on.png";
 import selectBg from "../../assets/images/select-icon2.png";
+import useAxios from "axios-hooks";
+import regexHelper from "../../libs/RegexHelper";
+import {createRoutesFromChildren, useNavigate} from "react-router-dom";
 const InquiryWriteWrap = styled.div`
   width: 50%;
   margin: 240px auto;
@@ -112,7 +115,7 @@ const InquiryWriteWrap = styled.div`
       }
     }
   }
-  .selectStyle {
+  .field[type="checkbox"]{
     -o-appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -127,7 +130,7 @@ const InquiryWriteWrap = styled.div`
       color: #777;
     }
   }
-  .inputSt {
+  .field[type="text"]{
     padding: 15px 15px;
     width: 250px;
     color: #777;
@@ -158,17 +161,17 @@ const InquiryWriteWrap = styled.div`
         border: 1px solid #222;
       }
     }
-    .fileWrap{
+    .fileWrap {
       display: flex;
-    align-items: center;
-      span{
+      align-items: center;
+      span {
         display: inline-block;
       }
       .fileName {
         line-height: 1.5;
         width: 150px;
         text-overflow: ellipsis;
-        overflow: hidden; 
+        overflow: hidden;
         margin: 0 0 0 10px;
       }
     }
@@ -229,7 +232,7 @@ const InquiryWriteWrap = styled.div`
     position: relative;
     overflow: hidden;
     z-index: 1;
-    
+
     /* &:hover {
       color: #fff; */
     &:after {
@@ -256,7 +259,80 @@ const InquiryWriteWrap = styled.div`
   }
 `;
 
-const InquiryWrite = memo(() => {
+const InquiryWrite = () => {
+
+  const navigate = useNavigate();
+
+  const [refetch] = useAxios({
+      url: "http://localhost:3001/bbs_inquire",
+      method: "POST"
+    },{ menual: true });
+  
+  
+  const onSubmit =  React.useCallback((e) => {
+    e.preventDefault();
+    const current = e.target;
+
+    try{
+        //유형
+        // regexHelper.value(current.division,"유형을 선택하세요");
+        //이름
+        regexHelper.value(current.name,"이름을 입력하세요");
+        regexHelper.minLength(current.name,2,"이름은 최소 2글자이상 입력하세요.");
+        regexHelper.maxLength(current.name,10,"이름은 최대 10글자이하 입력하세요.");
+        //이메일
+        regexHelper.value(current.email,"문의하시는 분의 이메일을 입력하세요.");
+        regexHelper.email(current.email,"정확한 이메일 형식을 입력하세요.");
+        //타이틀
+        regexHelper.value(current.title,"제목을 입력하세요");
+        regexHelper.minLength(current.title,"제목은 최소 2글자 이상 입력하세요.");
+        regexHelper.maxLength(current.title,"제목은 최대 100글자 이하 입력하세요.");
+        //내용
+        regexHelper.value(current.content,"내용을 입력하세요");
+        regexHelper.minLength(current.content,"내용은 최소 2글자 이상 입력하세요.");
+        regexHelper.maxLength(current.content,"내용은 최대 100글자 이하 입력하세요.");
+
+        
+
+      }catch(e){
+        window.alert(e.message);
+        console.log(e);
+        window.alert("오류남");
+        // e.field.focus();
+        
+        return e;
+    }
+    let json = null;
+
+
+    (async () => {
+      try {
+        const response = await refetch({
+          data: {
+            name: current.name.value,
+            division:current.division.value,
+            email:current.email.value,
+            title:current.title.value,
+            content:current.content.value,
+            file:current.file.value
+          }
+        });
+        json = response.data;
+        console.log("저장중");
+      } catch (e) {
+        console.error(e);
+        console.log("저장안댐");
+        window.alert(`[${e.response.status}] ${e.response.statusText}\n${e.message}`);
+      }
+
+      //정상으로 저장되었다면?
+      if (json !== null) {
+        window.alert("답변은 메일로 전송해드리겠습니다.");
+        navigate("/customer/InquiryWrite");
+      }
+    })();
+  });
+
   return (
     <InquiryWriteWrap>
       <ul>
@@ -289,9 +365,14 @@ const InquiryWrite = memo(() => {
           동의합니다.
         </p>
       </div>
-      <form name="">
+      <form onSubmit={onSubmit}>
         <div className="CheckBoxWrap">
-          <input type="checkbox" id="checkBoxWrap" />
+          <input
+            type="checkbox"
+            id="checkBoxWrap"
+            name="I_check"
+            className="field"
+          />
           <label htmlFor="checkBoxWrap">동의합니다.</label>
         </div>
         <div className="titleWrap">
@@ -299,36 +380,55 @@ const InquiryWrite = memo(() => {
           <span className="essentialTxt">는 필수 입력값입니다.</span>
         </div>
         <h5>문의유형</h5>
-        <select className="selectStyle" name="" id="">
+        <select
+          className="fieldfield"
+          name="division"
+        >
           <option value="">선택</option>
+          <option value="1">유형1</option>
+          <option value="2">유형2</option>
+          <option value="3">유형3</option>
         </select>
         <h5>이름</h5>
         <input
           type="text"
-          className="inputSt"
+          className="field"
           placeholder="이름을 입력하세요."
+          name="name"
         />
         <h5>이메일주소</h5>
         <input
           type="mail"
-          className="inputSt"
+          className="field"
           placeholder="이메일주소를 입력하세요."
+          name="mail"
+          // ref={(el) => (inputRef.current[3] = el)}
         />
         <h5>제목</h5>
         <input
           type="text"
-          className="inputSt"
+          className="field"
           placeholder="제목을 입력하세요."
+          name="title"
+          // ref={(el) => (inputRef.current[4] = el)}
         />
         <h5>내용</h5>
         <textarea
           type="text"
-          className="txtareaSt"
+          className="txtareaSt field"
           placeholder="내용을 입력하세요."
+          name="content"
+          // ref={(el) => (inputRef.current[5] = el)}
         />
         <h5>첨부파일</h5>
         <div className="fileCon">
-          <input type="file" className="fileAddBtn" id="fileAdd" />
+          <input
+            type="file"
+            className="fileAddBtn field"
+            id="fileAdd"
+            name="file"
+            // ref={(el) => (inputRef.current[6] = el)}
+          />
           <label htmlFor="fileAdd">첨부파일</label>
           <div className="fileWrap">
             <span className="fileName">
@@ -354,6 +454,6 @@ const InquiryWrite = memo(() => {
       </form>
     </InquiryWriteWrap>
   );
-});
+};
 
 export default InquiryWrite;
