@@ -149,17 +149,6 @@
       "L_state": "A"
     }
   ],
-  "bbs_inquire": [
-    {
-      "I_id": "1",
-      "I_division": "금액문의",
-      "I_name": "홍길동",
-      "I_email": "",
-      "I_title": "",
-      "I_content": "",
-      "I_img": ""
-    }
-  ],
   "enjoyInfoList": [
     {
       "EN_id": 1,
@@ -234,38 +223,31 @@
       "visual": "/public_img/enjoy/202203240218126072_1519.jpg"
     }
   ],
-  "info": [
+  "info": [],
+  "bbs_inquire": [
     {
-      "id": "dsadsad1"
+      "id": 1
     },
     {
-      "id": "testeq"
+      "id": 2
     },
     {
-      "id": "eeps1026",
-      "pwd": "S!heeps1026",
-      "name": "dasda"
+      "I_name": "유다현",
+      "I_division": "2",
+      "I_mail": "ekgus1129@gmail.com",
+      "I_title": "제목입니다",
+      "I_content": "내용입니다",
+      "I_file": "C:\\fakepath\\사용자.png",
+      "id": 3
     },
     {
-      "id": "sheeps1026",
-      "pwd": "sheeps1026!Q",
-      "name": "dasdasd",
-      "tel": "01012345678",
-      "email": "sheeps1026@naver.com"
-    },
-    {
-      "id": "test1234",
-      "pwd": "test1234!Q",
-      "name": "테ㅐ스트",
-      "tel": "01012345678",
-      "email": "dasd@dasd.com"
-    },
-    {
-      "id": "3123adsad",
-      "pwd": "test1234!Q",
-      "name": "테ㅐ스트",
-      "tel": "01012345678",
-      "email": "dasd@dasd.com"
+      "I_name": "유다현",
+      "I_division": "2",
+      "I_mail": "ekgus1129@gmail.com",
+      "I_title": "제목입니다",
+      "I_content": "내용입니다",
+      "I_file": "C:\\fakepath\\사용자.png",
+      "id": 4
     }
   ]
 }

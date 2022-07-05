@@ -115,7 +115,7 @@ const InquiryWriteWrap = styled.div`
       }
     }
   }
-  .field[type="checkbox"]{
+  .selectSt{
     -o-appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -130,7 +130,7 @@ const InquiryWriteWrap = styled.div`
       color: #777;
     }
   }
-  .field[type="text"]{
+  .inputSt{
     padding: 15px 15px;
     width: 250px;
     color: #777;
@@ -262,27 +262,28 @@ const InquiryWriteWrap = styled.div`
 const InquiryWrite = () => {
 
   const navigate = useNavigate();
-
-  const [refetch] = useAxios({
+  // 백엔드에 데이터 저장을 위한 Ajax 요청 객체 생성
+  const [{ loading }, refetch] = useAxios(
+    {
       url: "http://localhost:3001/bbs_inquire",
-      method: "POST"
-    },{ menual: true });
-  
-  
+      method: 'POST',
+    },
+    { menual: true }
+  );
   const onSubmit =  React.useCallback((e) => {
     e.preventDefault();
     const current = e.target;
 
     try{
         //유형
-        // regexHelper.value(current.division,"유형을 선택하세요");
+        regexHelper.value(current.division,"유형을 선택하세요");
         //이름
         regexHelper.value(current.name,"이름을 입력하세요");
         regexHelper.minLength(current.name,2,"이름은 최소 2글자이상 입력하세요.");
         regexHelper.maxLength(current.name,10,"이름은 최대 10글자이하 입력하세요.");
         //이메일
-        regexHelper.value(current.email,"문의하시는 분의 이메일을 입력하세요.");
-        regexHelper.email(current.email,"정확한 이메일 형식을 입력하세요.");
+        regexHelper.value(current.mail,"문의하시는 분의 이메일을 입력하세요.");
+        regexHelper.emailCheck(current.mail,"정확한 이메일 형식을 입력하세요.");
         //타이틀
         regexHelper.value(current.title,"제목을 입력하세요");
         regexHelper.minLength(current.title,"제목은 최소 2글자 이상 입력하세요.");
@@ -297,10 +298,7 @@ const InquiryWrite = () => {
       }catch(e){
         window.alert(e.message);
         console.log(e);
-        window.alert("오류남");
-        // e.field.focus();
-        
-        return e;
+        return;
     }
     let json = null;
 
@@ -309,12 +307,12 @@ const InquiryWrite = () => {
       try {
         const response = await refetch({
           data: {
-            name: current.name.value,
-            division:current.division.value,
-            email:current.email.value,
-            title:current.title.value,
-            content:current.content.value,
-            file:current.file.value
+            I_name: current.name.value,
+            I_division:current.division.value,
+            I_mail:current.mail.value,
+            I_title:current.title.value,
+            I_content:current.content.value,
+            I_file:current.file.value
           }
         });
         json = response.data;
@@ -322,7 +320,7 @@ const InquiryWrite = () => {
       } catch (e) {
         console.error(e);
         console.log("저장안댐");
-        window.alert(`[${e.response.status}] ${e.response.statusText}\n${e.message}`);
+        // window.alert(`[${e.response.status}] ${e.response.statusText}\n${e.message}`);
       }
 
       //정상으로 저장되었다면?
@@ -381,7 +379,7 @@ const InquiryWrite = () => {
         </div>
         <h5>문의유형</h5>
         <select
-          className="fieldfield"
+          className="selectSt"
           name="division"
         >
           <option value="">선택</option>
@@ -392,14 +390,14 @@ const InquiryWrite = () => {
         <h5>이름</h5>
         <input
           type="text"
-          className="field"
+          className="inputSt"
           placeholder="이름을 입력하세요."
           name="name"
         />
         <h5>이메일주소</h5>
         <input
           type="mail"
-          className="field"
+          className="inputSt"
           placeholder="이메일주소를 입력하세요."
           name="mail"
           // ref={(el) => (inputRef.current[3] = el)}
@@ -407,7 +405,7 @@ const InquiryWrite = () => {
         <h5>제목</h5>
         <input
           type="text"
-          className="field"
+          className="inputSt"
           placeholder="제목을 입력하세요."
           name="title"
           // ref={(el) => (inputRef.current[4] = el)}
@@ -415,7 +413,7 @@ const InquiryWrite = () => {
         <h5>내용</h5>
         <textarea
           type="text"
-          className="txtareaSt field"
+          className="txtareaSt"
           placeholder="내용을 입력하세요."
           name="content"
           // ref={(el) => (inputRef.current[5] = el)}
