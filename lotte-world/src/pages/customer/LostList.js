@@ -285,7 +285,7 @@ const LostList = memo(() => {
           </button>
         </div>
         <ul className="ulList">
-          {lostList === "[]" ? (
+          {count == 0 ? (
             <NoResultWrap />
           ) : openLost == "" ? (
             lostList.map((v, i) => {

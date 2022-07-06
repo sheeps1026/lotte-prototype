@@ -163,7 +163,7 @@ const Signin = memo(() => {
       } catch (e) {
         console.error(e);
         window.alert(
-          `[${e.response.status} ${e.response.statusText}\n${e.message}]`
+          `[${e.response.status} : ${e.response.statusText}\n${e.message}]`
         );
       }
 

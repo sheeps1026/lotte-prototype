@@ -226,12 +226,6 @@
   "info": [],
   "bbs_inquire": [
     {
-      "id": 1
-    },
-    {
-      "id": 2
-    },
-    {
       "I_name": "유다현",
       "I_division": "2",
       "I_mail": "ekgus1129@gmail.com",
@@ -248,21 +242,6 @@
       "I_content": "내용입니다",
       "I_file": "C:\\fakepath\\사용자.png",
       "id": 4
-    },
-    {
-      "id": 5
-    },
-    {
-      "id": 6
-    },
-    {
-      "I_name": "테스트",
-      "I_division": "1",
-      "I_mail": "231@dsa.com",
-      "I_title": "ㅂㅈㄷㄱ",
-      "I_content": "123",
-      "I_file": "",
-      "id": 7
     }
   ]
 }

@@ -105,7 +105,7 @@ const FaqViewWrap = styled.div`
 `;
 
 const FaqView = memo(
-  ({ F_division, filterKeyword, setFilterKeyword, list }) => {
+  ({ F_division, filterKeyword, setFilterKeyword, list, count, setCount }) => {
     let clicked = 1;
 
     const toggleBtnHandle = (e) => {
@@ -156,7 +156,7 @@ const FaqView = memo(
 
     return (
       <FaqViewWrap>
-        {list === "[]" ? (
+        {count == 0 ? (
           <NoResultsFound />
         ) : filterKeyword == "" ? (
           list.map((v, i) => {

@@ -98,6 +98,7 @@ const FAQ = memo(() => {
   const keywordInput = useRef();
 
   const [filterKeyword, setFilterKeyword] = useState([]);
+  const [count, setCount] = useState(0);
 
   // 리스트 만드는 상태값
   const [list, setList] = useState([]);
@@ -123,6 +124,8 @@ const FAQ = memo(() => {
 
         //뿌려줄 리스트에 json 담기
         setList(json);
+
+        setCount(json.length);
       } catch (e) {
         console.log(e);
       }
@@ -159,6 +162,8 @@ const FAQ = memo(() => {
                 filterKeyword={filterKeyword}
                 setFilterKeyword={setFilterKeyword}
                 list={list}
+                count={count}
+                setCount={setCount}
               />
             }
           />

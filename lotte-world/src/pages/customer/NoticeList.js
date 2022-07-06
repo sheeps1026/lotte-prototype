@@ -170,7 +170,6 @@ const NoticeList = memo(() => {
 
   return (
     <FlexBox>
-      {/* <TtitleArea title={title} /> */}
       <SearchWrap>
         <h1>공지사항</h1>
         <div className="search-border">
@@ -186,7 +185,7 @@ const NoticeList = memo(() => {
         <li className="NoticeFirst">
           총 <span>{N_count}</span>개
         </li>
-        {notice === "[]" ? (
+        {N_count == 0 ? (
           <NoResultsFound />
         ) : filterKeyword == "" ? (
           notice.map((v, i) => {
