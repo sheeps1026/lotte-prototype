@@ -151,8 +151,11 @@ const TicketForm = styled.form`
             .active {
               background-color: #2b72c9;
               border-radius: 3px;
-              .btnDate {
-                color: white;
+              &:before {
+                color: #fff;
+              }
+              &:after {
+                color: #fff;
               }
             }
           }
@@ -745,9 +748,8 @@ const Ticketing = memo(({}) => {
     for (let i = 0; i < 7; i++) {
       const currentActive = ListActive.current[i].dataset.key;
 
+      ListActive.current[i].childNodes[0].classList.remove("active");
       if (currentActive == weekofday) {
-        // console.log("똑같앙");
-        ListActive.current[i].childNodes[0].classList.remove("active");
         ListActive.current[i].childNodes[0].classList.add("active");
       }
     }
@@ -805,7 +807,7 @@ const Ticketing = memo(({}) => {
     // console.log(e.target.dataset.year);
     // console.log(e.target.dataset.month);
     // console.log(e.target.dataset.date);
-    console.log("눌림");
+
     const selectDay =
       e.target.dataset.year +
       "-" +
@@ -815,15 +817,13 @@ const Ticketing = memo(({}) => {
     setStartDate(dayjs(selectDay));
 
     for (let i = 0; i < 7; i++) {
-      // console.log(e.target.parentNode.parentNode.children[i].firstChild)
       e.target.parentNode.parentNode.children[i].firstChild.classList.remove(
         "active"
       );
-      console.log("지워짐");
     }
 
     e.target.classList.add("active");
-    console.log(e.target.parentNode.dataset.key);
+
   };
   return (
     <TicketingStyled>
