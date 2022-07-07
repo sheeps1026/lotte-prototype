@@ -4,12 +4,13 @@
  * @description: 예매할 날짜, 인원 선택
  */
 import React, { memo, useCallback, useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
 import dayjs from "dayjs";
 import "react-datepicker/dist/react-datepicker.css";
+import { createBrowserHistory } from "history";
 
 import bg from "../../assets/images/pages/product/bg_pc_visual_busan.png";
 import shadow from "../../assets/images/pages/product/bg_con_shadow.png";
@@ -731,19 +732,12 @@ const Ticketing = memo(({}) => {
     // setToggleOn(!toggleOn);
   });
 
-  // 선택한 티켓 종류 가져오기
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-
-  const [listDay, setListDay] = useState();
-
   const ListActive = React.useRef([]);
 
   const selectDay = (e) => {
     setStartDate(dayjs(e));
 
     const weekofday = dayjs(e).format("d");
-    const only = dayjs(startDate).format("DD");
 
     for (let i = 0; i < 7; i++) {
       const currentActive = ListActive.current[i].dataset.key;
@@ -753,20 +747,10 @@ const Ticketing = memo(({}) => {
         ListActive.current[i].childNodes[0].classList.add("active");
       }
     }
-    //
   };
-  useEffect(() => {}, [startDate, selectDay]);
-
-  const [btnClass, setBtnClass] = useState(["btnDate"]);
-
-  useEffect(() => {}, [btnClass]);
 
   var now = new Date();
-  // let currentDay = new Date();
-  // let theYear = currentDay.getFullYear();
-  // let theMonth = currentDay.getMonth();
-  // let theDate = currentDay.getDate();
-  // let theDayOfWeek = currentDay.getDay();
+
   let theYear = startDate.year();
   let theMonth = startDate.month();
   let theDate = startDate.date();
@@ -803,11 +787,14 @@ const Ticketing = memo(({}) => {
     dayArr[i].month = thisMonth[i];
     dayArr[i].year = thisYear[i];
   }
-  const btnSelectDate = (e) => {
-    // console.log(e.target.dataset.year);
-    // console.log(e.target.dataset.month);
-    // console.log(e.target.dataset.date);
 
+  // 선택한 티켓 종류 가져오기
+  const location = useLocation();
+
+  const [locations, setLocation] = useState(location.search);
+  const navigate = useNavigate();
+
+  const btnSelectDate = (e) => {
     const selectDay =
       e.target.dataset.year +
       "-" +
@@ -823,8 +810,35 @@ const Ticketing = memo(({}) => {
     }
 
     e.target.classList.add("active");
-
+    console.log("날짜 바껐엉");
   };
+  const history = createBrowserHistory();
+  useEffect(() => {
+    const listenBackEvent = () => {
+      // 뒤로가기 할 때 수행할 동작을 적는다
+      navigate(`/TicketingPage`);
+    };
+
+    const unlistenHistoryEvent = history.listen(({ action }) => {
+      if (action === "POP") {
+        listenBackEvent();
+      }
+    });
+
+    return unlistenHistoryEvent;
+  }, [
+  // effect에서 사용하는 state를 추가
+]);
+  useEffect(() => {
+    navigate(
+      `/TicketingPage/Ticketing?T_id=2&date=${dayjs(startDate).format(
+        "YYYY-MM-DD"
+      )}`
+    );
+  }, [startDate]);
+
+  
+
   return (
     <TicketingStyled>
       <div className="containerWrap">
@@ -1259,7 +1273,8 @@ const Ticketing = memo(({}) => {
             <div className="pop_mid">
               {/* 선택한 날짜로 나타나야 함 */}
               <p className="question">
-                2022-07-15 <br /> 선택하신 방문일자로 예약을 진행하시겠습니까?
+                {startDate.format("YYYY-MM-DD")} <br /> 선택하신 방문일자로
+                예약을 진행하시겠습니까?
               </p>
             </div>
             <div className="notice">

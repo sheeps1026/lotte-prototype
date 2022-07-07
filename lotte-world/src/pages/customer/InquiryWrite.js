@@ -453,7 +453,7 @@ const InquiryWrite = () => {
           ※ 롯데월드 게시판은 게시물이 자동으로 등록되는 것을 방지하기 위해서
           보안절차를 거치고 있습니다.
         </p>
-        <button type="button" className="resetBtn">
+        <button type="reset" className="resetBtn">
           취소
         </button>
         <button type="submit" className="submitBtn">
