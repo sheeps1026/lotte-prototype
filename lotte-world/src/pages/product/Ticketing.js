@@ -735,63 +735,30 @@ const Ticketing = memo(({}) => {
   const [listDay, setListDay] = useState();
 
   const ListActive = React.useRef([]);
+
   const selectDay = (e) => {
     setStartDate(dayjs(e));
-    // console.log("값 클릭댐 이제 리스트 액티브 바꿔");
-    // console.log(dayjs(e).format("DD"));
-    
-    // const weekofday = dayjs(e).format("DD");
-    
-    //   console.log(ListActive.current[i]);
-      
+
     const weekofday = dayjs(e).format("d");
     const only = dayjs(startDate).format("DD");
-    
+
     for (let i = 0; i < 7; i++) {
-      // ListActive.current.classList.add("active");
-    
-      // ListActive.current[i].classList.remove("active")
-      // console.log(weekofday);
-      // console.log(ListActive.current[i].dataset.key);
-      
       const currentActive = ListActive.current[i].dataset.key;
 
-      if(currentActive == weekofday){
+      if (currentActive == weekofday) {
         // console.log("똑같앙");
-        
+        ListActive.current[i].childNodes[0].classList.remove("active");
         ListActive.current[i].childNodes[0].classList.add("active");
       }
     }
-    // 
+    //
   };
+  useEffect(() => {}, [startDate, selectDay]);
 
   const [btnClass, setBtnClass] = useState(["btnDate"]);
 
   useEffect(() => {}, [btnClass]);
 
-  const btnSelectDate = (e) => {
-    // console.log(e.target.dataset.year);
-    // console.log(e.target.dataset.month);
-    // console.log(e.target.dataset.date);
-    const selectDay =
-      e.target.dataset.year +
-      "-" +
-      e.target.dataset.month +
-      "-" +
-      e.target.dataset.date;
-    setStartDate(dayjs(selectDay));
-
-    if (dayjs(startDate).format("DD") == dayjs(selectDay).format("DD")) {
-      for (let i = 0; i < 7; i++) {
-        // console.log(e.target.parentNode.parentNode.children[i].firstChild)
-        e.target.parentNode.parentNode.children[i].firstChild.classList.remove(
-          "active"
-        );
-      }
-
-      e.target.classList.add("active");
-    }
-  };
   var now = new Date();
   // let currentDay = new Date();
   // let theYear = currentDay.getFullYear();
@@ -834,11 +801,30 @@ const Ticketing = memo(({}) => {
     dayArr[i].month = thisMonth[i];
     dayArr[i].year = thisYear[i];
   }
+  const btnSelectDate = (e) => {
+    // console.log(e.target.dataset.year);
+    // console.log(e.target.dataset.month);
+    // console.log(e.target.dataset.date);
+    console.log("눌림");
+    const selectDay =
+      e.target.dataset.year +
+      "-" +
+      e.target.dataset.month +
+      "-" +
+      e.target.dataset.date;
+    setStartDate(dayjs(selectDay));
 
-  // useEffect(() => {
-  //   console.log("서타트 데이타 바뀐다");
+    for (let i = 0; i < 7; i++) {
+      // console.log(e.target.parentNode.parentNode.children[i].firstChild)
+      e.target.parentNode.parentNode.children[i].firstChild.classList.remove(
+        "active"
+      );
+      console.log("지워짐");
+    }
 
-  // }, [startDate]);
+    e.target.classList.add("active");
+    console.log(e.target.parentNode.dataset.key);
+  };
   return (
     <TicketingStyled>
       <div className="containerWrap">
@@ -891,7 +877,11 @@ const Ticketing = memo(({}) => {
                         {dayArr ? (
                           dayArr.map((v, i) => {
                             return (
-                              <li key={i} data-key={i} ref={(el) => (ListActive.current[i] = el)}>
+                              <li
+                                key={i}
+                                data-key={i}
+                                ref={(el) => (ListActive.current[i] = el)}
+                              >
                                 <button
                                   type="button"
                                   className={
@@ -906,7 +896,6 @@ const Ticketing = memo(({}) => {
                                   data-date={v.date}
                                   data-day={v.day}
                                   onClick={btnSelectDate}
-                                  
                                 />
                               </li>
                             );
