@@ -3,13 +3,14 @@
  * @filename: Ticketing.js
  * @description: 예매할 날짜, 인원 선택
  */
-import React, { memo, useCallback, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { memo, useCallback, useState, useEffect } from "react";
+import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
 import dayjs from "dayjs";
 import "react-datepicker/dist/react-datepicker.css";
+import { createBrowserHistory } from "history";
 
 import bg from "../../assets/images/pages/product/bg_pc_visual_busan.png";
 import shadow from "../../assets/images/pages/product/bg_con_shadow.png";
@@ -148,11 +149,14 @@ const TicketForm = styled.form`
           }
           /* 임시 */
           li {
-            &:nth-child(2) {
+            .active {
               background-color: #2b72c9;
               border-radius: 3px;
-              .btnDate {
-                color: white;
+              &:before {
+                color: #fff;
+              }
+              &:after {
+                color: #fff;
               }
             }
           }
@@ -160,12 +164,15 @@ const TicketForm = styled.form`
             padding: 9px 15px;
             color: #505050;
             /* 임시설정 */
-
-            .date {
+            &:before {
+              content: attr(date);
               font-size: 14px;
+              /* color: #fff; */
             }
-            .day {
+            &:after {
+              content: attr(day);
               font-size: 22px;
+              /* color: #fff; */
               display: block;
             }
           }
@@ -703,7 +710,7 @@ const Ticketing = memo(({}) => {
   //  달력 모달창 이벤트
   const calenderOpen = useCallback(() => {
     setDateOpen(true);
-    console.log("창열기");
+    // console.log("창열기");
   });
   const calenderClose = useCallback(() => {
     setDateOpen(false);
@@ -712,7 +719,7 @@ const Ticketing = memo(({}) => {
 
   const calenderSelect = useCallback(() => {
     setDateOpen(false);
-    console.log("창닫기");
+    // console.log("창닫기");
   });
   // 메뉴 토글
   const toggle = useCallback((e) => {
@@ -720,30 +727,38 @@ const Ticketing = memo(({}) => {
     !select.includes(item)
       ? setSelect((select) => [...select, item])
       : setSelect(select.filter((e) => e !== item));
-    console.log(select);
+    // console.log(select);
 
     // setToggleOn(!toggleOn);
   });
 
-  // 선택한 티켓 종류 가져오기
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  //티켓종류 출력
-  // console.log(params.get("T_id"))
-  const [ticketId, setTicketId] = useState("");
+  const ListActive = React.useRef([]);
 
-  //오늘 날짜
-  //  const [weekArr , setWeekArr] = useState();
-  // console.log(weekArr);
-  // console.log(dayjs().date(),dayjs().day());
+  const selectDay = (e) => {
+    setStartDate(dayjs(e));
 
-  let currentDay = new Date();
-  let theYear = currentDay.getFullYear();
-  let theMonth = currentDay.getMonth();
-  let theDate = currentDay.getDate();
-  let theDayOfWeek = currentDay.getDay();
+    const weekofday = dayjs(e).format("d");
+
+    for (let i = 0; i < 7; i++) {
+      const currentActive = ListActive.current[i].dataset.key;
+
+      ListActive.current[i].childNodes[0].classList.remove("active");
+      if (currentActive == weekofday) {
+        ListActive.current[i].childNodes[0].classList.add("active");
+      }
+    }
+  };
+
+  var now = new Date();
+
+  let theYear = startDate.year();
+  let theMonth = startDate.month();
+  let theDate = startDate.date();
+  let theDayOfWeek = startDate.day();
 
   let thisWeek = [];
+  let thisYear = [];
+  let thisMonth = [];
   let dayArr = [
     { day: "일" },
     { day: "월" },
@@ -756,29 +771,74 @@ const Ticketing = memo(({}) => {
 
   for (let i = 0; i < 7; i++) {
     let resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek));
-    // let yyyy = resultDay.getFullYear();
-    // let mm = Number(resultDay.getMonth()) + 1;
+    let yyyy = resultDay.getFullYear();
+    let mm = Number(resultDay.getMonth()) + 1;
     let dd = resultDay.getDate();
 
-    // mm = String(mm).length === 1 ? '0' + mm : mm;
+    mm = String(mm).length === 1 ? "0" + mm : mm;
     dd = String(dd).length === 1 ? "0" + dd : dd;
+    yyyy = String(yyyy);
 
     thisWeek[i] = dd;
-    // weekArr.push(thisWeek.date[i])
+    thisMonth[i] = mm;
+    thisYear[i] = yyyy;
+
     dayArr[i].date = thisWeek[i];
+    dayArr[i].month = thisMonth[i];
+    dayArr[i].year = thisYear[i];
   }
 
+  // 선택한 티켓 종류 가져오기
+  const location = useLocation();
 
-  const selectDay = (e) => {
-    console.log("값 클릭댐");
-    setStartDate(dayjs(e));
+  const [locations, setLocation] = useState(location.search);
+  const navigate = useNavigate();
+
+  const btnSelectDate = (e) => {
+    const selectDay =
+      e.target.dataset.year +
+      "-" +
+      e.target.dataset.month +
+      "-" +
+      e.target.dataset.date;
+    setStartDate(dayjs(selectDay));
+
+    for (let i = 0; i < 7; i++) {
+      e.target.parentNode.parentNode.children[i].firstChild.classList.remove(
+        "active"
+      );
+    }
+
+    e.target.classList.add("active");
+    console.log("날짜 바껐엉");
   };
+  const history = createBrowserHistory();
+  useEffect(() => {
+    const listenBackEvent = () => {
+      // 뒤로가기 할 때 수행할 동작을 적는다
+      navigate(`/TicketingPage`);
+    };
 
-  const btnSelectDate = (e)=>{
-    console.log("아노ㅏ");
-    
-  }
-  var now = new Date();
+    const unlistenHistoryEvent = history.listen(({ action }) => {
+      if (action === "POP") {
+        listenBackEvent();
+      }
+    });
+
+    return unlistenHistoryEvent;
+  }, [
+  // effect에서 사용하는 state를 추가
+]);
+  useEffect(() => {
+    navigate(
+      `/TicketingPage/Ticketing?T_id=2&date=${dayjs(startDate).format(
+        "YYYY-MM-DD"
+      )}`
+    );
+  }, [startDate]);
+
+  
+
   return (
     <TicketingStyled>
       <div className="containerWrap">
@@ -802,7 +862,19 @@ const Ticketing = memo(({}) => {
                       </span>
                       {/* <span className="today">{startDate.get("day")}</span> */}
                       <span className="today">
-                        {dayjs(startDate).format("d")=== "0" ? (`일`):(dayjs(startDate).format("d")=== "1" ? (`월`):(dayjs(startDate).format("d")=== "2" ? (`화`):(dayjs(startDate).format("d")=== "3" ? (`수`):(dayjs(startDate).format("d")=== "4" ? (`목`):(dayjs(startDate).format("d")=== "5" ? (`금`):(`토`))))))}
+                        {dayjs(startDate).format("d") === "0"
+                          ? `일`
+                          : dayjs(startDate).format("d") === "1"
+                          ? `월`
+                          : dayjs(startDate).format("d") === "2"
+                          ? `화`
+                          : dayjs(startDate).format("d") === "3"
+                          ? `수`
+                          : dayjs(startDate).format("d") === "4"
+                          ? `목`
+                          : dayjs(startDate).format("d") === "5"
+                          ? `금`
+                          : `토`}
                       </span>
                       <button
                         onClick={calenderOpen}
@@ -819,11 +891,26 @@ const Ticketing = memo(({}) => {
                         {dayArr ? (
                           dayArr.map((v, i) => {
                             return (
-                              <li key={i}>
-                                <button type="button" className="btnDate" onClick={btnSelectDate}>
-                                  <em className="date">{v.date}</em>
-                                  <em className="day">{v.day}</em>
-                                </button>
+                              <li
+                                key={i}
+                                data-key={i}
+                                ref={(el) => (ListActive.current[i] = el)}
+                              >
+                                <button
+                                  type="button"
+                                  className={
+                                    v.date === startDate.format("DD")
+                                      ? "btnDate active"
+                                      : "btnDate"
+                                  }
+                                  date={v.date}
+                                  day={v.day}
+                                  data-year={v.year}
+                                  data-month={v.month}
+                                  data-date={v.date}
+                                  data-day={v.day}
+                                  onClick={btnSelectDate}
+                                />
                               </li>
                             );
                           })
@@ -1133,7 +1220,6 @@ const Ticketing = memo(({}) => {
                           locale={ko}
                           minDate={now}
                           onChange={selectDay}
-
                         />
                         <div className="infoWrap">
                           <span>
@@ -1187,7 +1273,8 @@ const Ticketing = memo(({}) => {
             <div className="pop_mid">
               {/* 선택한 날짜로 나타나야 함 */}
               <p className="question">
-                2022-07-15 <br /> 선택하신 방문일자로 예약을 진행하시겠습니까?
+                {startDate.format("YYYY-MM-DD")} <br /> 선택하신 방문일자로
+                예약을 진행하시겠습니까?
               </p>
             </div>
             <div className="notice">
