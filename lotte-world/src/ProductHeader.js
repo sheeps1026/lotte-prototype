@@ -30,26 +30,11 @@ const ProHeaderWrap = styled.div`
     display: block;
     border-top: 1px solid #ddd;
   }
-
-  a.logo-btn {
-    position: absolute;
-    top: 0;
-    left: 520px;
-    z-index: 30;
-
-    h1 {
-      display: block;
-      background: url(https://adventurebusan.lotteworld.com/common/images/logo.png)
-        no-repeat center;
-      background-size: auto 100%;
-      width: 205px;
-      height: 58px;
-    }
-  }
-
   nav {
     position: relative;
     z-index: 25;
+    /* display: flex; */
+    /* justify-content: center; */
     &:before {
       content: "";
       display: block;
@@ -124,7 +109,42 @@ const ProHeaderWrap = styled.div`
           }
         }
       }
+      a.logo-btn {
+        /* position: absolute; */
+        /* top: 0; */
+        /* left: 520px; */
+        width: 30%;
+        z-index: 30;
+        h1 {
+          display: block;
+          background: url(https://adventurebusan.lotteworld.com/common/images/logo.png)
+            no-repeat center;
+          background-size: auto 100%;
+          width: 205px;
+          height: 58px;
+        }
+      }
     }
+    .util {
+      /* position: absolute; */
+      /* top: 0; */
+      /* left: auto; */
+      /* right: 500px; */
+      width: 30%;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+        .user_info {
+          display: inline-block;
+          color: #3e3e4d;
+        }
+        a {
+          display: inline-block;
+          padding: 18px 9px;
+          line-height: 1.5;
+          color: #505050;
+        }
+      }
     .btn_close {
       width: 17px;
       height: 17px;
@@ -135,24 +155,7 @@ const ProHeaderWrap = styled.div`
       bottom: 15px;
       right: 500px;
     }
-    .util {
-      position: absolute;
-      top: 0;
-      left: auto;
-      right: 500px;
-      font-size: 14px;
-      font-weight: 700;
-      .user_info {
-        display: inline-block;
-        color: #3e3e4d;
-      }
-      a {
-        display: inline-block;
-        padding: 18px 9px;
-        line-height: 1.5;
-        color: #505050;
-      }
-    }
+    
   }
 `;
 
@@ -169,12 +172,12 @@ const ProductHeader = memo(() => {
 
   return (
     <ProHeaderWrap className={`${openList ? "open" : ""}`}>
-      <Link to="/" className="logo-btn">
-        <h1></h1>
-      </Link>
 
       <nav>
         <ul className="gnb">
+        <Link to="/" className="logo-btn">
+          <h1></h1>
+        </Link>
           <li className="gnbList">
             <a className="onedepth" onClick={openMenu}>
               예매
@@ -197,20 +200,20 @@ const ProductHeader = memo(() => {
             </ul>
           </li>
           <button className="btn_close" onClick={closeMenu}></button>
+          <div className="util">
+            {isLogin ? (
+              <>
+                <p className="user_info">
+                  <strong>ㅇㅇㅇ</strong> 님
+                </p>
+                <a>로그아웃</a>
+              </>
+            ) : (
+              <Link to="/TicketingPage/Login">로그인</Link>
+            )}
+          </div>
         </ul>
 
-        <div className="util">
-          {isLogin ? (
-            <>
-              <p className="user_info">
-                <strong>ㅇㅇㅇ</strong> 님
-              </p>
-              <a>로그아웃</a>
-            </>
-          ) : (
-            <Link to="/TicketingPage/Login">로그인</Link>
-          )}
-        </div>
       </nav>
     </ProHeaderWrap>
   );
