@@ -813,22 +813,25 @@ const Ticketing = memo(({}) => {
     console.log("날짜 바껐엉");
   };
   const history = createBrowserHistory();
-  useEffect(() => {
-    const listenBackEvent = () => {
-      // 뒤로가기 할 때 수행할 동작을 적는다
-      navigate(`/TicketingPage`);
-    };
+  useEffect(
+    () => {
+      const listenBackEvent = () => {
+        // 뒤로가기 할 때 수행할 동작을 적는다
+        navigate(`/TicketingPage`);
+      };
 
-    const unlistenHistoryEvent = history.listen(({ action }) => {
-      if (action === "POP") {
-        listenBackEvent();
-      }
-    });
+      const unlistenHistoryEvent = history.listen(({ action }) => {
+        if (action === "POP") {
+          listenBackEvent();
+        }
+      });
 
-    return unlistenHistoryEvent;
-  }, [
-  // effect에서 사용하는 state를 추가
-]);
+      return unlistenHistoryEvent;
+    },
+    [
+      // effect에서 사용하는 state를 추가
+    ]
+  );
   useEffect(() => {
     navigate(
       `/TicketingPage/Ticketing?T_id=2&date=${dayjs(startDate).format(
@@ -836,8 +839,6 @@ const Ticketing = memo(({}) => {
       )}`
     );
   }, [startDate]);
-
-  
 
   return (
     <TicketingStyled>
@@ -899,7 +900,7 @@ const Ticketing = memo(({}) => {
                                 <button
                                   type="button"
                                   className={
-                                    v.date === startDate.format("DD")
+                                    v.date == startDate.format("DD")
                                       ? "btnDate active"
                                       : "btnDate"
                                   }
