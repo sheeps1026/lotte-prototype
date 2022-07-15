@@ -1,5 +1,5 @@
 import React, { memo, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
+
 import styled from "styled-components";
 import Spinner from "../../components/Spinner";
 import PaymentChk1 from "../../components/alert/PaymentChk1";
@@ -12,7 +12,10 @@ import bg from "../../assets/images/pages/product/bg_pc_visual_busan.png";
 import shadow from "../../assets/images/pages/product/bg_con_shadow.png";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getPayment } from "../../slice/PaymentSlice";
+import { getPayment, postPaymentInfo } from "../../slice/PaymentSlice";
+
+import { useNavigate } from "react-router-dom";
+
 const TicketingStyled = styled.div`
   width: 100%;
   min-height: calc(100% + 50px);
@@ -427,6 +430,7 @@ const TitleArea = styled.div`
 `;
 
 const Payment = memo(() => {
+  const navigate = useNavigate();
   // 약관 동의 모달창들
   let [paymentChk1, setPaymentChk1] = useState(false);
   let [paymentChk2, setPaymentChk2] = useState(false);
@@ -434,47 +438,77 @@ const Payment = memo(() => {
   let [paymentChk4, setPaymentChk4] = useState(false);
 
   // 전체 동의
-  const [allCheck, setAllCheck] = useState(false);
-  const [check1, setCheck1] = useState(false);
-  const [check2, setCheck2] = useState(false);
-  const [check3, setCheck3] = useState(false);
-  const [check4, setCheck4] = useState(false);
+  // const [allCheck, setAllCheck] = useState(false);
+  // const [check1, setCheck1] = useState(false);
+  // const [check2, setCheck2] = useState(false);
+  // const [check3, setCheck3] = useState(false);
+  // const [check4, setCheck4] = useState(false);
 
   const dispatch = useDispatch();
 
   const { data, loading, error } = useSelector((state) => state.PaymentSlice);
-  // const {userData} = data;
-  // console.log(data[0].name);
 
   React.useEffect(() => {
     dispatch(getPayment({ id: "1" }));
   }, [dispatch]);
 
   // 결제 구현
-  function onClickPayment(e) {
-    e.preventDefault();
 
-    /* 1. 가맹점 식별하기 */
-    const { IMP } = window;
-    IMP.init("imp70078593");
+  const onClickPayment = React.useCallback(
+    (e) => {
+      e.preventDefault();
 
-    /* 2. 결제 데이터 정의하기 */
-    const paymentData = {
-      pg: "html5_inicis", // PG사
-      pay_method: "card", // 결제수단
-      merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
-      amount: 14000, // 결제금액
-      name: "아임포트 결제 데이터 분석", // 주문명
-      buyer_name: "홍길동", // 구매자 이름
-      buyer_tel: "01012341234", // 구매자 전화번호
-      buyer_email: "example@example", // 구매자 이메일
-      buyer_addr: "신사동 661-16", // 구매자 주소
-      buyer_postcode: "06018", // 구매자 우편번호
-    };
+      // console.log(e.target.amount.value);
+      const pay_method = e.target.pay_method.value;
+      const amount = e.target.amount.value;
+      const buyer_name = e.target.buyer_name.value;
+      const buyer_email = e.target.buyer_email.value;
+      const buyer_tel = e.target.buyer_tel.value;
 
-    /* 4. 결제 창 호출하기 */
-    IMP.request_pay(paymentData, callback);
-  }
+      /* 1. 가맹점 식별하기 */
+      const { IMP } = window;
+      IMP.init("imp70078593");
+
+      /* 2. 결제 데이터 정의하기 */
+      const paymentData = {
+        pg: "html5_inicis", // PG사
+        pay_method: pay_method, // 결제수단
+        merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
+        amount: amount, // 결제금액
+        name: "롯데월드 자유 이용권 결제", // 주문명
+        buyer_name: buyer_name, // 구매자 이름
+        buyer_tel: buyer_tel, // 구매자 전화번호
+        buyer_email: buyer_email, // 구매자 이메일
+        buyer_addr: "신사동 661-16", // 구매자 주소
+        buyer_postcode: "06018", // 구매자 우편번호
+      };
+
+      /* 4. 결제 창 호출하기 */
+      IMP.request_pay(paymentData, callback);
+
+      dispatch(
+        postPaymentInfo({
+          pg: "html5_inicis", // PG사
+          pay_method: paymentData?.pay_method, // 결제수단
+          merchant_uid:paymentData?.merchant_uid , // 주문번호
+          amount: paymentData?.amount, // 결제금액
+          name: "롯데월드 입장권", // 주문명
+          buyer_name: paymentData?.buyer_name, // 구매자 이름
+          buyer_tel: paymentData?.buyer_tel, // 구매자 전화번호
+          visit_email: paymentData?.buyer_email, // 구매자 이메일
+          visit_name: paymentData?.visit_name, // 방문자 이름
+          visit_tel: paymentData?.visit_tel, // 방문자 전화번호
+          buyer_email: paymentData?.visit_mail, // 방문자 이메일
+          buyer_addr: paymentData?.M_addr, // 구매자 주소
+          buyer_postcode: paymentData?.M_postCode, // 구매자 우편번호
+        })
+      );
+      console.log("백엔드에 들어가는 주문번호" + paymentData?.merchant_uid);
+
+      // navigate("/TicketingPage/paymentResult")
+    },
+    [dispatch]
+  );
 
   /* 3. 콜백 함수 정의하기 */
   function callback(response) {
@@ -482,6 +516,7 @@ const Payment = memo(() => {
 
     if (success) {
       alert("결제 성공");
+      navigate("/TicketingPage/paymentResult", { state: merchant_uid });
     } else {
       alert(`결제 실패: ${error_msg}`);
     }
@@ -500,10 +535,6 @@ const Payment = memo(() => {
     e.stopPropagation();
   };
 
-  // const [userName, setUserName] = useState("");
-  // const [userMail, setUserMail] = useState("");
-  // const [userNum, setUserNum] = useState("");
-
   const AllcheckedBtn = React.useRef();
   const userNameRef = React.useRef();
   const userMailRef = React.useRef();
@@ -512,13 +543,13 @@ const Payment = memo(() => {
   const Allchecked = (e) => {
     console.log(AllcheckedBtn.current.checked);
 
-    const  AllcheckedClick = AllcheckedBtn.current.checked; 
+    const AllcheckedClick = AllcheckedBtn.current.checked;
 
     if (AllcheckedClick) {
-      userNameRef.current.value = data[0].name;
-      userMailRef.current.value = data[0].mail;
-      userNumRef.current.value = data[0].tel;
-    }else{
+      userNameRef.current.value = data[0].M_name;
+      userMailRef.current.value = data[0].M_email;
+      userNumRef.current.value = data[0].M_tel;
+    } else {
       userNameRef.current.value = "";
       userMailRef.current.value = "";
       userNumRef.current.value = "";
@@ -526,6 +557,7 @@ const Payment = memo(() => {
   };
   return (
     <>
+      {error && <>에러임돠</>}
       <Spinner loading={loading} />
       {data && (
         <TicketingStyled>
@@ -563,15 +595,33 @@ const Payment = memo(() => {
                         <div className="acco_contents buy" onClick={notToggle}>
                           <div>
                             <p>이름</p>
-                            <p>{data[0].name}</p>
+                            <p>
+                              <input
+                                name="buyer_name"
+                                value={data[0].M_name}
+                                readOnly
+                              />
+                            </p>
                           </div>
                           <div>
                             <p>이메일</p>
-                            <p>{data[0].email}</p>
+                            <p>
+                              <input
+                                name="buyer_email"
+                                value={data[0].M_email}
+                                readOnly
+                              />
+                            </p>
                           </div>
                           <div>
                             <p>휴대폰</p>
-                            <p>{data[0].tel}</p>
+                            <p>
+                              <input
+                                name="buyer_tel"
+                                value={data[0].M_tel}
+                                readOnly
+                              />
+                            </p>
                           </div>
                         </div>
                       </li>
@@ -593,7 +643,11 @@ const Payment = memo(() => {
                         </div>
                         <div className="acco_contents info" onClick={notToggle}>
                           <div className="info-top">
-                            <input type="checkbox" onChange={Allchecked} ref={AllcheckedBtn}/>
+                            <input
+                              type="checkbox"
+                              onChange={Allchecked}
+                              ref={AllcheckedBtn}
+                            />
                             <label htmlFor="">구매자 정보와 동일</label>
                           </div>
 
@@ -604,6 +658,7 @@ const Payment = memo(() => {
                               </label>
                               <input
                                 type="text"
+                                name="visit_name"
                                 placeholder="홍길동"
                                 ref={userNameRef}
                               />
@@ -616,6 +671,7 @@ const Payment = memo(() => {
                                 <input
                                   // value={userMail}
                                   type="email"
+                                  name="visit_mail"
                                   placeholder="userEmail@naver.com"
                                   ref={userMailRef}
                                 />
@@ -628,6 +684,7 @@ const Payment = memo(() => {
                               <div>
                                 <input
                                   type="number"
+                                  name="visit_tel"
                                   placeholder="01012341234"
                                   ref={userNumRef}
                                 />
@@ -664,14 +721,24 @@ const Payment = memo(() => {
                     {/* 결제 예정 금액 */}
                     <div className="detail">
                       <ul>
-                        <li>카카오페이 - 선택한 날짜</li>
+                        <li>
+                          카카오페이 - 선택한 날짜
+                          <input name="pay_method" value="card" readOnly />
+                        </li>
                         <hr />
                         <li>
                           어른 x 1 <span>16,500원</span>
                         </li>
                       </ul>
                       <p>
-                        결제예정금액 <span>16,500원</span>
+                        {/* 결제예정금액 <span >16,500원</span> */}
+                        결제 예정 금액
+                        <input
+                          name="amount"
+                          type="number"
+                          value={14000}
+                          readOnly
+                        />
                       </p>
                     </div>
                     <hr className="division" />
