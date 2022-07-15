@@ -42,6 +42,7 @@ const MypageContainer = styled.div`
     }
     .paymentList {
       display: block;
+      cursor: pointer;
       background: #2b72c9;
       margin: 20px auto;
       color: #fff;
@@ -52,6 +53,13 @@ const MypageContainer = styled.div`
       border: none;
       border-radius: 3px;
       text-align: center;
+      transition: all 0.2s;
+      &:hover{
+        background: #000;
+        /* color:#2b72c9 !important; */
+        padding: 13px 0;
+        
+      }
     }
     .PaymentListTable {
       border-top: 2px solid #000;
@@ -144,11 +152,11 @@ const PaymentResult = memo(() => {
               <tbody>
                 <tr>
                   <th>주문번호</th>
-                  <td>12345678</td>
+                  <td>{data[0].merchant_uid}</td>
                 </tr>
                 <tr>
                   <th>예매상품</th>
-                  <td>오후권 온라인 할인 - 어린이</td>
+                  <td>{data[0].name}</td>
                 </tr>
                 <tr>
                   <th>수량</th>
@@ -166,17 +174,17 @@ const PaymentResult = memo(() => {
                   <td>2022.06.04(토)</td>
                 </tr>
                 <tr>
-                  <th>총티켓금액</th>
-                  <td className="colorRed">55,800원</td>
+                  <th>총 결제금액</th>
+                  <td className="colorRed">{data[0].amount}원</td>
                 </tr>
                 <tr>
                   <th>결제수단</th>
                   <td>간편결제</td>
                 </tr>
-                <tr>
+                {/* <tr>
                   <th>결재금액</th>
                   <td className="colorRed">26,900원</td>
-                </tr>
+                </tr> */}
               </tbody>
             </table>
             <div className="paymentFooter">

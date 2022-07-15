@@ -1083,6 +1083,16 @@
       "buyer_tel": "01012345567",
       "visit_email": "userEmail@gmail.com",
       "id": 70
+    },
+    {
+      "pg": "html5_inicis",
+      "pay_method": "card",
+      "merchant_uid": "mid_1657871009272",
+      "amount": "14000",
+      "buyer_name": "테스트의 이름",
+      "buyer_tel": "01012345567",
+      "visit_email": "userEmail@gmail.com",
+      "id": 71
     }
   ],
   "bbs_inquire": [
