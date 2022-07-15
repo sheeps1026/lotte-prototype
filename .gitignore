@@ -1,3 +1,5 @@
 node_modules
-backend.json
+
+backend/backend.json
+
 backend

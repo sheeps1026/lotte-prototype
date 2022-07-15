@@ -223,7 +223,15 @@
       "visual": "/public_img/enjoy/202203240218126072_1519.jpg"
     }
   ],
-  "info": [],
+  "info": [
+    {
+      "id": "test1234",
+      "pwd": "test1234!Q",
+      "name": "eeeee",
+      "tel": "01012345678",
+      "email": "dasd@dasd.com"
+    }
+  ],
   "bbs_inquire": [
     {
       "I_name": "유다현",
@@ -242,6 +250,18 @@
       "I_content": "내용입니다",
       "I_file": "C:\\fakepath\\사용자.png",
       "id": 4
+    },
+    {
+      "id": 5
+    },
+    {
+      "id": 6
+    },
+    {
+      "id": 7
+    },
+    {
+      "id": 8
     }
   ]
 }
