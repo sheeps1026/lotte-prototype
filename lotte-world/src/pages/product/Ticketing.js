@@ -4,7 +4,7 @@
  * @description: 예매할 날짜, 인원 선택
  */
 import React, { memo, useCallback, useState, useEffect } from "react";
-import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
@@ -22,6 +22,8 @@ import arrow from "../../assets/images/pages/product/bg_accordion_arrow.png";
 import close from "../../assets/images/pages/product/btn_pop_close.png";
 import nodata from "../../assets/images/pages/product/nodata.png";
 
+import { useDispatch , useSelector } from "react-redux";
+import { getPayment } from "../../slice/PaymentSlice";
 import confirmBg from "../../assets/images/pages/product/bg_notice.png";
 import icon from "../../assets/images/pages/product/bg_popicon.png";
 
@@ -30,6 +32,8 @@ const personnalArr = [
   { tit: "청소년", txt: "13세 이상 ~ 만 18세" },
   { tit: "어린이", txt: "36개월 이상 ~ 만 12세" },
 ];
+
+
 
 const TicketingStyled = styled.div`
   width: 100%;
@@ -813,6 +817,13 @@ const Ticketing = memo(({}) => {
     console.log("날짜 바껐엉");
   };
   const history = createBrowserHistory();
+
+  const  dispatch = useDispatch();
+
+  const {data,loading,error} = useSelector((state)=>state.PaymentSlice);
+
+
+
   useEffect(
     () => {
       const listenBackEvent = () => {
@@ -828,6 +839,7 @@ const Ticketing = memo(({}) => {
 
       return unlistenHistoryEvent;
     },
+    
     [
       // effect에서 사용하는 state를 추가
     ]
@@ -838,8 +850,14 @@ const Ticketing = memo(({}) => {
         "YYYY-MM-DD"
       )}`
     );
-  }, [startDate]);
 
+    dispatch(getPayment({id:"1"}))
+  }, [startDate,dispatch]);
+
+  console.log(data);
+
+
+  // console.log(data);
   return (
     <TicketingStyled>
       <div className="containerWrap">

@@ -148,7 +148,7 @@ const PaymentListWrap = styled.div`
           &:before {
             content: "${({ adult }) => (adult === "1" ? "어른" : "어린이")}";
           }
-        }
+        }d
         p {
           line-height: 1.5;
         }
