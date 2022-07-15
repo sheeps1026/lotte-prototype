@@ -1,7 +1,7 @@
 import React, { memo, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
+import Spinner from "../../components/Spinner";
 import PaymentChk1 from "../../components/alert/PaymentChk1";
 import PaymentChk2 from "../../components/alert/PaymentChk2";
 import PaymentChk3 from "../../components/alert/PaymentChk3";
@@ -11,6 +11,8 @@ import arrow from "../../assets/images/pages/product/bg_accordion_arrow.png";
 import bg from "../../assets/images/pages/product/bg_pc_visual_busan.png";
 import shadow from "../../assets/images/pages/product/bg_con_shadow.png";
 
+import { useDispatch, useSelector } from "react-redux";
+import { getPayment } from "../../slice/PaymentSlice";
 const TicketingStyled = styled.div`
   width: 100%;
   min-height: calc(100% + 50px);
@@ -212,7 +214,12 @@ const TitleArea = styled.div`
             display: flex;
             flex-direction: column;
             margin-bottom: 15px;
-
+            input[type="number"]::-webkit-inner-spin-button,
+            input[type="number"]::-webkit-outer-spin-button {
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              appearance: none;
+            }
             &:last-child {
               margin-bottom: 0;
             }
@@ -222,12 +229,18 @@ const TitleArea = styled.div`
             }
 
             input {
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              appearance: none;
               width: 28%;
               border: 1px solid rgb(207, 207, 207);
-              color: rgb(204, 204, 204);
+              color: #222;
               font-size: 14px;
               line-height: 37px;
               padding-left: 20px;
+              &::placeholder {
+                color: rgb(204, 204, 204);
+              }
             }
 
             div {
@@ -421,11 +434,21 @@ const Payment = memo(() => {
   let [paymentChk4, setPaymentChk4] = useState(false);
 
   // 전체 동의
-  let [allCheck, setAllCheck] = useState(false);
-  let [check1, setCheck1] = useState(false);
-  let [check2, setCheck2] = useState(false);
-  let [check3, setCheck3] = useState(false);
-  let [check4, setCheck4] = useState(false);
+  const [allCheck, setAllCheck] = useState(false);
+  const [check1, setCheck1] = useState(false);
+  const [check2, setCheck2] = useState(false);
+  const [check3, setCheck3] = useState(false);
+  const [check4, setCheck4] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const { data, loading, error } = useSelector((state) => state.PaymentSlice);
+  // const {userData} = data;
+  // console.log(data[0].name);
+
+  React.useEffect(() => {
+    dispatch(getPayment({ id: "1" }));
+  }, [dispatch]);
 
   // 결제 구현
   function onClickPayment(e) {
@@ -436,7 +459,7 @@ const Payment = memo(() => {
     IMP.init("imp70078593");
 
     /* 2. 결제 데이터 정의하기 */
-    const data = {
+    const paymentData = {
       pg: "html5_inicis", // PG사
       pay_method: "card", // 결제수단
       merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
@@ -450,7 +473,7 @@ const Payment = memo(() => {
     };
 
     /* 4. 결제 창 호출하기 */
-    IMP.request_pay(data, callback);
+    IMP.request_pay(paymentData, callback);
   }
 
   /* 3. 콜백 함수 정의하기 */
@@ -471,242 +494,281 @@ const Payment = memo(() => {
     !openSelect.includes(item)
       ? setOpenSelect((openSelect) => [...openSelect, item])
       : setOpenSelect(openSelect.filter((e) => e !== item));
-
-    // console.log(openSelect);
-
-    // setToggleOn(!toggleOn);
   });
 
   const notToggle = (e) => {
     e.stopPropagation();
   };
 
-  return (
-    <TicketingStyled>
-      {paymentChk1 && <PaymentChk1 setPaymentChk1={setPaymentChk1} />}
-      {paymentChk2 && <PaymentChk2 setPaymentChk2={setPaymentChk2} />}
-      {paymentChk3 && <PaymentChk3 setPaymentChk3={setPaymentChk3} />}
-      {paymentChk4 && <PaymentChk4 setPaymentChk4={setPaymentChk4} />}
+  // const [userName, setUserName] = useState("");
+  // const [userMail, setUserMail] = useState("");
+  // const [userNum, setUserNum] = useState("");
 
-      <div className="containerWrap">
-        <div className="container">
-          <div className="titleWrap">
-            <div>
-              <h1>이용권 결제</h1>
+  const AllcheckedBtn = React.useRef();
+  const userNameRef = React.useRef();
+  const userMailRef = React.useRef();
+  const userNumRef = React.useRef();
+
+  const Allchecked = (e) => {
+    console.log(AllcheckedBtn.current.checked);
+
+    const  AllcheckedClick = AllcheckedBtn.current.checked; 
+
+    if (AllcheckedClick) {
+      userNameRef.current.value = data[0].name;
+      userMailRef.current.value = data[0].mail;
+      userNumRef.current.value = data[0].tel;
+    }else{
+      userNameRef.current.value = "";
+      userMailRef.current.value = "";
+      userNumRef.current.value = "";
+    }
+  };
+  return (
+    <>
+      <Spinner loading={loading} />
+      {data && (
+        <TicketingStyled>
+          <Spinner loading={loading} />
+
+          {paymentChk1 && <PaymentChk1 setPaymentChk1={setPaymentChk1} />}
+          {paymentChk2 && <PaymentChk2 setPaymentChk2={setPaymentChk2} />}
+          {paymentChk3 && <PaymentChk3 setPaymentChk3={setPaymentChk3} />}
+          {paymentChk4 && <PaymentChk4 setPaymentChk4={setPaymentChk4} />}
+
+          <div className="containerWrap">
+            <div className="container">
+              <div className="titleWrap">
+                <div>
+                  <h1>이용권 결제</h1>
+                </div>
+              </div>
+              <div className="reserveWrap">
+                <TitleArea>
+                  <form onSubmit={onClickPayment}>
+                    {/* 구매자 정보 */}
+                    <ul
+                      id={0}
+                      className={
+                        openSelect.includes("0")
+                          ? "accordion"
+                          : "accordion open"
+                      }
+                      onClick={toggle}
+                    >
+                      <li>
+                        <div className="acco_title">
+                          <div className="tit">구매자 정보</div>
+                        </div>
+                        <div className="acco_contents buy" onClick={notToggle}>
+                          <div>
+                            <p>이름</p>
+                            <p>{data[0].name}</p>
+                          </div>
+                          <div>
+                            <p>이메일</p>
+                            <p>{data[0].email}</p>
+                          </div>
+                          <div>
+                            <p>휴대폰</p>
+                            <p>{data[0].tel}</p>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                    <hr className="division" />
+                    {/* 방문자 정보 */}
+                    <ul
+                      id={1}
+                      className={
+                        openSelect.includes("1")
+                          ? "accordion"
+                          : "accordion open"
+                      }
+                      onClick={toggle}
+                    >
+                      <li>
+                        <div className="acco_title">
+                          <div className="tit">방문자 정보</div>
+                        </div>
+                        <div className="acco_contents info" onClick={notToggle}>
+                          <div className="info-top">
+                            <input type="checkbox" onChange={Allchecked} ref={AllcheckedBtn}/>
+                            <label htmlFor="">구매자 정보와 동일</label>
+                          </div>
+
+                          <div className="info-mid">
+                            <div className="info-input">
+                              <label htmlFor="">
+                                이름 <span>*</span>
+                              </label>
+                              <input
+                                type="text"
+                                placeholder="홍길동"
+                                ref={userNameRef}
+                              />
+                            </div>
+                            <div className="info-input">
+                              <label htmlFor="">
+                                이메일 <span>*</span>
+                              </label>
+                              <div>
+                                <input
+                                  // value={userMail}
+                                  type="email"
+                                  placeholder="userEmail@naver.com"
+                                  ref={userMailRef}
+                                />
+                              </div>
+                            </div>
+                            <div className="info-input phone">
+                              <label htmlFor="">
+                                휴대폰 <span>*</span>
+                              </label>
+                              <div>
+                                <input
+                                  type="number"
+                                  placeholder="01012341234"
+                                  ref={userNumRef}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                    <hr className="division" />
+                    {/* 결제 수단 */}
+                    <ul
+                      id={3}
+                      className={
+                        openSelect.includes("3")
+                          ? "accordion"
+                          : "accordion open"
+                      }
+                      onClick={toggle}
+                    >
+                      <li>
+                        <div className="acco_title">
+                          <div className="tit">결제 수단</div>
+                        </div>
+                        <div
+                          className="acco_contents kakao"
+                          onClick={notToggle}
+                        >
+                          <button>카카오페이</button>
+                        </div>
+                      </li>
+                    </ul>
+                    <hr className="division" />
+                    {/* 결제 예정 금액 */}
+                    <div className="detail">
+                      <ul>
+                        <li>카카오페이 - 선택한 날짜</li>
+                        <hr />
+                        <li>
+                          어른 x 1 <span>16,500원</span>
+                        </li>
+                      </ul>
+                      <p>
+                        결제예정금액 <span>16,500원</span>
+                      </p>
+                    </div>
+                    <hr className="division" />
+                    {/* 약관 동의 */}
+                    <div className="terms-agree">
+                      <header>
+                        <h3>약관 동의</h3>
+                        <div>
+                          <input type="checkbox" />
+                          <label htmlFor="">전체동의</label>
+                        </div>
+                      </header>
+                      <hr />
+                      <div className="agree-mid">
+                        <div className="mid-item">
+                          <div className="agree-btn">
+                            <input type="checkbox" />
+                            <label htmlFor="">
+                              전자상거래 이용약관<span>필수</span>
+                            </label>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setPaymentChk1(true);
+                            }}
+                          >
+                            전문보기
+                          </button>
+                        </div>
+                        <div className="mid-item">
+                          <div className="agree-btn">
+                            <input type="checkbox" />
+                            <label htmlFor="">
+                              개인정보 수집·이용<span>필수</span>
+                            </label>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setPaymentChk2(true);
+                            }}
+                          >
+                            전문보기
+                          </button>
+                        </div>
+                        <div className="mid-item">
+                          <div className="agree-btn">
+                            <input type="checkbox" />
+                            <label htmlFor="">
+                              마케팅 정보 활용 및 관련 정보 수신 동의
+                              <span>선택</span>
+                            </label>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setPaymentChk3(true);
+                            }}
+                          >
+                            전문보기
+                          </button>
+                        </div>
+                        <div className="mid-item">
+                          <div className="agree-btn">
+                            <input type="checkbox" />
+                            <label htmlFor="">
+                              개인정보 제3자 제공 동의<span>선택</span>
+                            </label>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setPaymentChk4(true);
+                            }}
+                          >
+                            전문보기
+                          </button>
+                        </div>
+                        <p>
+                          필수 항목에 모두 동의하셔야 서비스를 이용하실 수
+                          있습니다.
+                        </p>
+                      </div>
+                      <div className="agree-bottom">
+                        {/* <button type="submit" onClick={onClickPayment}>결제하기</button> */}
+                        <button type="submit">결제하기</button>
+                      </div>
+                    </div>
+                  </form>
+                </TitleArea>
+              </div>
             </div>
           </div>
-          <div className="reserveWrap">
-            <TitleArea>
-              {/* 구매자 정보 */}
-              <ul
-                id={0}
-                className={
-                  openSelect.includes("0") ? "accordion" : "accordion open"
-                }
-                onClick={toggle}
-              >
-                <li>
-                  <div className="acco_title">
-                    <div className="tit">구매자 정보</div>
-                  </div>
-                  <div className="acco_contents buy" onClick={notToggle}>
-                    <div>
-                      <p>이름</p>
-                      <p>구매자이름</p>
-                    </div>
-                    <div>
-                      <p>이메일</p>
-                      <p>구매자이메일</p>
-                    </div>
-                    <div>
-                      <p>휴대폰</p>
-                      <p>구매자핸드폰</p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <hr className="division" />
-              {/* 방문자 정보 */}
-              <ul
-                id={1}
-                className={
-                  openSelect.includes("1") ? "accordion" : "accordion open"
-                }
-                onClick={toggle}
-              >
-                <li>
-                  <div className="acco_title">
-                    <div className="tit">방문자 정보</div>
-                  </div>
-                  <div className="acco_contents info" onClick={notToggle}>
-                    <div className="info-top">
-                      <input type="checkbox" />
-                      <label htmlFor="">구매자 정보와 동일</label>
-                    </div>
-                    <div className="info-mid">
-                      <div className="info-input">
-                        <label htmlFor="">
-                          이름 <span>*</span>
-                        </label>
-                        <input type="text" />
-                      </div>
-                      <div className="info-input">
-                        <label htmlFor="">
-                          이메일 <span>*</span>
-                        </label>
-                        <div>
-                          <input type="text" />
-                          <span>@</span>
-                          <input type="text" placeholder="naver.com" />
-                          <select name="" id="">
-                            <option value="">naver.com</option>
-                            <option value="">gmail.com</option>
-                            <option value="">daum.net</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="info-input phone">
-                        <label htmlFor="">
-                          휴대폰 <span>*</span>
-                        </label>
-                        <div>
-                          <select name="" id="">
-                            <option value="010">010</option>
-                            <option value="011">011</option>
-                            <option value="016">016</option>
-                            <option value="017">017</option>
-                            <option value="018">018</option>
-                            <option value="019">019</option>
-                          </select>
-                          <input type="text" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <hr className="division" />
-              {/* 결제 수단 */}
-              <ul
-                id={3}
-                className={
-                  openSelect.includes("3") ? "accordion" : "accordion open"
-                }
-                onClick={toggle}
-              >
-                <li>
-                  <div className="acco_title">
-                    <div className="tit">결제 수단</div>
-                  </div>
-                  <div className="acco_contents kakao" onClick={notToggle}>
-                    <button>카카오페이</button>
-                  </div>
-                </li>
-              </ul>
-              <hr className="division" />
-              {/* 결제 예정 금액 */}
-              <div className="detail">
-                <ul>
-                  <li>카카오페이 - 선택한 날짜</li>
-                  <hr />
-                  <li>
-                    어른 x 1 <span>16,500원</span>
-                  </li>
-                </ul>
-                <p>
-                  결제예정금액 <span>16,500원</span>
-                </p>
-              </div>
-              <hr className="division" />
-              {/* 약관 동의 */}
-              <div className="terms-agree">
-                <header>
-                  <h3>약관 동의</h3>
-                  <div>
-                    <input type="checkbox" />
-                    <label htmlFor="">전체동의</label>
-                  </div>
-                </header>
-                <hr />
-                <div className="agree-mid">
-                  <div className="mid-item">
-                    <div className="agree-btn">
-                      <input type="checkbox" />
-                      <label htmlFor="">
-                        전자상거래 이용약관<span>필수</span>
-                      </label>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setPaymentChk1(true);
-                      }}
-                    >
-                      전문보기
-                    </button>
-                  </div>
-                  <div className="mid-item">
-                    <div className="agree-btn">
-                      <input type="checkbox" />
-                      <label htmlFor="">
-                        개인정보 수집·이용<span>필수</span>
-                      </label>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setPaymentChk2(true);
-                      }}
-                    >
-                      전문보기
-                    </button>
-                  </div>
-                  <div className="mid-item">
-                    <div className="agree-btn">
-                      <input type="checkbox" />
-                      <label htmlFor="">
-                        마케팅 정보 활용 및 관련 정보 수신 동의
-                        <span>선택</span>
-                      </label>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setPaymentChk3(true);
-                      }}
-                    >
-                      전문보기
-                    </button>
-                  </div>
-                  <div className="mid-item">
-                    <div className="agree-btn">
-                      <input type="checkbox" />
-                      <label htmlFor="">
-                        개인정보 제3자 제공 동의<span>선택</span>
-                      </label>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setPaymentChk4(true);
-                      }}
-                    >
-                      전문보기
-                    </button>
-                  </div>
-                  <p>
-                    필수 항목에 모두 동의하셔야 서비스를 이용하실 수 있습니다.
-                  </p>
-                </div>
-                <div className="agree-bottom">
-                  <button onClick={onClickPayment}>결제하기</button>
-                </div>
-              </div>
-            </TitleArea>
-          </div>
-        </div>
-      </div>
-    </TicketingStyled>
+        </TicketingStyled>
+      )}
+    </>
   );
 });
 

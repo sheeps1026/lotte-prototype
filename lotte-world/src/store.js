@@ -6,10 +6,15 @@ const logger = createLogger();
 
 const store = configureStore({
   reducer: {
-    payment:PaymentSlice
+    PaymentSlice:PaymentSlice
   },
-  middleware: [...getDefaultMiddleware({serialzableCheck:false})],
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+    
+      serializableCheck: false,
+    }),
   devTools: true,
+  serializableCheck: false,
 });
 
 export default store;
