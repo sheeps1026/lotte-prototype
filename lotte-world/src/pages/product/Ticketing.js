@@ -435,6 +435,7 @@ const TicketForm = styled.form`
       font-size: 14px;
       font-weight: 500;
       line-height: 1.2;
+
       span {
         color: #ff0000;
       }
@@ -691,15 +692,18 @@ const DatePopup = styled.div`
   }
 `;
 const Ticketing = memo(({}) => {
+  const { data, loading, error } = useSelector((state) => state.PaymentSlice);
+  
   // Date picker 날짜 선택 상태값
   const [startDate, setStartDate] = useState(dayjs());
-
   // 재확인 모달창 상태값
   const [confOpen, setConfOpen] = useState(false);
   //  달력 모달창 상태값
   const [dateOpen, setDateOpen] = useState(false);
   // 공지사항 토글 상태값
   const [select, setSelect] = useState([]);
+
+  const ListActive = React.useRef([]);
 
   //  재확인 모달창 이벤트
   const confirmOpen = useCallback(() => {
@@ -734,8 +738,8 @@ const Ticketing = memo(({}) => {
 
     // setToggleOn(!toggleOn);
   });
+  
 
-  const ListActive = React.useRef([]);
 
   const selectDay = (e) => {
     setStartDate(dayjs(e));
@@ -778,8 +782,8 @@ const Ticketing = memo(({}) => {
     let mm = Number(resultDay.getMonth()) + 1;
     let dd = resultDay.getDate();
 
-    mm = String(mm).length === 1 ? "0" + mm : mm;
-    dd = String(dd).length === 1 ? "0" + dd : dd;
+    mm = String(mm).length == 1 ? "0" + mm : mm;
+    dd = String(dd).length == 1 ? "0" + dd : dd;
     yyyy = String(yyyy);
 
     thisWeek[i] = dd;
@@ -815,28 +819,8 @@ const Ticketing = memo(({}) => {
 
   const dispatch = useDispatch();
 
-  const { data, loading, error } = useSelector((state) => state.PaymentSlice);
+  
 
-  useEffect(
-    () => {
-      const listenBackEvent = () => {
-        // 뒤로가기 할 때 수행할 동작을 적는다
-        navigate(`/TicketingPage`);
-      };
-
-      const unlistenHistoryEvent = history.listen(({ action }) => {
-        if (action === "POP") {
-          listenBackEvent();
-        }
-      });
-
-      return unlistenHistoryEvent;
-    },
-
-    [
-      // effect에서 사용하는 state를 추가
-    ]
-  );
 
   const location = useLocation();
 
@@ -845,14 +829,9 @@ const Ticketing = memo(({}) => {
   let params = new URLSearchParams(searchAll);
   let T_id = params.get("T_id");
 
-  useEffect(() => {
-    dispatch(getPayment({ id: "1" }));
-    navigate(
-      `/TicketingPage/Ticketing?T_id=${T_id}&date=${dayjs(startDate).format(
-        "YYYY-MM-DD"
-      )}`
-    );
-  }, [dispatch]);
+  useEffect(()=>{
+    navigate(`/TicketingPage/Ticketing?T_id=${T_id}&date=${dayjs(startDate).format("YYYY-MM-DD")}`)
+  });
 
   return (
     <TicketingStyled>
@@ -1309,7 +1288,7 @@ const Ticketing = memo(({}) => {
               >
                 <span>취소</span>
               </button>
-              <Link to="/TicketingPage/Ticketing/Payment" dateState={startDate}>
+              <Link to="/TicketingPage/Ticketing/Payment">
                 <button type="button" className="btn_fill">
                   <span>동의하고 결제하기</span>
                 </button>

@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react";
-import { Routes, Route, useParams, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import reset from "styled-reset";
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
@@ -19,6 +19,7 @@ import FAQ from "./pages/customer/FAQ";
 import Inquiry from "./pages/customer/Inquiry";
 import InquiryWrite from "./pages/customer/InquiryWrite";
 import LostList from "./pages/customer/LostList";
+
 import PaymentList from "./pages/myPages/PaymentList";
 import PaymentView from "./pages/myPages/PaymentView";
 
@@ -180,7 +181,7 @@ const App = memo(() => {
           <Route path="/PaymentChk3" element={<PaymentChk3 />} />
           <Route path="/PaymentChk4" element={<PaymentChk4 />} />
           <Route path="/TicketingPage" element={<TicketingMain  />} />
-          <Route path="/TicketingPage/Ticketing*" element={<Ticketing  />} />
+          <Route path="/TicketingPage/Ticketing/*" element={<Ticketing  />} />
           <Route
             path="/TicketingPage/Ticketing/Payment"
             element={<Payment />}
