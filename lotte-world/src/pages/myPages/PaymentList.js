@@ -8,6 +8,11 @@ import bg from "../../assets/images/bg_pc_visual.png";
 import dayjs from "dayjs";
 import arrowRight from "../../assets/images/arrow-right.png";
 import NoResultFound from "../../components/NoResultsFound";
+import { getPaymentInfo } from "../../slice/PaymentSlice";
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+
+
 
 const MypageContainer = styled.div`
   width: 100vw;
@@ -120,11 +125,14 @@ const PaymentListWrap = styled.div`
       > span {
         border-width: 1px;
         border-style: solid;
-        border-color: ${({ ticket }) => (ticket === "Yes" ? "red" : "blue")};
-        &:before {
-          content: "${({ ticket }) =>(ticket === "Yes" ? "예약완료" : "취소완료")}";
+        /*
+          //취소 구현을 못해요 .. 
+        border-color: ${({ ticket }) => (ticket === "Yes" ? "red" : "blue")}; 
+        */
+        /* &:before {
+          content: "${({ ticket }) => (ticket === "Yes" ? "예약완료" : "취소완료")}";
           color: ${({ ticket }) => (ticket === "Yes" ? "red" : "blue")};
-        }
+        } */
 
         display: inline-block;
         color: red;
@@ -148,8 +156,8 @@ const PaymentListWrap = styled.div`
           &:before {
             content: "${({ adult }) => (adult === "1" ? "어른" : "어린이")}";
           }
-        }d
-        p {
+        }
+        d p {
           line-height: 1.5;
         }
       }
@@ -163,39 +171,56 @@ const PaymentListWrap = styled.div`
 `;
 
 const PaymentList = memo(() => {
-  const [startDate, setStartDate] = useState(new Date());
+
+  const dispatch = useDispatch();
+
+  const {data,loading,error} = useSelector((state)=>state.PaymentSlice);
+  
+  React.useEffect(()=>{
+    dispatch( getPaymentInfo({merchant_uid : "mid_1657868756137" }));
+  },[dispatch]);
+
+  const today = dayjs().format("YYYY-MM");
+  // console.log(today);
 
   const datePicker1 = React.useRef();
-  const prevBtn = React.useCallback(() => {
-    // const date = datePicker1.current.props.selected;
-    // setStartDate(startDate+1)
-    // new Date(
-    //   new Date().getFullYear(),
-    //   new Date().getMonth() - 1,
-    //   new Date().getDate()
-    // );
-    console.log(
-      //   new Date(
-      //     new Date().getFullYear(),
-      //     new Date().getMonth() - 1,
-      //     new Date().getDate()
-      //   )
-      startDate.toISOString().substring(0, 7).replaceAll("-", ".")
-      // startDate.getFullYear(),startDate.getMonth()-1,
-    );
-    console.log("시간"+new Date());
-    console.log("스테이트"+startDate);
-  });
-  //   const nextBtn = React.useCallback(() => {});
 
-  const OrderListJson = [
-    {
-      orderNum: 12345512,
-      orderDate: "2022.05.30(월)",
-      visitDate: "2022.06.04(월)",
-      price: "55,800",
-    },
-  ];
+  const [startDate, setStartDate] = useState(new Date());
+  
+  const prevBtn = React.useCallback(() => {
+  
+    // console.log("이번달로 변경");
+
+    let selectDateYear = datePicker1.current.props.selected.getFullYear();
+    let selectDateMonth = datePicker1.current.props.selected.getMonth();
+    let selectDateDate = datePicker1.current.props.selected.getDate();
+    
+    let changeMonth = selectDateYear + "-"+selectDateMonth+"-"+selectDateDate+"T09:00:00";
+
+    
+    setStartDate(new Date(dayjs(changeMonth)));
+    
+  });
+
+  const nextBtn = React.useCallback(() => {
+  
+    // console.log("다음달로 변경");
+
+    let selectDateYear = datePicker1.current.props.selected.getFullYear();
+    let selectDateMonth = datePicker1.current.props.selected.getMonth()+2;
+    let selectDateDate = datePicker1.current.props.selected.getDate();
+    
+    let changeMonth = selectDateYear + "-"+selectDateMonth+"-"+selectDateDate+"T09:00:00";
+
+    
+    setStartDate(new Date(dayjs(changeMonth)));
+    
+  });
+
+
+  
+
+  
   const OrderNumList = [
     {
       ticket: "Yes",
@@ -210,6 +235,8 @@ const PaymentList = memo(() => {
       paymentPrice: "26,100",
     },
   ];
+
+  console.log(data);
   return (
     <MypageContainer>
       <div className="pageContainer">
@@ -225,16 +252,18 @@ const PaymentList = memo(() => {
           <DatePicker
             ref={datePicker1}
             selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            // onChange={(date) => setStartDate(date)}
             locale={ko} // 한글로 변경
             dateFormat="yyyy.MM"
+            
             showMonthYearPicker
             showFullMonthYearPicker
           />
-          <button type="button">다음달</button>
+          <button onClick={nextBtn} type="button">다음달</button>
         </div>
 
-        {OrderNumList ? (
+        {data ? (
+          <>
           <PaymentListWrap>
             <h2>
               총 <span>1</span>건
@@ -264,7 +293,10 @@ const PaymentList = memo(() => {
               {OrderNumList.map((v, i) => {
                 return (
                   <div className="badgeWrap" key={i}>
-                    <span ticket={v.ticket}></span>
+                    {/* <span ticket={v.ticket}></span> */}
+                    <span>
+                      결제 완료
+                    </span>
                     <div className="numberList">
                       <p>
                         예매번호 :<span>{v.paymentNum}</span>
@@ -279,6 +311,7 @@ const PaymentList = memo(() => {
               })}
             </div>
           </PaymentListWrap>
+          </>
         ) : (
           <NoResultFound />
         )}

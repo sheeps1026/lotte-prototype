@@ -4,7 +4,8 @@
  * @description: 예매할 날짜, 인원 선택
  */
 import React, { memo, useCallback, useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
+import { useQueryString } from "../../hooks/useQueryString";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
@@ -22,7 +23,7 @@ import arrow from "../../assets/images/pages/product/bg_accordion_arrow.png";
 import close from "../../assets/images/pages/product/btn_pop_close.png";
 import nodata from "../../assets/images/pages/product/nodata.png";
 
-import { useDispatch , useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getPayment } from "../../slice/PaymentSlice";
 import confirmBg from "../../assets/images/pages/product/bg_notice.png";
 import icon from "../../assets/images/pages/product/bg_popicon.png";
@@ -32,8 +33,6 @@ const personnalArr = [
   { tit: "청소년", txt: "13세 이상 ~ 만 18세" },
   { tit: "어린이", txt: "36개월 이상 ~ 만 12세" },
 ];
-
-
 
 const TicketingStyled = styled.div`
   width: 100%;
@@ -792,10 +791,6 @@ const Ticketing = memo(({}) => {
     dayArr[i].year = thisYear[i];
   }
 
-  // 선택한 티켓 종류 가져오기
-  const location = useLocation();
-
-  const [locations, setLocation] = useState(location.search);
   const navigate = useNavigate();
 
   const btnSelectDate = (e) => {
@@ -814,15 +809,13 @@ const Ticketing = memo(({}) => {
     }
 
     e.target.classList.add("active");
-    console.log("날짜 바껐엉");
+    // console.log("날짜 바껐엉");
   };
   const history = createBrowserHistory();
 
-  const  dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  const {data,loading,error} = useSelector((state)=>state.PaymentSlice);
-
-
+  const { data, loading, error } = useSelector((state) => state.PaymentSlice);
 
   useEffect(
     () => {
@@ -839,25 +832,28 @@ const Ticketing = memo(({}) => {
 
       return unlistenHistoryEvent;
     },
-    
+
     [
       // effect에서 사용하는 state를 추가
     ]
   );
+
+  const location = useLocation();
+
+  const searchAll = location.search;
+
+  let params = new URLSearchParams(searchAll);
+  let T_id = params.get("T_id");
+
   useEffect(() => {
+    dispatch(getPayment({ id: "1" }));
     navigate(
-      `/TicketingPage/Ticketing?T_id=2&date=${dayjs(startDate).format(
+      `/TicketingPage/Ticketing?T_id=${T_id}&date=${dayjs(startDate).format(
         "YYYY-MM-DD"
       )}`
     );
+  }, [dispatch]);
 
-    dispatch(getPayment({id:"1"}))
-  }, [startDate,dispatch]);
-
-  console.log(data);
-
-
-  // console.log(data);
   return (
     <TicketingStyled>
       <div className="containerWrap">
@@ -1313,7 +1309,7 @@ const Ticketing = memo(({}) => {
               >
                 <span>취소</span>
               </button>
-              <Link to="/TicketingPage/Ticketing/Payment">
+              <Link to="/TicketingPage/Ticketing/Payment" dateState={startDate}>
                 <button type="button" className="btn_fill">
                   <span>동의하고 결제하기</span>
                 </button>
