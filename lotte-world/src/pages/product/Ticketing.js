@@ -3,7 +3,7 @@
  * @filename: Ticketing.js
  * @description: 예매할 날짜, 인원 선택
  */
-import React, { memo, useCallback, useState, useEffect } from "react";
+import React, { memo, useCallback, useState } from "react";
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { useQueryString } from "../../hooks/useQueryString";
 import styled from "styled-components";
@@ -829,9 +829,23 @@ const Ticketing = memo(({}) => {
   let params = new URLSearchParams(searchAll);
   let T_id = params.get("T_id");
 
-  useEffect(()=>{
+  React.useEffect(()=>{
     navigate(`/TicketingPage/Ticketing?T_id=${T_id}&date=${dayjs(startDate).format("YYYY-MM-DD")}`)
-  });
+      dispatch(getPayment({ id: "1" }));
+    console.log("실행됨");
+
+    let unlisten = history.listen((location) => {
+
+      if (history.action === 'POP') {
+
+        navigate("/TicketingPage");
+      }
+    });
+
+    return () => {
+      unlisten();
+    };
+  },[dispatch]);
 
   return (
     <TicketingStyled>
