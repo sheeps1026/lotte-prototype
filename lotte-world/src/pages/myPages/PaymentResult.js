@@ -132,7 +132,8 @@ const PaymentResult = memo(() => {
     dispatch(getPaymentInfo({ merchant_uid: state }));
   }, [dispatch]);
 
-  console.log(data);
+
+
   return (
     <>
       {data ? (

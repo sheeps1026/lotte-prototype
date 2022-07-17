@@ -3,8 +3,9 @@
  * @filename: Ticketing.js
  * @description: 예매할 날짜, 인원 선택
  */
-import React, { memo, useCallback, useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { memo, useCallback, useState } from "react";
+import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
+import { useQueryString } from "../../hooks/useQueryString";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
@@ -22,7 +23,7 @@ import arrow from "../../assets/images/pages/product/bg_accordion_arrow.png";
 import close from "../../assets/images/pages/product/btn_pop_close.png";
 import nodata from "../../assets/images/pages/product/nodata.png";
 
-import { useDispatch , useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getPayment } from "../../slice/PaymentSlice";
 import confirmBg from "../../assets/images/pages/product/bg_notice.png";
 import icon from "../../assets/images/pages/product/bg_popicon.png";
@@ -32,8 +33,6 @@ const personnalArr = [
   { tit: "청소년", txt: "13세 이상 ~ 만 18세" },
   { tit: "어린이", txt: "36개월 이상 ~ 만 12세" },
 ];
-
-
 
 const TicketingStyled = styled.div`
   width: 100%;
@@ -436,6 +435,7 @@ const TicketForm = styled.form`
       font-size: 14px;
       font-weight: 500;
       line-height: 1.2;
+
       span {
         color: #ff0000;
       }
@@ -692,15 +692,18 @@ const DatePopup = styled.div`
   }
 `;
 const Ticketing = memo(({}) => {
+  const { data, loading, error } = useSelector((state) => state.PaymentSlice);
+  
   // Date picker 날짜 선택 상태값
   const [startDate, setStartDate] = useState(dayjs());
-
   // 재확인 모달창 상태값
   const [confOpen, setConfOpen] = useState(false);
   //  달력 모달창 상태값
   const [dateOpen, setDateOpen] = useState(false);
   // 공지사항 토글 상태값
   const [select, setSelect] = useState([]);
+
+  const ListActive = React.useRef([]);
 
   //  재확인 모달창 이벤트
   const confirmOpen = useCallback(() => {
@@ -735,8 +738,8 @@ const Ticketing = memo(({}) => {
 
     // setToggleOn(!toggleOn);
   });
+  
 
-  const ListActive = React.useRef([]);
 
   const selectDay = (e) => {
     setStartDate(dayjs(e));
@@ -779,8 +782,8 @@ const Ticketing = memo(({}) => {
     let mm = Number(resultDay.getMonth()) + 1;
     let dd = resultDay.getDate();
 
-    mm = String(mm).length === 1 ? "0" + mm : mm;
-    dd = String(dd).length === 1 ? "0" + dd : dd;
+    mm = String(mm).length == 1 ? "0" + mm : mm;
+    dd = String(dd).length == 1 ? "0" + dd : dd;
     yyyy = String(yyyy);
 
     thisWeek[i] = dd;
@@ -792,10 +795,6 @@ const Ticketing = memo(({}) => {
     dayArr[i].year = thisYear[i];
   }
 
-  // 선택한 티켓 종류 가져오기
-  const location = useLocation();
-
-  const [locations, setLocation] = useState(location.search);
   const navigate = useNavigate();
 
   const btnSelectDate = (e) => {
@@ -814,50 +813,40 @@ const Ticketing = memo(({}) => {
     }
 
     e.target.classList.add("active");
-    console.log("날짜 바껐엉");
+    // console.log("날짜 바껐엉");
   };
   const history = createBrowserHistory();
 
-  const  dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  const {data,loading,error} = useSelector((state)=>state.PaymentSlice);
-
-
-
-  useEffect(
-    () => {
-      const listenBackEvent = () => {
-        // 뒤로가기 할 때 수행할 동작을 적는다
-        navigate(`/TicketingPage`);
-      };
-
-      const unlistenHistoryEvent = history.listen(({ action }) => {
-        if (action === "POP") {
-          listenBackEvent();
-        }
-      });
-
-      return unlistenHistoryEvent;
-    },
-    
-    [
-      // effect에서 사용하는 state를 추가
-    ]
-  );
-  useEffect(() => {
-    navigate(
-      `/TicketingPage/Ticketing?T_id=2&date=${dayjs(startDate).format(
-        "YYYY-MM-DD"
-      )}`
-    );
-
-    dispatch(getPayment({id:"1"}))
-  }, [startDate,dispatch]);
-
-  console.log(data);
+  
 
 
-  // console.log(data);
+  const location = useLocation();
+
+  const searchAll = location.search;
+
+  let params = new URLSearchParams(searchAll);
+  let T_id = params.get("T_id");
+
+  React.useEffect(()=>{
+    navigate(`/TicketingPage/Ticketing?T_id=${T_id}&date=${dayjs(startDate).format("YYYY-MM-DD")}`)
+      dispatch(getPayment({ id: "1" }));
+    console.log("실행됨");
+
+    let unlisten = history.listen((location) => {
+
+      if (history.action === 'POP') {
+
+        navigate("/TicketingPage");
+      }
+    });
+
+    return () => {
+      unlisten();
+    };
+  },[dispatch]);
+
   return (
     <TicketingStyled>
       <div className="containerWrap">
