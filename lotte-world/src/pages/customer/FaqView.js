@@ -1,5 +1,4 @@
-import React, { memo, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { memo, useEffect } from "react";
 import axios from "axios";
 
 import styled from "styled-components";
@@ -105,7 +104,15 @@ const FaqViewWrap = styled.div`
 `;
 
 const FaqView = memo(
-  ({ F_division, filterKeyword, setFilterKeyword, list, count, setCount }) => {
+  ({
+    F_division,
+    filterKeyword,
+    setFilterKeyword,
+    list,
+    setList,
+    count,
+    setCount,
+  }) => {
     let clicked = 1;
 
     const toggleBtnHandle = (e) => {
@@ -142,8 +149,12 @@ const FaqView = memo(
             const response = await axios.get(
               `http://localhost:3001/bbs_faq?F_division=${F_division}`
             );
+
             json = response.data;
           }
+
+          setList(json);
+          list == "" ? setCount(json.length) : setCount(filterKeyword.length);
         } catch (e) {
           console.log(e);
         }

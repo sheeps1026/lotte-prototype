@@ -162,6 +162,7 @@ const FAQ = memo(() => {
                 filterKeyword={filterKeyword}
                 setFilterKeyword={setFilterKeyword}
                 list={list}
+                setList={setList}
                 count={count}
                 setCount={setCount}
               />

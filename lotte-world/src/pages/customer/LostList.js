@@ -224,7 +224,6 @@ const LostList = memo(() => {
         const response = await axios.get(`http://localhost:3001/bbs_lost`);
 
         json = response.data;
-
         setLostList(json);
 
         lostList == "" ? setCount(json.length) : setCount(openLost.length);

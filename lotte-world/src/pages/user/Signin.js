@@ -75,7 +75,7 @@ const Signin = memo(() => {
   // 백엔드에 데이터 저장을 위한 Ajax 요청 객체 생성
   const [{ loading }, refetch] = useAxios(
     {
-      url: "http://localhost:3001/info",
+      url: "http://localhost:3001/members",
       method: "POST",
     },
     { manual: true }

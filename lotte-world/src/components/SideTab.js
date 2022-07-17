@@ -38,16 +38,12 @@ const SideTabContainer = styled.div`
     p.default {
       height: 36px;
       padding-right: 15px;
-      color: #aaa;
+      color: rgb(47, 125, 78);
       font-size: 24px;
+      font-weight: 700;
       letter-spacing: -0.36px;
       line-height: 36px;
       cursor: pointer;
-
-      &.active {
-        color: rgb(47, 125, 78);
-        font-weight: 700;
-      }
 
       &:nth-child(2) {
         display: flex;
@@ -132,14 +128,6 @@ const SideTab = memo(({ setOpenSideTab }) => {
             }}
           >
             운휴 어트랙션
-          </p>
-          <p
-            className={`default ${color === "active" ? "active" : ""}`}
-            onClick={() => {
-              setTab(1);
-            }}
-          >
-            운휴 공연
           </p>
           <button onClick={() => setOpenSideTab(false)}>
             <img src={CloseBtn} alt="" />
