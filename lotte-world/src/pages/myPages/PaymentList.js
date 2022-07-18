@@ -247,7 +247,7 @@ const PaymentList = memo(() => {
         </p>
         <div className="datePickerCon">
           <button onClick={prevBtn} type="button">
-            이전달
+          &laquo; 이전달
           </button>
           <DatePicker
             ref={datePicker1}
@@ -259,7 +259,7 @@ const PaymentList = memo(() => {
             showMonthYearPicker
             showFullMonthYearPicker
           />
-          <button onClick={nextBtn} type="button">다음달</button>
+          <button onClick={nextBtn} type="button">다음달 &raquo;</button>
         </div>
 
         {data ? (

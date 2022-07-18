@@ -1404,7 +1404,7 @@ const Ticketing = memo(({}) => {
               >
                 <span>취소</span>
               </button>
-              <Link to="/TicketingPage/Ticketing/Payment" state={{data: dayjs(startDate).format("YYYY-MM-DD  HH:mm:ss"),priceA,priceY,priceC,numberA,numberY,numberC}}>
+              <Link to="/TicketingPage/Ticketing/Payment" state={{data: dayjs(startDate).format("YYYY-MM-DD"),priceA,priceY,priceC,numberA,numberY,numberC}}>
             
                 <button type="button" className="btn_fill">
                   <span>동의하고 결제하기</span>

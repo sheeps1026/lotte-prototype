@@ -65,6 +65,12 @@ export const postPaymentInfo = createAsyncThunk(
           visit_mail: payload?.visit_mail,    // 방문자 이메일
           buyer_addr: payload?.buyer_addr,          // 구매자 주소
           buyer_postcode: payload?.buyer_postcode,  // 구매자 우편번호
+          priceA:payload?.priceA,                                 //어른 가격
+          priceY:payload?.priceY,                                 //청소년 가격
+          priceC:payload?.priceC,                                 //어린이 가격
+          numberA:payload?.numberA,                               //어른 매수
+          numberY:payload?.numberY,                               //청소년 매수
+          numberC:payload?.numberC,                               //어린이 매수
         
       });
       // console.log(payload.name+"추가할 놈 들어오냐???????");

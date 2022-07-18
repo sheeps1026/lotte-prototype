@@ -539,6 +539,12 @@ const Payment = memo(({props}) => {
           visit_mail: visit_mail,                  // 방문자 이메일
           buyer_addr: paymentData?.buyer_addr,      // 구매자 주소
           buyer_postcode: paymentData?.buyer_postcode,  // 구매자 우편번호
+          priceA:priceA,                                 //어른 가격
+          priceY:priceY,                                 //청소년 가격
+          priceC:priceC,                                 //어린이 가격
+          numberA:numberA,                                 //어른 매수
+          numberY:numberY,                                 //청소년 매수
+          numberC:numberC,                                 //어린이 매수
         })
       );
     //  console.log("백엔드에 들어가는 주문번호" + paymentData?.merchant_uid);
