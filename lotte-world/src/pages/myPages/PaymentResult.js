@@ -130,8 +130,12 @@ const PaymentResult = memo(() => {
 
   React.useEffect(() => {
     dispatch(getPaymentInfo({ merchant_uid: state }));
+    
   }, [dispatch]);
 
+  // const datas = data[0];
+  
+  // console.log(datas);
 
 
   return (
@@ -161,22 +165,24 @@ const PaymentResult = memo(() => {
                 </tr>
                 <tr>
                   <th>수량</th>
-                  <td>총 2매 (어른)</td>
+                  {/* <td>총 2매 (어른)</td> */}
+                  <td>총 {}매 ()</td>
                 </tr>
-                <tr>
+                {/* <tr>
                   <th>예매번호</th>
                   <td>
                     <p>1234-1234-1234-1234</p>
                     <p>1234-1234-1234-1234</p>
                   </td>
-                </tr>
+                </tr> */}
                 <tr>
                   <th>이용예정</th>
-                  <td>2022.06.04(토)</td>
+                  {/* <td>2022.06.04(토)</td> */}
+                  
                 </tr>
                 <tr>
                   <th>총 결제금액</th>
-                  <td className="colorRed">{data[0].amount}원</td>
+                  {/* <td className="colorRed">{data[0].amount}원</td> */}
                 </tr>
                 <tr>
                   <th>결제수단</th>

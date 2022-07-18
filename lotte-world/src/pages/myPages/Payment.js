@@ -14,7 +14,7 @@ import shadow from "../../assets/images/pages/product/bg_con_shadow.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getPayment, postPaymentInfo } from "../../slice/PaymentSlice";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 
 const TicketingStyled = styled.div`
   width: 100%;
@@ -442,8 +442,30 @@ const TitleArea = styled.div`
   }
 `;
 
-const Payment = memo(() => {
+const Payment = memo(({props}) => {
+  const location = useLocation();
   const navigate = useNavigate();
+  
+  // 받아온 props:startDate,priceA,priceY,priceC,numberA,numberY,numberC
+  console.log(location.state.data);
+
+  //받아온 방문 날짜
+  const starDate = location.state.data; 
+
+  console.log("결제날짜");
+
+  //받아온 결제 금액
+  const priceA = location.state.priceA;
+  const priceY = location.state.priceY;
+  const priceC = location.state.priceC;
+
+  //받아온 입장권 갯수
+  const numberA = location.state.numberA;
+  const numberY = location.state.numberY;
+  const numberC = location.state.numberC;
+
+
+  console.log();
   // 약관 동의 모달창들
   let [paymentChk1, setPaymentChk1] = useState(false);
   let [paymentChk2, setPaymentChk2] = useState(false);
@@ -461,6 +483,8 @@ const Payment = memo(() => {
   const check3 = React.useRef();
   const check4 = React.useRef();
   const [openSelect, setOpenSelect] = useState([]);
+
+
   const onClickPayment = useCallback(
     (e) => {
       e.preventDefault();
@@ -471,47 +495,54 @@ const Payment = memo(() => {
       const buyer_name = e.target.buyer_name.value;
       const buyer_email = e.target.buyer_email.value;
       const buyer_tel = e.target.buyer_tel.value;
+      const visit_name = e.target.visit_name.value;
+      const visit_tel = e.target.visit_tel.value;
+      const visit_mail = e.target.visit_mail.value;
 
+      console.log(visit_name);
       /* 1. 가맹점 식별하기 */
       const { IMP } = window;
       IMP.init("imp70078593");
 
       /* 2. 결제 데이터 정의하기 */
-      const paymentData = {
-        pg: "html5_inicis", // PG사
-        pay_method: pay_method, // 결제수단
-        merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
-        amount: amount, // 결제금액
-        name: "롯데월드 자유 이용권 결제", // 주문명
-        buyer_name: buyer_name, // 구매자 이름
-        buyer_tel: buyer_tel, // 구매자 전화번호
-        buyer_email: buyer_email, // 구매자 이메일
-        buyer_addr: "신사동 661-16", // 구매자 주소
-        buyer_postcode: "06018", // 구매자 우편번호
-      };
+      // 받아온 props:startDate,priceA,priceY,priceC,numberA,numberY,numberC
 
+      const paymentData = {
+        pg: "html5_inicis",                           // PG사
+        pay_method: pay_method,                       // 결제수단
+        merchant_uid: `mid_${new Date().getTime()}`,  // 주문번호
+        amount: amount,                               // 결제금액
+        name: "롯데월드 자유 이용권 결제",                  // 주문명
+        buyer_name: buyer_name,                       // 구매자 이름
+        buyer_tel: buyer_tel,                         // 구매자 전화번호
+        buyer_email: buyer_email,                     // 구매자 이메일
+        buyer_addr: "신사동 661-16",                    // 구매자 주소
+        buyer_postcode: "06018",                      // 구매자 우편번호
+      };
+      console.log(paymentData.buyer_postcode+"바이어 이메일");
       /* 4. 결제 창 호출하기 */
       IMP.request_pay(paymentData, callback);
 
       dispatch(
         postPaymentInfo({
-          pg: "html5_inicis", // PG사
-          pay_method: paymentData?.pay_method, // 결제수단
-          merchant_uid: paymentData?.merchant_uid, // 주문번호
-          amount: paymentData?.amount, // 결제금액
-          name: "롯데월드 입장권", // 주문명
-          buyer_name: paymentData?.buyer_name, // 구매자 이름
-          buyer_tel: paymentData?.buyer_tel, // 구매자 전화번호
-          visit_email: paymentData?.buyer_email, // 구매자 이메일
-          visit_name: paymentData?.visit_name, // 방문자 이름
-          visit_tel: paymentData?.visit_tel, // 방문자 전화번호
-          buyer_email: paymentData?.visit_mail, // 방문자 이메일
-          buyer_addr: paymentData?.M_addr, // 구매자 주소
-          buyer_postcode: paymentData?.M_postCode, // 구매자 우편번호
+          pg: "html5_inicis",                       // PG사
+          pay_method: paymentData?.pay_method,      // 결제수단
+          merchant_uid: paymentData?.merchant_uid,  // 주문번호
+          amount: paymentData?.amount,              // 결제금액
+          name: paymentData?.name,                  // 주문명
+          paymentDate :starDate,                    // 결제 날짜
+          buyer_name: paymentData?.buyer_name,      // 구매자 이름
+          buyer_tel: paymentData?.buyer_tel,        // 구매자 전화번호
+          buyer_email: paymentData?.buyer_email,    // 구매자 이메일
+          visit_name: visit_name,                   // 방문자 이름
+          visit_tel: visit_tel,                     // 방문자 전화번호
+          visit_mail: visit_mail,                  // 방문자 이메일
+          buyer_addr: paymentData?.buyer_addr,      // 구매자 주소
+          buyer_postcode: paymentData?.buyer_postcode,  // 구매자 우편번호
         })
       );
-      console.log("백엔드에 들어가는 주문번호" + paymentData?.merchant_uid);
-
+    //  console.log("백엔드에 들어가는 주문번호" + paymentData?.merchant_uid);
+        
       
     },
     [dispatch]
@@ -760,17 +791,42 @@ const Payment = memo(() => {
                           <input name="pay_method" value="카카오페이 " readOnly />
                         </li>
                         <hr />
-                        <li>
-                          어른 x 1 <span>16,500원</span>
+                        
+                        {
+                          numberA ? (
+                            <li>
+                          어른 x {numberA} <span>{priceA * numberA}원</span>
                         </li>
+                          ):(
+                            <></>
+                          )
+                        }
+                        {
+                          numberY ? (
+                            <li>
+                          청소년 x {numberY} <span>{priceY * numberY}원</span>
+                        </li>
+                          ):(
+                            <></>
+                          )
+                        }
+                        {
+                          numberC ? (
+                            <li>
+                          어린이 x {numberC} <span>{priceC * numberC}원</span>
+                        </li>
+                          ):(
+                            <></>
+                          )
+                        }
                       </ul>
                       <p>
-                        {/* 결제예정금액 <span >16,500원</span> */}
+
                         결제 예정 금액
                         <input
                           name="amount"
                           type="number"
-                          value={14000}
+                          value={priceA * numberA + priceC * numberC + priceY * numberY}
                           readOnly
                         />
                       </p>

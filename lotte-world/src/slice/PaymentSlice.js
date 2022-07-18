@@ -30,7 +30,7 @@ export const getPaymentInfo = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     let result = null;
     try {
-      result = await axios.get(`http://localhost:3001/Res_information`, {
+      result = await axios.get(`http://localhost:3001/res_info`, {
         params:{
           merchant_uid : payload?.merchant_uid
         }
@@ -49,27 +49,29 @@ export const postPaymentInfo = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     let result = null;
     try {
-      result = await axios.post(`http://localhost:3001/Res_information`, {
+      result = await axios.post(`http://localhost:3001/res_info`, {
         
-          pg: "html5_inicis", // PG사
-          pay_method: payload?.pay_method, // 결제수단
-          merchant_uid: payload?.merchant_uid, // 주문번호
-          amount: payload?.amount, // 결제금액
-          name: payload?.T_name, // 주문명
-          buyer_name: payload?.buyer_name, // 구매자 이름
-          buyer_tel: payload?.buyer_tel, // 구매자 전화번호
-          buyer_email: payload?.buyer_email, // 구매자 이메일
-          visit_name: payload?.visit_name, // 방문자 이름
-          visit_tel: payload?.visit_tel, // 방문자 전화번호
-          visit_email: payload?.visit_email, // 방문자 이메일
-          buyer_addr: payload?.M_addr, // 구매자 주소
-          buyer_postcode: payload?.M_postCode, // 구매자 우편번호
+          pg: "html5_inicis",                   // PG사
+          pay_method: payload?.pay_method,      // 결제수단
+          merchant_uid: payload?.merchant_uid,  // 주문번호
+          amount: payload?.amount,              // 결제금액
+          name: payload?.name,                  // 주문명
+          paymentDate :payload?.paymentDate,    // 주문 날짜
+          buyer_name: payload?.buyer_name,      // 구매자 이름
+          buyer_tel: payload?.buyer_tel,        // 구매자 전화번호
+          buyer_email: payload?.buyer_email,    // 구매자 이메일
+          visit_name: payload?.visit_name,      // 방문자 이름
+          visit_tel: payload?.visit_tel,        // 방문자 전화번호
+          visit_mail: payload?.visit_mail,    // 방문자 이메일
+          buyer_addr: payload?.buyer_addr,          // 구매자 주소
+          buyer_postcode: payload?.buyer_postcode,  // 구매자 우편번호
         
       });
-      console.log(payload.name+"추가할 놈 들어오냐???????");
+      // console.log(payload.name+"추가할 놈 들어오냐???????");
       
     } catch (e) {
       result = rejectWithValue(e.reponse);
+      console.log("아안됐다고",e);
       
     }
     return result;
