@@ -6,7 +6,7 @@ import PaymentChk1 from "../../components/alert/PaymentChk1";
 import PaymentChk2 from "../../components/alert/PaymentChk2";
 import PaymentChk3 from "../../components/alert/PaymentChk3";
 import PaymentChk4 from "../../components/alert/PaymentChk4";
-
+import dayjs from "dayjs";
 import arrow from "../../assets/images/pages/product/bg_accordion_arrow.png";
 import bg from "../../assets/images/pages/product/bg_pc_visual_busan.png";
 import shadow from "../../assets/images/pages/product/bg_con_shadow.png";
@@ -447,12 +447,12 @@ const Payment = memo(({props}) => {
   const navigate = useNavigate();
   
   // 받아온 props:startDate,priceA,priceY,priceC,numberA,numberY,numberC
-  console.log(location.state.data);
+
 
   //받아온 방문 날짜
   const starDate = location.state.data; 
 
-  console.log("결제날짜");
+  
 
   //받아온 결제 금액
   const priceA = location.state.priceA;
@@ -464,8 +464,9 @@ const Payment = memo(({props}) => {
   const numberY = location.state.numberY;
   const numberC = location.state.numberC;
 
+  
 
-  console.log();
+
   // 약관 동의 모달창들
   let [paymentChk1, setPaymentChk1] = useState(false);
   let [paymentChk2, setPaymentChk2] = useState(false);
@@ -498,8 +499,10 @@ const Payment = memo(({props}) => {
       const visit_name = e.target.visit_name.value;
       const visit_tel = e.target.visit_tel.value;
       const visit_mail = e.target.visit_mail.value;
-
-      console.log(visit_name);
+      //결제한 날짜 상태값
+      const paymentDay = dayjs().format("YYYY-MM-DD HH:mm:ss");
+      // 
+      
       /* 1. 가맹점 식별하기 */
       const { IMP } = window;
       IMP.init("imp70078593");
@@ -519,7 +522,8 @@ const Payment = memo(({props}) => {
         buyer_addr: "신사동 661-16",                    // 구매자 주소
         buyer_postcode: "06018",                      // 구매자 우편번호
       };
-      console.log(paymentData.buyer_postcode+"바이어 이메일");
+      
+
       /* 4. 결제 창 호출하기 */
       IMP.request_pay(paymentData, callback);
 
@@ -530,7 +534,7 @@ const Payment = memo(({props}) => {
           merchant_uid: paymentData?.merchant_uid,  // 주문번호
           amount: paymentData?.amount,              // 결제금액
           name: paymentData?.name,                  // 주문명
-          paymentDate :starDate,                    // 결제 날짜
+          paymentDate :starDate,                    // 방문 날짜
           buyer_name: paymentData?.buyer_name,      // 구매자 이름
           buyer_tel: paymentData?.buyer_tel,        // 구매자 전화번호
           buyer_email: paymentData?.buyer_email,    // 구매자 이메일
@@ -545,6 +549,7 @@ const Payment = memo(({props}) => {
           numberA:numberA,                                 //어른 매수
           numberY:numberY,                                 //청소년 매수
           numberC:numberC,                                 //어린이 매수
+          paymentDay:paymentDay                            //결제 날짜, 시간
         })
       );
     //  console.log("백엔드에 들어가는 주문번호" + paymentData?.merchant_uid);
@@ -594,7 +599,7 @@ const Payment = memo(({props}) => {
     check3.current.checked = "checked";
     check4.current.checked = "checked";
     if (!e.target.checked) {
-      console.log("ㅇ런");
+      
       check1.current.checked = e.target.checked;
       check2.current.checked = e.target.checked;
       check3.current.checked = e.target.checked;
@@ -604,7 +609,7 @@ const Payment = memo(({props}) => {
 
   
   const Allchecked = (e) => {
-    console.log(AllcheckedBtn.current.checked);
+    
 
     const AllcheckedClick = AllcheckedBtn.current.checked;
 

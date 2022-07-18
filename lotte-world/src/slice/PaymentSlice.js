@@ -71,7 +71,7 @@ export const postPaymentInfo = createAsyncThunk(
           numberA:payload?.numberA,                               //어른 매수
           numberY:payload?.numberY,                               //청소년 매수
           numberC:payload?.numberC,                               //어린이 매수
-        
+          paymentDay:payload?.paymentDay                           //결제날짜
       });
       // console.log(payload.name+"추가할 놈 들어오냐???????");
       
@@ -84,7 +84,22 @@ export const postPaymentInfo = createAsyncThunk(
   }
 );
 
-
+//결제 정보 안보아게 바뀌기
+export const deletePaymentInfo = createAsyncThunk(
+  "PaymentSlice/deletePaymentInfo",
+  async (payload, { rejectWithValue }) => {
+    let result = null;
+    try {
+      result = await axios.delete(`http://localhost:3001/res_info/${payload?.id}`);
+    
+    } catch (err) {
+      result = rejectWithValue(err.message);
+    
+    
+    }
+    return result;
+  }
+);
 const PaymentSlice = createSlice({
   name: "PaymentSlice",
   initialState: {
@@ -152,14 +167,12 @@ const PaymentSlice = createSlice({
     },
     [postPaymentInfo.pending]: (state, { payload }) => {
       return { ...state, loading: true };
+      
     },
     [postPaymentInfo.fulfilled]: (state, { payload }) => {
       const data = cloneDeep(state.data);
       
       console.log(data);
-      // data.item.unshift(payload.data.item);
-      // data.item.pop();
-
       
 
       return {
@@ -169,6 +182,48 @@ const PaymentSlice = createSlice({
       };
     },
     [postPaymentInfo.rejected]: (state, { payload }) => {
+      return {
+        ...state,
+        loading: false,
+        error: {
+          code: payload?.data?.rt
+            ? payload?.data?.rt
+            : payload?.status
+            ? payload.status
+            : 500,
+          message: payload?.data?.rtmsg
+            ? payload?.data?.rtmsg
+            : payload?.statusText
+            ? payload.statusText
+            : "Server Error",
+        },
+      };
+    },
+    [deletePaymentInfo.pending]: (state, { payload }) => {
+     
+
+      return { ...state, loading: true };
+    },
+    [deletePaymentInfo.fulfilled]: (state, { meta, payload }) => {
+      const data = cloneDeep(state.data);
+      
+
+      const index = data.findIndex(
+        (element) => element.merchant_uid === meta.arg.merchant_uid
+      
+        );
+      if (index !== undefined) {
+        data.splice(index, 1);
+      }
+      console.log(state.data);
+      return {
+        data: data,
+        loading: false,
+        error: null,
+      };
+    },
+    [deletePaymentInfo.rejected]: (state, { payload }) => {
+      
       return {
         ...state,
         loading: false,

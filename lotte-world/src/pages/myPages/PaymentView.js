@@ -1,15 +1,15 @@
 import React, { memo } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation,useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import bg from "../../assets/images/bg_pc_visual.png";
-
+import useAxios from "axios-hooks";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { getPaymentInfo } from "../../slice/PaymentSlice";
+import { getPaymentInfo, deletePaymentInfo } from "../../slice/PaymentSlice";
 
 const MypageContainer = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: auto;
   background: url(${bg});
   padding: 20px 0 50px;
 
@@ -72,16 +72,85 @@ const MypageContainer = styled.div`
 
 const PaymentView = memo(() => {
   const { state } = useLocation();
-  console.log(state.data);
-  const dispatch = useDispatch();
   const { data, loading, error } = useSelector((state) => state.PaymentSlice);
 
-  React.useEffect(() => {
-    dispatch(getPaymentInfo({ merchant_uid: state.data }));
-  }, [dispatch]);
+  const dispatch = useDispatch();
 
-  console.log(data);
-  return data ? (
+  const navigate = useNavigate();
+    
+  React.useEffect(() => {
+      dispatch(getPaymentInfo({ merchant_uid: state.data }));
+    }, [dispatch]);
+
+  
+  // const paymentDelete = (e) => {
+  //   e.preventDefault();
+  //   console.log(e.target.dataset.id);
+  //   const id = e.target.dataset.id;
+  //   // dispatch(deletePaymentInfo({ id: id }));
+    
+  // };
+  
+  // React.useEffect(()=>{
+  //   navigate("TicketingPage");
+  // },[paymentDelete]);
+
+  const paymentDelete = React.useCallback(
+    (e) => {
+      e.preventDefault();
+    console.log("취소했져");
+    const id = e.target.dataset.id;
+      if (
+        window.confirm(`정말 결제 취소하시겠습니까?`)
+      ) {
+        dispatch(deletePaymentInfo({ id: id }));
+      alert("성공적으로 취소되었습니다.");
+          navigate("/TicketingPage");
+      }
+    },
+    [dispatch]
+  );
+
+  //백엔드에 삭제 요청하기 - > 입력,수정,삭제는 async~await 문법으로 처리해야 함
+  /* 화면에 표시할 성적표 데이터를 저장하기 위한 상태 변수 */
+
+  // const [{ loading2 }, sendDelete] = useAxios(
+  //   {
+  //     method: "DELETE",
+  //   },
+  //   {
+  //     useCache: false,
+  //     manual: true,
+  //   }
+  // );
+
+  // const paymentDelete = (e) => {
+  //   (async () => {
+  //     let json = null;
+  //     try {
+  //       const response = await sendDelete({
+  //         method: "DELETE",
+  //         url: `http://localhost:3001/res_info/24`,
+  //       });
+  //       json = response.data;
+  //       console.log(json);
+  //     } catch (e) {
+  //       console.error(e);
+  //       window.alert(
+  //         `[${e.response.status}]${e.response.statusText}${e.message}}`
+  //       );
+  //     }
+  //     //삭제 잘될 경우
+
+  //     if (json != null) {
+  //       // setProfessor(professorr => professor.filter((v, i) =>v.id !== id));
+  //       console.log("삭제 잘 댓삼");
+  //     }
+  //   })();
+  // };
+  return(
+    <>
+  {data ? (
     <MypageContainer>
       <div className="pageContainer">
         <h3>티켓 등록내역</h3>
@@ -105,6 +174,8 @@ const PaymentView = memo(() => {
             <tr>
               <th>결제일자</th>
               {/* <td>2022.05.30(월)</td> */}
+
+              <td>{data[0].paymentDay}</td>
             </tr>
             <tr>
               <th>방문일자</th>
@@ -150,16 +221,19 @@ const PaymentView = memo(() => {
             </tr>
           </tbody>
         </table>
-        <Link to="/TicketingPage/PaymentList">
-          <button className="orderCancel" type="button">
-            예매취소
-          </button>
-        </Link>
+        {/* <Link to="/TicketingPage/PaymentList"> */}
+        <button className="orderCancel" type="button" data-id={data[0].id} onClick={paymentDelete}>
+          예매취소
+        </button>
+        {/* </Link> */}
       </div>
     </MypageContainer>
   ) : (
     <>데이터 없삼</>
-  );
+  )}
+  </>
+  )
+  
 });
 
 export default PaymentView;

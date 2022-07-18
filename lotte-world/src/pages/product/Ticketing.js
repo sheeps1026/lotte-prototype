@@ -728,6 +728,8 @@ const Ticketing = memo(({}) => {
   // 공지사항 토글 상태값
   const [select, setSelect] = useState([]);
 
+  
+
  
   const ListActive = React.useRef([]);
 
