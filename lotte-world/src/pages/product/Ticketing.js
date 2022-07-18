@@ -854,7 +854,7 @@ const Ticketing = memo(({}) => {
     return () => {
       unlisten();
     };
-  },[dispatch]);
+  },[dispatch,startDate,amount]);
 
   return (
     <TicketingStyled>
