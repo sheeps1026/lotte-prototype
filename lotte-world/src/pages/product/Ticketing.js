@@ -22,7 +22,7 @@ import thumbnail from "../../assets/images/pages/product/thumbnail.jpg";
 import arrow from "../../assets/images/pages/product/bg_accordion_arrow.png";
 import close from "../../assets/images/pages/product/btn_pop_close.png";
 import nodata from "../../assets/images/pages/product/nodata.png";
-
+import share from "../../assets/images/shere.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getPayment } from "../../slice/PaymentSlice";
 import confirmBg from "../../assets/images/pages/product/bg_notice.png";
@@ -257,6 +257,23 @@ const TicketForm = styled.form`
       li {
         width: 100%;
         overflow: hidden;
+        .shareBtn{
+          line-height: 40px;
+          float: right;
+          &::before{
+            
+            content: "";
+            background: url(${share});
+            background-position: left center;
+            background-size: 20px;
+            width: 26px;
+            padding: 10px 13px;
+            
+            height: 20px;
+            background-repeat: no-repeat;
+        }
+          }
+        }
         .event_tit {
           float: left;
           width: 100%;
@@ -837,7 +854,7 @@ const Ticketing = memo(({}) => {
   let params = new URLSearchParams(searchAll);
   let T_id = params.get("T_id");
   let amount = (numberA*priceA)+(numberY*priceY)+(numberC*priceC)
-
+  
   React.useEffect(()=>{
     navigate(`/TicketingPage/Ticketing?T_id=${T_id}&date=${dayjs(startDate).format("YYYY-MM-DD")}&amount=${amount}`)
       dispatch(getPayment({ id: "1" }));
@@ -855,7 +872,23 @@ const Ticketing = memo(({}) => {
       unlisten();
     };
   },[dispatch,startDate,amount]);
+  
+  
 
+  const onClickShare = (e)=>{
+    e.preventDefault();
+
+    console.log("공유버튼 눌럿ㅈ/ㅕㅇ");
+    let url = "";
+    let textarea = document.createElement("textarea");
+    document.body.appendChild(textarea);
+    url = window.document.location.href;
+    textarea.value = url;
+    textarea.select();
+    document.execCommand("copy");
+    alert("URL이 복사 되었습니다.");
+
+    }
   return (
     <TicketingStyled>
       <div className="containerWrap">
@@ -1002,7 +1035,11 @@ const Ticketing = memo(({}) => {
                 <div className="eventWrap">
                    {/* .event -> 인원 선택 중 */}
                    { numberA+numberY+numberC !== 0 ?
+                   
                      <ul className="event">
+                      <li>
+                        <button className="shareBtn" type="button" onClick={onClickShare}>공유하기</button>
+                      </li>
                      <li>
                        <div className="event_tit">
                          {/* Main에서 선택한 ti_name */}
