@@ -686,6 +686,31 @@
       "paymentDay": "2022-07-18",
       "paymentHour": "23:21:34",
       "id": 27
+    },
+    {
+      "pg": "html5_inicis",
+      "pay_method": "카카오페이 ",
+      "merchant_uid": "mid_1658156581727",
+      "amount": "60000",
+      "name": "롯데월드 자유 이용권 결제",
+      "paymentDate": "2022-07-23",
+      "buyer_name": "테스트의 이름",
+      "buyer_tel": "01012345567",
+      "buyer_email": "userEmail@gmail.com",
+      "visit_name": "테스트의 이름",
+      "visit_tel": "01012345567",
+      "visit_mail": "userEmail@gmail.com",
+      "buyer_addr": "신사동 661-16",
+      "buyer_postcode": "06018",
+      "priceA": 30000,
+      "priceY": 20000,
+      "priceC": 10000,
+      "numberA": 1,
+      "numberY": 1,
+      "numberC": 1,
+      "paymentDay": "2022-07-19",
+      "paymentHour": "00:03:01",
+      "id": 28
     }
   ]
 }

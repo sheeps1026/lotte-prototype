@@ -178,17 +178,8 @@ const PaymentList = memo(() => {
   const datePicker1 = React.useRef();
 
   const [startDate, setStartDate] = useState(new Date());
-
-  let yyyy = startDate.getFullYear();
-  let mm = Number(startDate.getMonth()) + 1;
-  let dd = startDate.getDate();
-
-  mm = String(mm).length == 1 ? "0" + mm : mm;
-  dd = String(dd).length == 1 ? "0" + dd : dd;
-  yyyy = String(yyyy);
-
-  // const fulldate = yyyy+"-"+mm+"-"+dd;
   
+  const fulldate = dayjs(startDate).format("YYYY-MM-DD");
 
   const prevBtn = React.useCallback(() => {
     // console.log("이번달로 변경");
@@ -206,6 +197,8 @@ const PaymentList = memo(() => {
       "T09:00:00";
 
     setStartDate(new Date(dayjs(changeMonth)));
+    // 값있을 때
+    dispatch(getPaymentInfo({ paymentDay: dayjs(startDate).format("YYYY-MM-DD") }));
   });
 
   const nextBtn = React.useCallback(() => {
@@ -224,11 +217,13 @@ const PaymentList = memo(() => {
       "T09:00:00";
 
     setStartDate(new Date(dayjs(changeMonth)));
+    // 값있을 때
+    dispatch(getPaymentInfo({ paymentDay: dayjs(startDate).format("YYYY-MM-DD") }));
   });
 
 
 
-  const fulldate = dayjs(startDate).format("YYYY-MM-DD");
+  
 
   console.log(fulldate);
 
@@ -239,6 +234,8 @@ const PaymentList = memo(() => {
   }, [dispatch,setStartDate]);
 
   return (
+ <>
+  {data ? (
     <MypageContainer>
       <div className="pageContainer">
         <h3>마이페이지</h3>
@@ -263,7 +260,7 @@ const PaymentList = memo(() => {
             다음달 &raquo;
           </button>
         </div>
-
+        
         {data ? (
           <PaymentListWrap>
             <h2>
@@ -271,27 +268,27 @@ const PaymentList = memo(() => {
             </h2>
 
             <div className="topWrap">
-              <div>{dayjs(data[0].paymentDay).format("YYYY-MM-DD")}</div>
+              <div>{dayjs(data[0]?.paymentDay).format("YYYY-MM-DD")}</div>
             </div>
             <div className="paymentUl">
               {/* <h5>오후권 (AFTER4) 온라인 할인</h5> */}
-              <h5>{data[0].name}</h5>
+              <h5>{data[0]?.name}</h5>
               <ul>
                 <li>
-                  주문번호 <span>{data[0].merchant_uid}</span>
+                  주문번호 <span>{data[0]?.merchant_uid}</span>
                 </li>
                 <li>
                   예매일자{" "}
-                  <span>{dayjs(data[0].paymentDay).format("YYYY-MM-DD")}</span>
+                  <span>{dayjs(data[0]?.startDate).format("YYYY-MM-DD")}</span>
                 </li>
                 <li>
-                  방문일자 <span>{data[0].paymentDate}</span>
+                  방문일자 <span>{data[0]?.paymentDate}</span>
                 </li>
                 <li>
                   결제내역{" "}
                   <span>
-                    {data[0].amount} (
-                    {data[0].numberA + data[0].numberY + data[0].numberC}매)
+                    {data[0]?.amount} (
+                    {data[0]?.numberA + data[0]?.numberY + data[0]?.numberC}매)
                   </span>
                 </li>
               </ul>
@@ -326,6 +323,8 @@ const PaymentList = memo(() => {
         )}
       </div>
     </MypageContainer>
+    ) :(<>내역 없따고요</>)}
+    </>
   );
 });
 
