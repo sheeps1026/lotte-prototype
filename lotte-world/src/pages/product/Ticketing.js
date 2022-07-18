@@ -697,6 +697,10 @@ const Ticketing = memo(({}) => {
   const { numberA, colorA } = useSelector((state) => state.adultCount);
   const { numberY, colorY } = useSelector((state) => state.youthCount);
   const { numberC, colorC } = useSelector((state) => state.childCount);
+  // redux 결제금액 상태값
+  const [priceA, setPriceA] = useState(30000);
+  const [priceY, setPriceY] = useState(20000);
+  const [priceC, setPriceC] = useState(10000);
   // Date picker 날짜 선택 상태값
   const [startDate, setStartDate] = useState(dayjs());
   // 재확인 모달창 상태값
@@ -705,10 +709,7 @@ const Ticketing = memo(({}) => {
   const [dateOpen, setDateOpen] = useState(false);
   // 공지사항 토글 상태값
   const [select, setSelect] = useState([]);
-   // redux 결제금액 상태값
-   const [priceA, setPriceA] = useState(30000);
-   const [priceY, setPriceY] = useState(20000);
-   const [priceC, setPriceC] = useState(10000);
+
  
   const ListActive = React.useRef([]);
 
@@ -835,9 +836,10 @@ const Ticketing = memo(({}) => {
 
   let params = new URLSearchParams(searchAll);
   let T_id = params.get("T_id");
+  let amount = (numberA*priceA)+(numberY*priceY)+(numberC*priceC)
 
   React.useEffect(()=>{
-    navigate(`/TicketingPage/Ticketing?T_id=${T_id}&date=${dayjs(startDate).format("YYYY-MM-DD")}`)
+    navigate(`/TicketingPage/Ticketing?T_id=${T_id}&date=${dayjs(startDate).format("YYYY-MM-DD")}&amount=${amount}`)
       dispatch(getPayment({ id: "1" }));
     console.log("실행됨");
 
@@ -1059,7 +1061,7 @@ const Ticketing = memo(({}) => {
                          <div className="finalPrice">
                            <div className="ticketCount">최종결제금액</div>
                            <div className="price">
-                             <span>{(numberA*priceA)+(numberY*priceY)+(numberC*priceC)}</span> 원
+                             <span>{amount}</span> 원
                            </div>
                          </div>
                          <div className="ticketingBtn">
