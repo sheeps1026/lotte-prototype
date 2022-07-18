@@ -83,17 +83,6 @@ const PaymentView = memo(() => {
     }, [dispatch]);
 
   
-  // const paymentDelete = (e) => {
-  //   e.preventDefault();
-  //   console.log(e.target.dataset.id);
-  //   const id = e.target.dataset.id;
-  //   // dispatch(deletePaymentInfo({ id: id }));
-    
-  // };
-  
-  // React.useEffect(()=>{
-  //   navigate("TicketingPage");
-  // },[paymentDelete]);
 
   const paymentDelete = React.useCallback(
     (e) => {
@@ -111,43 +100,6 @@ const PaymentView = memo(() => {
     [dispatch]
   );
 
-  //백엔드에 삭제 요청하기 - > 입력,수정,삭제는 async~await 문법으로 처리해야 함
-  /* 화면에 표시할 성적표 데이터를 저장하기 위한 상태 변수 */
-
-  // const [{ loading2 }, sendDelete] = useAxios(
-  //   {
-  //     method: "DELETE",
-  //   },
-  //   {
-  //     useCache: false,
-  //     manual: true,
-  //   }
-  // );
-
-  // const paymentDelete = (e) => {
-  //   (async () => {
-  //     let json = null;
-  //     try {
-  //       const response = await sendDelete({
-  //         method: "DELETE",
-  //         url: `http://localhost:3001/res_info/24`,
-  //       });
-  //       json = response.data;
-  //       console.log(json);
-  //     } catch (e) {
-  //       console.error(e);
-  //       window.alert(
-  //         `[${e.response.status}]${e.response.statusText}${e.message}}`
-  //       );
-  //     }
-  //     //삭제 잘될 경우
-
-  //     if (json != null) {
-  //       // setProfessor(professorr => professor.filter((v, i) =>v.id !== id));
-  //       console.log("삭제 잘 댓삼");
-  //     }
-  //   })();
-  // };
   return(
     <>
   {data ? (
@@ -221,7 +173,7 @@ const PaymentView = memo(() => {
             </tr>
           </tbody>
         </table>
-        {/* <Link to="/TicketingPage/PaymentList"> */}
+        
         <button className="orderCancel" type="button" data-id={data[0].id} onClick={paymentDelete}>
           예매취소
         </button>

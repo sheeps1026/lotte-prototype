@@ -500,7 +500,8 @@ const Payment = memo(({props}) => {
       const visit_tel = e.target.visit_tel.value;
       const visit_mail = e.target.visit_mail.value;
       //결제한 날짜 상태값
-      const paymentDay = dayjs().format("YYYY-MM-DD HH:mm:ss");
+      const paymentDay = dayjs().format("YYYY-MM-DD");
+      const paymentHour = dayjs().format("HH:mm:ss");
       // 
       
       /* 1. 가맹점 식별하기 */
@@ -549,7 +550,8 @@ const Payment = memo(({props}) => {
           numberA:numberA,                                 //어른 매수
           numberY:numberY,                                 //청소년 매수
           numberC:numberC,                                 //어린이 매수
-          paymentDay:paymentDay                            //결제 날짜, 시간
+          paymentDay:paymentDay,                            //결제 날짜
+          paymentHour:paymentHour                            //결제 시간
         })
       );
     //  console.log("백엔드에 들어가는 주문번호" + paymentData?.merchant_uid);

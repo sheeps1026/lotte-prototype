@@ -32,7 +32,8 @@ export const getPaymentInfo = createAsyncThunk(
     try {
       result = await axios.get(`http://localhost:3001/res_info`, {
         params:{
-          merchant_uid : payload?.merchant_uid
+          merchant_uid : payload?.merchant_uid,
+          paymentDay : payload?.paymentDay
         }
       });
       
@@ -71,7 +72,8 @@ export const postPaymentInfo = createAsyncThunk(
           numberA:payload?.numberA,                               //어른 매수
           numberY:payload?.numberY,                               //청소년 매수
           numberC:payload?.numberC,                               //어린이 매수
-          paymentDay:payload?.paymentDay                           //결제날짜
+          paymentDay:payload?.paymentDay,                           //결제날짜
+          paymentHour:payload?.paymentHour                           //결제날짜
       });
       // console.log(payload.name+"추가할 놈 들어오냐???????");
       
