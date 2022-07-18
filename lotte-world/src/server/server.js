@@ -8,29 +8,28 @@ app.use(session({ secret: "", resave: true, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 app.get("/TicketingPage/Signin", function (req, res) {
   // console.log(req.user);
 
   res.render("siginin.js", {});
 });
 
-const loginChk =(req, res, next)=> {
-  // if (요청.user) { 
-  //   next() 
-  // } 
+const loginChk = (req, res, next) => {
+  // if (요청.user) {
+  //   next()
+  // }
   console.log(req);
-  // else { 
-  //   res.send('로그인 안함') 
-  // } 
-}
+  console.log("테슽");
+  // else {
+  //   res.send('로그인 안함')
+  // }
+};
 
 passport.deserializeUser(function (id, done) {
-  db.collection('login').findOne({ id: id }, function (err, res) {
-    done(null, res)
-  })
-}); 
-
+  db.collection("login").findOne({ id: id }, function (err, res) {
+    done(null, res);
+  });
+});
 
 passport.use(
   new LocalStrategy(
@@ -40,7 +39,7 @@ passport.use(
       session: true,
       passReqToCallback: false,
     },
-    
+
     function (id, pwd, done) {
       db.collection("login").findOne({ id: id }, function (err, res) {
         if (err) return done(err);
