@@ -28,13 +28,12 @@ import { getPayment } from "../../slice/PaymentSlice";
 import confirmBg from "../../assets/images/pages/product/bg_notice.png";
 import icon from "../../assets/images/pages/product/bg_popicon.png";
 
-const personnalArr = [
-  { tit: "어른", txt: "만 19세 이상" },
-  { tit: "청소년", txt: "13세 이상 ~ 만 18세" },
-  { tit: "어린이", txt: "36개월 이상 ~ 만 12세" },
-];
-
-const TicketingStyled = styled.div`
+ // redux counter
+ import { plus1, minus1 } from '../../slice/adultCountSlice';
+ import { plus2, minus2 } from '../../slice/youthCountSlice';
+ import { plus3, minus3 } from '../../slice/childCountSlice';
+ 
+ const TicketingStyled = styled.div`
   width: 100%;
   min-height: calc(100% + 50px);
   background-color: #fff9e4;
@@ -431,10 +430,12 @@ const TicketForm = styled.form`
       }
     }
     .acco_contents {
-      background: #fff;
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 1.2;
+      padding-left: 60px;
+       padding-top: 30px;
+       background: #fff;
+       font-size: 14px;
+       font-weight: 500;
+       line-height: 1.2;
 
       span {
         color: #ff0000;
@@ -692,8 +693,11 @@ const DatePopup = styled.div`
   }
 `;
 const Ticketing = memo(({}) => {
+  // redux counter 
   const { data, loading, error } = useSelector((state) => state.PaymentSlice);
-  
+  const { numberA, colorA } = useSelector((state) => state.adultCount);
+  const { numberY, colorY } = useSelector((state) => state.youthCount);
+  const { numberC, colorC } = useSelector((state) => state.childCount);
   // Date picker 날짜 선택 상태값
   const [startDate, setStartDate] = useState(dayjs());
   // 재확인 모달창 상태값
@@ -702,7 +706,11 @@ const Ticketing = memo(({}) => {
   const [dateOpen, setDateOpen] = useState(false);
   // 공지사항 토글 상태값
   const [select, setSelect] = useState([]);
-
+   // redux 결제금액 상태값
+   const [priceA, setPriceA] = useState(30000);
+   const [priceY, setPriceY] = useState(20000);
+   const [priceC, setPriceC] = useState(10000);
+ 
   const ListActive = React.useRef([]);
 
   //  재확인 모달창 이벤트
@@ -929,89 +937,146 @@ const Ticketing = memo(({}) => {
                     </div>
                   </div>
                   <div className="personnalWrap">
-                    <ul>
-                      {personnalArr ? (
-                        personnalArr.map((v, i) => {
-                          return (
-                            <li key={i}>
-                              <div className="txtWrap">
-                                <p className="tit">{v.tit}</p>
-                                <p className="txt">{v.txt}</p>
-                              </div>
-                              <div className="countWrap">
-                                {/* .count : 버튼 조작에 따라 달라지는 상태값 */}
-                                <em className="count">0</em>
-                                <span className="btnWrap">
-                                  <button type="button" className="minus">
-                                    인원수 제거
-                                  </button>
-                                  <button type="button" className="plus">
-                                    인원수 추가
-                                  </button>
-                                </span>
-                              </div>
-                            </li>
-                          );
-                        })
-                      ) : (
-                        <></>
-                      )}
-                    </ul>
-                  </div>
+                     <ul>
+                       <li>
+                         <div className="txtWrap">
+                           <p className="tit">어른</p>
+                           <p className="txt">만 19세 이상</p>
+                         </div>
+                         <div className="countWrap">
+                           {/*  onChange={setPriceA(numberA * 30000) */}
+                           <em className="count" style={{color: colorA}}>{numberA}</em>
+                           <span className="btnWrap">
+                             <button type="button" className="minus" onClick={(e)=>{dispatch(minus1(1));}}>
+                               인원수 제거
+                             </button>
+                             <button type="button" className="plus" onClick={(e)=>{dispatch(plus1(1));}}>
+                               인원수 추가
+                             </button>
+                           </span>
+                         </div>
+                       </li>
+                       <li>
+                         <div className="txtWrap">
+                           <p className="tit">청소년</p>
+                           <p className="txt">만 19세 이상</p>
+                         </div>
+                         <div className="countWrap">
+                         {/* onChange={setPriceY(numberY * 20000) */}
+                           <em className="count" style={{color: colorY}}>{numberY}</em>
+                           <span className="btnWrap">
+                             <button type="button" className="minus" onClick={(e)=>{dispatch(minus2(1));}}>
+                               인원수 제거
+                             </button>
+                             <button type="button" className="plus" onClick={(e)=>{dispatch(plus2(1));}}>
+                               인원수 추가
+                             </button>
+                           </span>
+                         </div>
+                       </li>
+                       <li>
+                         <div className="txtWrap">
+                           <p className="tit">어린이</p>
+                           <p className="txt">만 19세 이상</p>
+                         </div>
+                         <div className="countWrap">
+                           {/*  onChange={setPriceC(numberC * 10000) */}
+                           <em className="count" style={{color: colorC}}>{numberC}</em>
+                           <span className="btnWrap">
+                             <button type="button" className="minus" onClick={(e)=>{dispatch(minus3(1));}}>
+                               인원수 제거
+                             </button>
+                             <button type="button" className="plus" onClick={(e)=>{dispatch(plus3(1));}}>
+                               인원수 추가
+                             </button>
+                           </span>
+                         </div>
+                       </li>
+                     </ul>
+                   </div>
                 </div>
 
                 <hr className="division" />
 
                 <div className="eventWrap">
-                  {/* .event : 인원이 선택된 기본화면 */}
-                  <ul className="event">
-                    <li>
-                      <div className="event_tit">
-                        {/* Main에서 선택한 ti_name */}
-                        <p className="tit_l">일반 온라인 예매</p>
-                        {/* personnal 바뀔 때마다 변하는 상태값 */}
-                        <p className="tit_r">1매 할인</p>
-                      </div>
-                      <div className="cont">
-                        <div className="img">
-                          <p className="img_box">
-                            <img src={thumbnail} alt="ticket" />
-                          </p>
-                        </div>
-                        <div className="txt">일반 온라인 예매 10%</div>
-                      </div>
-                      <div className="itemCont">
-                        <ul className="salePrice">
-                          <li>
-                            <div>어른 X 1</div>
-                            <div className="ticketPrice">
-                              <span>47,000</span>
-                              <strong className="discount">
-                                <strong>42,300</strong> 원
-                              </strong>
-                            </div>
-                          </li>
-                        </ul>
-                        <div className="finalPrice">
-                          <div className="ticketCount">최종결제금액</div>
-                          <div className="price">
-                            <span>42,300</span> 원
-                          </div>
-                        </div>
-                        <div className="ticketingBtn">
-                          <button type="button" onClick={confirmOpen}>
-                            <span>예매하기</span>
-                          </button>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                  {/* .noData -> 인원 없음. 상태값 변경됐을 때 나타나야 함 */}
-                  <p className="noData">
-                    <img src={nodata} alt="" />
-                    <span>예약인원을 선택해 주세요.</span>
-                  </p>
-                </div>
+                   {/* .event -> 인원 선택 중 */}
+                   { numberA+numberY+numberC !== 0 ?
+                     <ul className="event">
+                     <li>
+                       <div className="event_tit">
+                         {/* Main에서 선택한 ti_name */}
+                         <p className="tit_l">일반 온라인 예매</p>
+                         {/* personnal 바뀔 때마다 변하는 상태값 */}
+                         <p className="tit_r">{numberA + numberY + numberC}매 할인</p>
+                       </div>
+                       <div className="cont">
+                         <div className="img">
+                           <p className="img_box">
+                             <img src={thumbnail} alt="ticket" />
+                           </p>
+                         </div>
+                         <div className="txt">일반 온라인 예매 10%</div>
+                       </div>
+                       <div className="itemCont">
+                         <ul className="salePrice">
+                             {/* 어른/청소년/어린이 선택 따라 바뀌어야 함 */}
+                           { numberA>0 &&
+                             <li className="ticketGroup">
+                               <div className="ticketAge">어른 X {numberA}</div>
+                               <div className="ticketPrice">
+                                 {/* 가격 db에서 불러오기? */}
+                                 <span>{numberA * 33000}</span>
+                                 <strong className="discount">
+                                   <strong>{numberA*priceA}</strong> 원
+                                 </strong>
+                               </div>
+                             </li>
+                           }
+                           { numberY>0 &&
+                             <li className="ticketGroup">
+                               <div className="ticketAge">청소년 X {numberY}</div>
+                               <div className="ticketPrice">
+                                 {/* 가격 db에서 불러오기? */}
+                                 <span>{numberY * 22000}</span>
+                                 <strong className="discount">
+                                   <strong>{numberY*priceY}</strong> 원
+                                 </strong>
+                               </div>
+                             </li>
+                           }
+                           { numberC>0 &&
+                             <li className="ticketGroup">
+                               <div className="ticketAge">어린이 X {numberC}</div>
+                               <div className="ticketPrice">
+                                 {/* 가격 db에서 불러오기? */}
+                                 <span>{numberC * 11000}</span>
+                                 <strong className="discount">
+                                   <strong>{numberC*priceC}</strong> 원
+                                 </strong>
+                               </div>
+                             </li>
+                           }
+                         </ul>
+                         <div className="finalPrice">
+                           <div className="ticketCount">최종결제금액</div>
+                           <div className="price">
+                             <span>{(numberA*priceA)+(numberY*priceY)+(numberC*priceC)}</span> 원
+                           </div>
+                         </div>
+                         <div className="ticketingBtn">
+                           <button type="button" onClick={confirmOpen}>
+                             <span>예매하기</span>
+                           </button>
+                         </div>
+                       </div>
+                     </li>
+                     </ul> : 
+                      <p className="noData">
+                      <img src={nodata} alt="" />
+                      <span>예약인원을 선택해 주세요.</span>
+                    </p>
+                   }
+                 </div>
 
                 <hr className="division" />
                 {/* 토글 */}
