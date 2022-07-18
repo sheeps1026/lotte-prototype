@@ -417,7 +417,7 @@ const TicketForm = styled.form`
         line-height: 65px;
       }
     }
-  }
+  
   /* 상품안내 블록 */
   .accordion {
     &.open {
@@ -468,6 +468,7 @@ const TicketForm = styled.form`
     background-color: #ccc;
   }
 `;
+
 // 정보 재확인 모달창 스타일
 const ConfirmPop = styled.div`
   display: block;
