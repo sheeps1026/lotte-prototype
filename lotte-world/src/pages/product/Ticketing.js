@@ -377,7 +377,6 @@ const TicketForm = styled.form`
     }
     /* 인원 없음 */
     .noData {
-      display: none;
       position: relative;
       padding: 30px 0;
       text-align: center;
