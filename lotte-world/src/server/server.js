@@ -15,7 +15,7 @@ app.get("/TicketingPage/Signin", function (req, res) {
   res.render("siginin.js", {});
 });
 
-const loginChk(req, res, next) {
+const loginChk =(req, res, next)=> {
   // if (요청.user) { 
   //   next() 
   // } 
