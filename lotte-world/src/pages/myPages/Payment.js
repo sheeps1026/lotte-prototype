@@ -587,19 +587,6 @@ const Payment = memo(({props}) => {
   const userMailRef = React.useRef();
   const userNumRef = React.useRef();
 
-<<<<<<< HEAD
-  const temsAllCheckedBtn = (e) => {
-    check1.current.checked = "checked";
-    check2.current.checked = "checked";
-    check3.current.checked = "checked";
-    check4.current.checked = "checked";
-    if (!e.target.checked) {
-      console.log("ㅇ런");
-      check1.current.checked = e.target.checked;
-      check2.current.checked = e.target.checked;
-      check3.current.checked = e.target.checked;
-      check4.current.checked = e.target.checked;
-=======
 
   // const termsAllCheckedBtn = (e) => {
   //   check1.current.checked = "checked";
@@ -625,7 +612,6 @@ const Payment = memo(({props}) => {
       setCheck2(false);
       setCheck3(false);
       setCheck4(false);
->>>>>>> 05208bbaa98f65715d8bde71706771317b3ec3f9
     }
   };
   const checkedBtn1 = (e) => {
@@ -641,8 +627,6 @@ const Payment = memo(({props}) => {
     !check4 ? setCheck4(true) : setCheck4(false);
   }
 
-<<<<<<< HEAD
-=======
 useEffect(() => {
   if(check1 === true &&
     check2 === true &&
@@ -664,7 +648,6 @@ useEffect(() => {
     }
   }
   
->>>>>>> 05208bbaa98f65715d8bde71706771317b3ec3f9
   const Allchecked = (e) => {
     
 
