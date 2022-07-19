@@ -261,7 +261,6 @@
     }
   ],
   "res_info": [
-
     {
       "pg": "html5_inicis",
       "pay_method": "카카오페이 ",
@@ -284,7 +283,7 @@
       "numberY": 1,
       "numberC": 1,
       "paymentDay": "2022-07-18",
-      "paymentMonth":"2022-07",
+      "paymentMonth": "2022-07",
       "paymentHour": "23:21:34",
       "id": 27
     },
@@ -310,7 +309,7 @@
       "numberY": 1,
       "numberC": 1,
       "paymentDay": "2022-07-19",
-      "paymentMonth":"2022-07",
+      "paymentMonth": "2022-07",
       "paymentHour": "00:03:01",
       "id": 28
     }
