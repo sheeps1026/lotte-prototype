@@ -178,8 +178,6 @@ const PaymentList = memo(() => {
   const datePicker1 = React.useRef();
 
   const [startDate, setStartDate] = useState(new Date());
-  
-  const fulldate = dayjs(startDate).format("YYYY-MM-DD");
 
   const prevBtn = React.useCallback(() => {
     // console.log("이번달로 변경");
@@ -197,8 +195,11 @@ const PaymentList = memo(() => {
       "T09:00:00";
 
     setStartDate(new Date(dayjs(changeMonth)));
+    
     // 값있을 때
-    dispatch(getPaymentInfo({ paymentDay: dayjs(startDate).format("YYYY-MM-DD") }));
+    dispatch(
+      getPaymentInfo({ paymentMonth: dayjs(changeMonth).format("YYYY-MM") })
+    );
   });
 
   const nextBtn = React.useCallback(() => {
@@ -215,115 +216,127 @@ const PaymentList = memo(() => {
       "-" +
       selectDateDate +
       "T09:00:00";
-
+    console.log(changeMonth);
     setStartDate(new Date(dayjs(changeMonth)));
+
     // 값있을 때
-    dispatch(getPaymentInfo({ paymentDay: dayjs(startDate).format("YYYY-MM-DD") }));
+    dispatch(
+      getPaymentInfo({ paymentMonth: dayjs(changeMonth).format("YYYY-MM") })
+    );
   });
 
+  const fulldate = dayjs(startDate).format("YYYY-MM");
 
+  const pickerChange =(e)=>{
+    console.log("나 바뀐다",dayjs(e).format("YYYY-MM"));
+    setStartDate(e);
 
-  
-
-  console.log(fulldate);
-
+    const pick = dayjs(e).format("YYYY-MM");
+    dispatch(getPaymentInfo({ paymentMonth: pick }));
+  }
   React.useEffect(() => {
     // 값있을 때
-    dispatch(getPaymentInfo({ paymentDay: fulldate }));
-    
-  }, [dispatch,setStartDate]);
+    dispatch(getPaymentInfo({ paymentMonth: fulldate }));
+    console.log(fulldate);
+  }, [dispatch, setStartDate]);
 
   return (
- <>
-  {data ? (
-    <MypageContainer>
-      <div className="pageContainer">
-        <h3>마이페이지</h3>
-        <p className="mypageNotice">
-          예매하신 티켓은 방문 일자에 사용하실 수 있으며
-          <span>사용후에는 예매취소가 불가</span> 하니 유의하시기 바랍니다.
-        </p>
-        <div className="datePickerCon">
-          <button onClick={prevBtn} type="button">
-            &laquo; 이전달
-          </button>
-          <DatePicker
-            ref={datePicker1}
-            selected={startDate}
-            // onChange={(date) => setStartDate(date)}
-            locale={ko} // 한글로 변경
-            dateFormat="yyyy-MM-dd"
-            showMonthYearPicker
-            showFullMonthYearPicker
-          />
-          <button onClick={nextBtn} type="button">
-            다음달 &raquo;
-          </button>
-        </div>
-        
-        {data ? (
-          <PaymentListWrap>
-            <h2>
-              총 <span>{data.length}</span>건
-            </h2>
+    <>
+      {data ? (
+        <MypageContainer>
+          <div className="pageContainer">
+            <h3>마이페이지</h3>
+            <p className="mypageNotice">
+              예매하신 티켓은 방문 일자에 사용하실 수 있으며
+              <span>사용후에는 예매취소가 불가</span> 하니 유의하시기 바랍니다.
+            </p>
+            <div className="datePickerCon">
+              <button onClick={prevBtn} type="button">
+                &laquo; 이전달
+              </button>
+              <DatePicker
+                ref={datePicker1}
+                selected={startDate}
+                // onChange={(date) => setStartDate(date)}
+                locale={ko} // 한글로 변경
+                dateFormat="yyyy-MM"
+                onChange={pickerChange}
+                showMonthYearPicker
+                showFullMonthYearPicker
+              />
+              <button onClick={nextBtn} type="button">
+                다음달 &raquo;
+              </button>
+            </div>
 
-            <div className="topWrap">
-              <div>{dayjs(data[0]?.paymentDay).format("YYYY-MM-DD")}</div>
-            </div>
-            <div className="paymentUl">
-              {/* <h5>오후권 (AFTER4) 온라인 할인</h5> */}
-              <h5>{data[0]?.name}</h5>
-              <ul>
-                <li>
-                  주문번호 <span>{data[0]?.merchant_uid}</span>
-                </li>
-                <li>
-                  예매일자{" "}
-                  <span>{dayjs(data[0]?.startDate).format("YYYY-MM-DD")}</span>
-                </li>
-                <li>
-                  방문일자 <span>{data[0]?.paymentDate}</span>
-                </li>
-                <li>
-                  결제내역{" "}
-                  <span>
-                    {data[0]?.amount} (
-                    {data[0]?.numberA + data[0]?.numberY + data[0]?.numberC}매)
-                  </span>
-                </li>
-              </ul>
-            </div>
-            <div className="NumberList">
-              {data.map((v, i) => {
-                return (
-                  <div className="badgeWrap" key={i}>
-                    <span>결제 완료</span>
-                    <div className="numberList">
-                      <p>
-                        예매번호 :<span>{v.merchant_uid}</span>
-                      </p>
-                      <p>
-                        ({v.numberA ? `어른` : <></>}
-                        {v.numberY ? `, 청소년` : <></>}
-                        {v.numberC ? `, 어린이` : <></>})
-                      </p>
-                    </div>
-                    <div className="price">{v.amount}원</div>
-                    <Link
-                      to="/TicketingPage/PaymentView"
-                      state={{ data: v.merchant_uid }}
-                    ></Link>
-                  </div>
-                );
-              })}
-            </div>
-          </PaymentListWrap>
-        ) : (
-          <NoResultFound />
-        )}
-      </div>
-    </MypageContainer>
-    ) :(<>내역 없따고요</>)}
+            {data[0] ? (
+              <PaymentListWrap>
+                <h2>
+                  총 <span>{data.length}</span>건
+                </h2>
+
+                <div className="topWrap">
+                  <div>{dayjs(data[0]?.paymentMonth).format("YYYY-MM-DD")}</div>
+                </div>
+                <div className="paymentUl">
+                  {/* <h5>오후권 (AFTER4) 온라인 할인</h5> */}
+                  <h5>{data[0]?.name}</h5>
+                  <ul>
+                    <li>
+                      주문번호 <span>{data[0]?.merchant_uid}</span>
+                    </li>
+                    <li>
+                      예매일자{" "}
+                      <span>
+                        {dayjs(data[0]?.startDate).format("YYYY-MM-DD")}
+                      </span>
+                    </li>
+                    <li>
+                      방문일자 <span>{data[0]?.paymentDate}</span>
+                    </li>
+                    <li>
+                      결제내역{" "}
+                      <span>
+                        {data[0]?.amount} (
+                        {data[0]?.numberA + data[0]?.numberY + data[0]?.numberC}
+                        매)
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="NumberList">
+                  {data.map((v, i) => {
+                    return (
+                      <div className="badgeWrap" key={i}>
+                        <span>결제 완료</span>
+                        <div className="numberList">
+                          <p>
+                            예매번호 :<span>{v.merchant_uid}</span>
+                          </p>
+                          <p>
+                            ({v.numberA ? `어른` : <></>}
+                            {v.numberY ? `, 청소년` : <></>}
+                            {v.numberC ? `, 어린이` : <></>})
+                          </p>
+                        </div>
+                        <div className="price">{v.amount}원</div>
+                        <Link
+                          to="/TicketingPage/PaymentView"
+                          state={{ data: v.merchant_uid }}
+                        ></Link>
+                      </div>
+                    );
+                  })}
+                </div>
+              </PaymentListWrap>
+            ) : (
+              <NoResultFound />
+            )}
+          </div>
+        </MypageContainer>
+      ) : (
+        <>내역 없따고요</>
+      )}
     </>
   );
 });

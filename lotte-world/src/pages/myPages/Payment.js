@@ -500,6 +500,7 @@ const Payment = memo(({props}) => {
       const visit_mail = e.target.visit_mail.value;
       //결제한 날짜 상태값
       const paymentDay = dayjs().format("YYYY-MM-DD");
+      const paymentMonth = dayjs().format("YYYY-MM");
       const paymentHour = dayjs().format("HH:mm:ss");
       // 
       
@@ -550,6 +551,7 @@ const Payment = memo(({props}) => {
           numberY:numberY,                                 //청소년 매수
           numberC:numberC,                                 //어린이 매수
           paymentDay:paymentDay,                            //결제 날짜
+          paymentMonth:paymentMonth,                            //결제 월
           paymentHour:paymentHour                            //결제 시간
         })
       );
