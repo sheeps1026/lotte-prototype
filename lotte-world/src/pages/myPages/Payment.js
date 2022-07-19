@@ -647,8 +647,10 @@ useEffect(() => {
   const mustCheckAlert = (e) => {
     if (!check1) {
       alert("전자상거래 이용약관에 동의해주세요.");
+      e.preventDefault();
     } else if (!check2) {
       alert("개인정보 수집이용에 동의해주세요.")
+      e.preventDefault();
     }
   }
   
