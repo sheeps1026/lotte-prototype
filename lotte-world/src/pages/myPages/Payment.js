@@ -1,4 +1,4 @@
-import React, { memo, useState, useCallback , useEffect } from "react";
+import React, { memo, useState, useCallback, useEffect } from "react";
 // import React, { memo, useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
 import Spinner from "../../components/Spinner";
@@ -179,8 +179,8 @@ const TitleArea = styled.div`
             &:last-child {
               color: rgb(80, 80, 80);
               font-size: 14px;
-              input{
-                border:none;
+              input {
+                border: none;
               }
             }
           }
@@ -388,13 +388,13 @@ const TitleArea = styled.div`
   .detail {
     padding-top: 25px;
     background-color: #fff;
-    input{
-            border:none;
-            background: none;
-            color: rgb(255, 91, 98);
-            font-weight: 600;
-            text-transform: uppercase;
-          }
+    input {
+      border: none;
+      background: none;
+      color: rgb(255, 91, 98);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
     ul {
       padding: 0 140px;
       padding-bottom: 25px;
@@ -411,11 +411,10 @@ const TitleArea = styled.div`
 
         &:last-child {
           color: rgb(80, 80, 80);
-          
         }
-        input{
-            border:none;
-          }
+        input {
+          border: none;
+        }
       }
 
       hr {
@@ -511,11 +510,8 @@ const Payment = memo(() => {
         })
       );
       console.log("백엔드에 들어가는 주문번호" + paymentData?.merchant_uid);
-
-      
     },
     [dispatch]
-    
   );
 
   /* 3. 콜백 함수 정의하기 */
@@ -525,13 +521,10 @@ const Payment = memo(() => {
     if (success) {
       alert("결제 성공");
       navigate("/TicketingPage/paymentResult", { state: merchant_uid });
-
     } else {
       alert(`결제 실패: ${error_msg}`);
     }
   }
-
-  
 
   const toggle = useCallback((e) => {
     const item = e.currentTarget.id;
@@ -550,7 +543,6 @@ const Payment = memo(() => {
   const userMailRef = React.useRef();
   const userNumRef = React.useRef();
 
-
   const temsAllCheckedBtn = (e) => {
     check1.current.checked = "checked";
     check2.current.checked = "checked";
@@ -565,7 +557,6 @@ const Payment = memo(() => {
     }
   };
 
-  
   const Allchecked = (e) => {
     console.log(AllcheckedBtn.current.checked);
 
@@ -581,7 +572,6 @@ const Payment = memo(() => {
       userNumRef.current.value = "";
     }
   };
-
 
   useEffect(() => {
     dispatch(getPayment({ id: "1" }));
@@ -757,7 +747,11 @@ const Payment = memo(() => {
                       <ul>
                         <li>
                           {/* 카카오페이 - 선택한 날짜 */}
-                          <input name="pay_method" value="카카오페이 " readOnly />
+                          <input
+                            name="pay_method"
+                            value="카카오페이 "
+                            readOnly
+                          />
                         </li>
                         <hr />
                         <li>
