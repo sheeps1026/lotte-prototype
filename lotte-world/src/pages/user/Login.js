@@ -1,8 +1,9 @@
 // @filename    : Login.js
 // @description : 로그인 폼 (아이디&비밀번호 찾기, 회원가입 버튼이 있음)
 
-import React, { memo } from "react";
+import React, { memo, useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 
 const LoginContainer = styled.div`
@@ -67,23 +68,73 @@ const LoginContainer = styled.div`
 `;
 
 const Login = memo(() => {
+  // const useid = useRef();
+  // const pwdck = useRef();
+
+  // const inputId = useid.current.value;
+  // const inputPwd = pwdck.current.value;
+  const [useid, setUseid] = useState("");
+  const [pwdck, setPwdck] = useState("");
+
+  // console.log(useid.current);
+
+  const test = (e) => {
+    e.preventDefault();
+
+    setUseid(e.target.useid.value);
+    setPwdck(e.target.usepwd.value);
+
+    console.log(e.target.useid.value);
+    console.log(e.target.usepwd.value);
+  };
+
+  console.log(useid);
+  console.log(pwdck);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/members");
+
+        let json = response.data;
+
+        // console.log(json);
+        // console.log(json[0].M_useid);
+        // console.log(json[1].M_useid);
+
+        json.map((v, i) => {
+          // if (v.M_useid == inputId && v.M_pwdck == inputPwd) {
+          //   alert("로그인 성공");
+          // } else {
+          //   alert("아이디or비번 틀림");
+          // }
+
+          console.log(v.M_useid);
+        });
+      } catch (err) {
+        console.log("캐치문");
+      }
+    })();
+  }, []);
+
   return (
     <LoginContainer>
       <h2>로그인</h2>
-      <form>
+      <form onSubmit={test}>
         <div className="info">
           <label htmlFor="">아이디</label>
-          <input type="text" />
+          <input type="text" name="useid" />
+
           <label htmlFor="">비밀번호</label>
-          <input type="password" />
+          <input type="password" name="usepwd" />
         </div>
         <div className="login-keep">
           <input type="checkbox" />
           <label htmlFor="">아이디저장</label>
         </div>
-        <Link to="/TicketingPage">
-          <button type="submit">로그인</button>
-        </Link>
+        {/* <Link to="/TicketingPage"> */}
+        <button type="submit">로그인</button>
+        {/* </Link> */}
       </form>
       <ul>
         <li>

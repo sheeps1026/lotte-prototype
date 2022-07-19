@@ -3,7 +3,6 @@
 //                성별, 휴대전화, 이메일 정보를 입력하여 가입
 
 import React, { memo } from "react";
-import { Link } from "react-router-dom";
 import useAxios from "axios-hooks";
 
 import regexHelper from "../../libs/RegexHelper";
@@ -119,11 +118,7 @@ const Signin = memo(() => {
         "한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)"
       );
 
-      // 생년월일 검사
-      // regexHelper.yearCheck(
-      //   current.year,
-      //   "태어난 년도 4자리를 정확하게 입력하세요."
-      // );
+      // 주민번호 검사
 
       // 이메일 검사
       regexHelper.emailCheck(current.email, "이메일 주소를 다시 확인해주세요.");
@@ -141,21 +136,21 @@ const Signin = memo(() => {
     let json = null;
 
     // 입력받은 값 취득
-    const id = current.id.value; // 아이디
-    const pwd = current.pwd.value; // 비밀번호
-    const name = current.name.value; // 이름
-    const tel = current.tel.value; // 휴대전화
-    const email = current.email.value; // 이메일
+    const M_useid = current.M_useid.value; // 아이디
+    const M_pwdck = current.M_pwdck.value; // 비밀번호
+    const M_name = current.M_name.value; // 이름
+    const M_tel = current.M_tel.value; // 휴대전화
+    const M_email = current.M_email.value; // 이메일
 
     (async () => {
       try {
         const response = await refetch({
           data: {
-            id: id,
-            pwd: pwd,
-            name: name,
-            tel: tel,
-            email: email,
+            M_useid: M_useid,
+            M_pwdck: M_pwdck,
+            M_name: M_name,
+            M_tel: M_tel,
+            M_email: M_email,
           },
         });
 
@@ -174,14 +169,15 @@ const Signin = memo(() => {
   };
 
   return (
+    // <SigninContainer action="/add" method="POST" onSubmit={onSubmit}>
     <SigninContainer onSubmit={onSubmit}>
       <h2>회원가입</h2>
       <div className="info">
-        <label htmlFor="id">아이디</label>
-        <input type="text" name="id" placeholder="아이디" />
+        <label htmlFor="M_useid">아이디</label>
+        <input type="text" name="M_useid" placeholder="아이디" />
 
-        <label htmlFor="pwd">비밀번호</label>
-        <input type="password" name="pwd" placeholder="비밀번호" />
+        <label htmlFor="M_pwdck">비밀번호</label>
+        <input type="password" name="M_pwdck" placeholder="비밀번호" />
         <label htmlFor="pwdCheck" placeholder="비밀번호 확인">
           비밀번호 확인
         </label>
@@ -193,16 +189,16 @@ const Signin = memo(() => {
         <div className="info-rrn">
           <label htmlFor="">주민번호</label>
           <div>
-            <input type="text" />
+            <input type="text" name="M_regnum1" />
             <p>-</p>
-            <input type="text" />
+            <input type="text" name="M_regnum2" />
           </div>
         </div>
-        <label htmlFor="tel">전화번호</label>
-        <input type="text" name="tel" placeholder="전화번호" />
+        <label htmlFor="M_tel">전화번호</label>
+        <input type="text" name="M_tel" placeholder="전화번호" />
 
-        <label htmlFor="email">이메일</label>
-        <input type="email" name="email" placeholder="이메일" />
+        <label htmlFor="M_email">이메일</label>
+        <input type="M_email" name="M_email" placeholder="이메일" />
       </div>
       {/* <Link to="/TicketingPage/SigninConfirm"> */}
       <button type="submit">확인</button>

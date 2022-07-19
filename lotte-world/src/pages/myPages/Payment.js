@@ -1,4 +1,4 @@
-import React, { memo, useState, useCallback , useEffect } from "react";
+import React, { memo, useState, useCallback, useEffect } from "react";
 // import React, { memo, useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
 import Spinner from "../../components/Spinner";
@@ -179,8 +179,8 @@ const TitleArea = styled.div`
             &:last-child {
               color: rgb(80, 80, 80);
               font-size: 14px;
-              input{
-                border:none;
+              input {
+                border: none;
               }
             }
           }
@@ -390,13 +390,13 @@ const TitleArea = styled.div`
   .detail {
     padding-top: 25px;
     background-color: #fff;
-    input{
-            border:none;
-            background: none;
-            color: rgb(255, 91, 98);
-            font-weight: 600;
-            text-transform: uppercase;
-          }
+    input {
+      border: none;
+      background: none;
+      color: rgb(255, 91, 98);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
     ul {
       padding: 0 140px;
       padding-bottom: 25px;
@@ -413,11 +413,10 @@ const TitleArea = styled.div`
 
         &:last-child {
           color: rgb(80, 80, 80);
-          
         }
-        input{
-            border:none;
-          }
+        input {
+          border: none;
+        }
       }
 
       hr {
@@ -555,9 +554,7 @@ const Payment = memo(({props}) => {
           paymentHour:paymentHour                            //결제 시간
         })
       );
-    //  console.log("백엔드에 들어가는 주문번호" + paymentData?.merchant_uid);
-        
-      
+      console.log("백엔드에 들어가는 주문번호" + paymentData?.merchant_uid);
     },
     [dispatch]
   );
@@ -568,13 +565,10 @@ const Payment = memo(({props}) => {
     if (success) {
       alert("결제 성공");
       navigate("/TicketingPage/paymentResult", { state: merchant_uid });
-
     } else {
       alert(`결제 실패: ${error_msg}`);
     }
   }
-
-  
 
   const toggle = useCallback((e) => {
     const item = e.currentTarget.id;
@@ -593,6 +587,19 @@ const Payment = memo(({props}) => {
   const userMailRef = React.useRef();
   const userNumRef = React.useRef();
 
+<<<<<<< HEAD
+  const temsAllCheckedBtn = (e) => {
+    check1.current.checked = "checked";
+    check2.current.checked = "checked";
+    check3.current.checked = "checked";
+    check4.current.checked = "checked";
+    if (!e.target.checked) {
+      console.log("ㅇ런");
+      check1.current.checked = e.target.checked;
+      check2.current.checked = e.target.checked;
+      check3.current.checked = e.target.checked;
+      check4.current.checked = e.target.checked;
+=======
 
   // const termsAllCheckedBtn = (e) => {
   //   check1.current.checked = "checked";
@@ -618,6 +625,7 @@ const Payment = memo(({props}) => {
       setCheck2(false);
       setCheck3(false);
       setCheck4(false);
+>>>>>>> 05208bbaa98f65715d8bde71706771317b3ec3f9
     }
   };
   const checkedBtn1 = (e) => {
@@ -633,6 +641,8 @@ const Payment = memo(({props}) => {
     !check4 ? setCheck4(true) : setCheck4(false);
   }
 
+<<<<<<< HEAD
+=======
 useEffect(() => {
   if(check1 === true &&
     check2 === true &&
@@ -654,6 +664,7 @@ useEffect(() => {
     }
   }
   
+>>>>>>> 05208bbaa98f65715d8bde71706771317b3ec3f9
   const Allchecked = (e) => {
     
 
@@ -669,7 +680,6 @@ useEffect(() => {
       userNumRef.current.value = "";
     }
   };
-
 
   useEffect(() => {
     dispatch(getPayment({ id: "1" }));
@@ -845,7 +855,11 @@ useEffect(() => {
                       <ul>
                         <li>
                           {/* 카카오페이 - 선택한 날짜 */}
-                          <input name="pay_method" value="카카오페이 " readOnly />
+                          <input
+                            name="pay_method"
+                            value="카카오페이 "
+                            readOnly
+                          />
                         </li>
                         <hr />
                         
