@@ -583,6 +583,10 @@ const Payment = memo(({ props }) => {
   const userMailRef = React.useRef();
   const userNumRef = React.useRef();
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4d2f3399095fe6535b753099f415dba39a187f71
   // const termsAllCheckedBtn = (e) => {
   //   check1.current.checked = "checked";
   //   check2.current.checked = "checked";
@@ -622,6 +626,7 @@ const Payment = memo(({ props }) => {
     !check4 ? setCheck4(true) : setCheck4(false);
   };
 
+<<<<<<< HEAD
   useEffect(() => {
     if (
       check1 === true &&
@@ -629,6 +634,13 @@ const Payment = memo(({ props }) => {
       check3 === true &&
       check4 === true
     ) {
+=======
+useEffect(() => {
+  if(check1 === true &&
+    check2 === true &&
+    check3 === true &&
+    check4 === true) {
+>>>>>>> 4d2f3399095fe6535b753099f415dba39a187f71
       setAllCheck(true);
     } else {
       setAllCheck(false);
@@ -638,10 +650,21 @@ const Payment = memo(({ props }) => {
   const mustCheckAlert = (e) => {
     if (!check1) {
       alert("전자상거래 이용약관에 동의해주세요.");
+      e.preventDefault();
     } else if (!check2) {
+<<<<<<< HEAD
       alert("개인정보 수집이용에 동의해주세요.");
     }
   };
+=======
+      alert("개인정보 수집이용에 동의해주세요.")
+      e.preventDefault();
+    }
+  }
+  
+  const Allchecked = (e) => {
+    
+>>>>>>> 4d2f3399095fe6535b753099f415dba39a187f71
 
   const Allchecked = (e) => {
     const AllcheckedClick = AllcheckedBtn.current.checked;
