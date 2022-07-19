@@ -175,7 +175,7 @@ const App = memo(() => {
 
           {/* 예매 페이지 */}
 
-          <Route path="/Payment" element={<Payment />} />
+          <Route path="/Payment:index"  element={<Payment />} />
           <Route path="/PaymentChk1" element={<PaymentChk1 />} />
           <Route path="/PaymentChk2" element={<PaymentChk2 />} />
           <Route path="/PaymentChk3" element={<PaymentChk3 />} />

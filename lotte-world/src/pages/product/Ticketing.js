@@ -23,15 +23,17 @@ import arrow from "../../assets/images/pages/product/bg_accordion_arrow.png";
 import close from "../../assets/images/pages/product/btn_pop_close.png";
 import nodata from "../../assets/images/pages/product/nodata.png";
 import share from "../../assets/images/shere.png";
-import { useDispatch, useSelector } from "react-redux";
-import { getPayment } from "../../slice/PaymentSlice";
 import confirmBg from "../../assets/images/pages/product/bg_notice.png";
 import icon from "../../assets/images/pages/product/bg_popicon.png";
+import step1 from "../../assets/images/pages/product/step1.jpg"
+import step3 from "../../assets/images/pages/product/step3.jpg"
 
- // redux counter
- import { plus1, minus1 } from '../../slice/adultCountSlice';
- import { plus2, minus2 } from '../../slice/youthCountSlice';
- import { plus3, minus3 } from '../../slice/childCountSlice';
+import { useDispatch, useSelector } from "react-redux";
+// redux counter
+import { getPayment } from "../../slice/PaymentSlice";
+import { plus1, minus1 } from '../../slice/adultCountSlice';
+import { plus2, minus2 } from '../../slice/youthCountSlice';
+import { plus3, minus3 } from '../../slice/childCountSlice';
  
  const TicketingStyled = styled.div`
   width: 100%;
@@ -446,15 +448,34 @@ const TicketForm = styled.form`
       }
     }
     .acco_contents {
-      padding-left: 60px;
-       padding-top: 30px;
+       padding: 20px 60px;
        background: #fff;
        font-size: 14px;
        font-weight: 500;
        line-height: 1.2;
-
+      h2 {
+        font-size: 18px;
+        font-weight: 700;
+      }
       span {
         color: #ff0000;
+      }
+      li {
+        margin-left: 9px;
+        margin-top: 5px;
+        
+      }
+      .listType {
+        li {
+          margin-top: 5px;
+          margin-left: 12px;
+          color: #777;
+        }
+      }
+      .using {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
       }
     }
   }
@@ -728,6 +749,7 @@ const Ticketing = memo(({}) => {
   // 공지사항 토글 상태값
   const [select, setSelect] = useState([]);
 
+
  
   const ListActive = React.useRef([]);
 
@@ -878,8 +900,6 @@ const Ticketing = memo(({}) => {
 
   const onClickShare = (e)=>{
     e.preventDefault();
-
-    console.log("공유버튼 눌럿ㅈ/ㅕㅇ");
     let url = "";
     let textarea = document.createElement("textarea");
     document.body.appendChild(textarea);
@@ -1198,58 +1218,28 @@ const Ticketing = memo(({}) => {
                       <div className="tit">이용안내</div>
                     </div>
                     <div className="acco_contents">
-                      롯데월드 어드벤처 부산 입장 및 놀이시설 이용을 위한
-                      티켓입니다.
-                      <br />
-                      • 종일권 (1-Day)
-                      <br />
-                      - 어 른 : 47,000원
-                      <br />
-                      - 청소년 : 39,000원
-                      <br />
-                      - 어린이/경로 : 33,000원
-                      <br />
-                      - 베이비 : 12,000원
-                      <br />
-                      <br />
-                      • 오후권 (After 4)
-                      <br />
-                      - 어 른 : 33,000원
-                      <br />
-                      - 청소년 : 31,000원
-                      <br />
-                      - 어린이/경로 : 29,000원
-                      <br />
-                      - 베이비 : 12,000원
-                      <br />
-                      <br />
-                      ※ 연령 기준
-                      <br />
-                      (나이 확인이 가능한 신분증 또는 서류를 제시해주세요)
-                      <br />
-                      - 경로 : 만 65세 이상 (기타 우대 적용 불가)
-                      <br />
-                      - 어른 : 만 19세 이상
-                      <br />
-                      - 청소년 : 만 13세 ~ 만 18세 (학교 및 학년 무관)
-                      <br />
-                      - 어린이 : 만 36개월 이상 ~ 만 12세
-                      <br />
-                      - 베이비
-                      <br />
-                      1) 0~12개월 미만 - 파크 입장 및 유아 놀이시설에 대하여
-                      <br />
-                      &nbsp;&nbsp;&nbsp;무료 이용
-                      <br />
-                      2) 12개월 이상 ~ 36개월 미만 - 파크 입장 무료
-                      <br />
-                      <span>
-                        &nbsp;&nbsp;&nbsp;유아 어트랙션에 대하여
-                        베이비이용권(베이비권종합/베이비권(1회)/
-                        <br />
-                        &nbsp;&nbsp;&nbsp;키즈토리아이용권) 구매 후 이용 가능
-                      </span>
-                      <br />
+                      <ol className="using">
+                        <li>
+                          <h2> 1. 어드벤처 예매페이지를 통한 티켓예매</h2>
+                          <br/>
+                          <img alt="" src={step1} />
+                        </li>
+                        <li>
+                          <h2> 2. 웹티켓을 게이트에 제시 후 빠른 입장</h2>
+                          <br/>
+                          <img alt="" src={step3}/>
+                        </li>
+                      </ol>
+                      <li>
+                        <ul className="listType">
+                            <li>
+                            - 예매 후에는 반드시 마이티켓을 통하여 구매하신 웹티켓을 확인해주시기 바랍니다.
+                            </li>
+                            <li>
+                            - 티켓은 선택한 날짜에만 방문 및 이용 가능합니다.(다른 날짜에는 사용 불가)
+                            </li>
+                        </ul>
+                      </li>
                     </div>
                   </li>
                 </ul>
@@ -1266,58 +1256,25 @@ const Ticketing = memo(({}) => {
                       <div className="tit">취소/환불</div>
                     </div>
                     <div className="acco_contents">
-                      롯데월드 어드벤처 부산 입장 및 놀이시설 이용을 위한
-                      티켓입니다.
-                      <br />
-                      • 종일권 (1-Day)
-                      <br />
-                      - 어 른 : 47,000원
-                      <br />
-                      - 청소년 : 39,000원
-                      <br />
-                      - 어린이/경로 : 33,000원
-                      <br />
-                      - 베이비 : 12,000원
-                      <br />
-                      <br />
-                      • 오후권 (After 4)
-                      <br />
-                      - 어 른 : 33,000원
-                      <br />
-                      - 청소년 : 31,000원
-                      <br />
-                      - 어린이/경로 : 29,000원
-                      <br />
-                      - 베이비 : 12,000원
-                      <br />
-                      <br />
-                      ※ 연령 기준
-                      <br />
-                      (나이 확인이 가능한 신분증 또는 서류를 제시해주세요)
-                      <br />
-                      - 경로 : 만 65세 이상 (기타 우대 적용 불가)
-                      <br />
-                      - 어른 : 만 19세 이상
-                      <br />
-                      - 청소년 : 만 13세 ~ 만 18세 (학교 및 학년 무관)
-                      <br />
-                      - 어린이 : 만 36개월 이상 ~ 만 12세
-                      <br />
-                      - 베이비
-                      <br />
-                      1) 0~12개월 미만 - 파크 입장 및 유아 놀이시설에 대하여
-                      <br />
-                      &nbsp;&nbsp;&nbsp;무료 이용
-                      <br />
-                      2) 12개월 이상 ~ 36개월 미만 - 파크 입장 무료
-                      <br />
-                      <span>
-                        &nbsp;&nbsp;&nbsp;유아 어트랙션에 대하여
-                        베이비이용권(베이비권종합/베이비권(1회)/
-                        <br />
-                        &nbsp;&nbsp;&nbsp;키즈토리아이용권) 구매 후 이용 가능
-                      </span>
-                      <br />
+                      <h2>예매취소 안내</h2>
+                      <ul>
+                        <li>
+                        • 온라인 예매 시 <span>선택한 날짜에만 방문 및 이용이 가능</span>하며, 미사용시에 해당날짜가 지나면 자동 취소 됩니다.
+                            <li>(사용 후에는 취소가 불가능합니다.)</li>
+                            <ul className="listType">
+                              <li>
+                                - 본인+동반인 티켓 구매 후 동반인 티켓만 사용 시 본인 티켓 취소는 불가합니다. 
+                              </li>
+                              <li>- 본인+동반인 티켓 구매 후 취소하실 경우 동반인 티켓을 먼저 취소하셔야합니다.</li>
+                              <li>- 시스템 자동 취소가 될 경우 제휴카드 실적은 은행영업일 기준 2~3일 후에 복구됩니다. </li>
+                              <li>- 별도의 취소 수수료는 없으나 구매 후 환불요청 시 각 카드사에 따라 수수료를 차감합니다.</li>
+                              <li>- 예매취소를 원하시는 경우 [마이페이지 > 결제내역]에서 취소하실 수 있습니다.</li>
+                            </ul>
+                          </li>
+                          <li>
+                          • 예매 후에는 반드시 마이티켓을 통하여 예매내역을 확인해 주시기 바랍니다. 
+                          </li>
+                      </ul>
                     </div>
                   </li>
                 </ul>
@@ -1406,7 +1363,8 @@ const Ticketing = memo(({}) => {
               >
                 <span>취소</span>
               </button>
-              <Link to="/TicketingPage/Ticketing/Payment">
+              <Link to="/TicketingPage/Ticketing/Payment" state={{data: dayjs(startDate).format("YYYY-MM-DD"),priceA,priceY,priceC,numberA,numberY,numberC}}>
+            
                 <button type="button" className="btn_fill">
                   <span>동의하고 결제하기</span>
                 </button>

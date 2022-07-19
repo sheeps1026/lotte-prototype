@@ -1,11 +1,15 @@
 import React, { memo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation,useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import bg from "../../assets/images/bg_pc_visual.png";
+import useAxios from "axios-hooks";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { getPaymentInfo, deletePaymentInfo } from "../../slice/PaymentSlice";
 
 const MypageContainer = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: auto;
   background: url(${bg});
   padding: 20px 0 50px;
 
@@ -65,74 +69,123 @@ const MypageContainer = styled.div`
     }
   }
 `;
+
 const PaymentView = memo(() => {
-  return (
+  const { state } = useLocation();
+  const { data, loading, error } = useSelector((state) => state.PaymentSlice);
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+    
+  React.useEffect(() => {
+      dispatch(getPaymentInfo({ merchant_uid: state.data }));
+    }, [dispatch]);
+
+  
+
+  const paymentDelete = React.useCallback(
+    (e) => {
+      e.preventDefault();
+    console.log("취소했져");
+    const id = e.target.dataset.id;
+      if (
+        window.confirm(`정말 결제 취소하시겠습니까?`)
+      ) {
+        dispatch(deletePaymentInfo({ id: id }));
+      alert("성공적으로 취소되었습니다.");
+          navigate("/TicketingPage");
+      }
+    },
+    [dispatch]
+  );
+
+  return(
+    <>
+  {data ? (
     <MypageContainer>
       <div className="pageContainer">
         <h3>티켓 등록내역</h3>
 
         <h4>예매내역</h4>
         <table className="PaymentListTable">
-          <tr>
-            <th>상품명</th>
-            <td>오후권 온라인 할인 - 어린이</td>
-          </tr>
-          <tr>
-            <th>예매번호</th>
-            <td className="colorRed">1234-1234-1234-1234</td>
-          </tr>
-          <tr>
-            <th>상태</th>
-            <td>예매완료</td>
-          </tr>
-          <tr>
-            <th>결제일자</th>
-            <td>2022.05.30(월)</td>
-          </tr>
-          <tr>
-            <th>방문일자</th>
-            <td>2022.06.04(토)</td>
-          </tr>
-          <tr>
-            <th>결제정보</th>
-            <td>간편결제</td>
-          </tr>
-          <tr>
-            <th>결재금액</th>
-            <td className="colorRed">26,900원</td>
-          </tr>
-          <tr>
+          <tbody>
+            <tr>
+              <th>상품명</th>
+              <td>{data[0].name}</td>
+            </tr>
+            <tr>
+              <th>예매번호</th>
+              <td>{data[0].merchant_uid}</td>
+              {/* <td className="colorRed">1234-1234-1234-1234</td> */}
+            </tr>
+            <tr>
+              <th>상태</th>
+              <td>예매완료</td>
+            </tr>
+            <tr>
+              <th>결제일자</th>
+              {/* <td>2022.05.30(월)</td> */}
+
+              <td>{data[0].paymentDay}</td>
+            </tr>
+            <tr>
+              <th>방문일자</th>
+              <td>{data[0].paymentDate}</td>
+              {/* <td>2022.06.04(토)</td> */}
+            </tr>
+            <tr>
+              <th>결제정보</th>
+              <td>{data[0].pay_method}</td>
+              {/* <td>간편결제</td> */}
+            </tr>
+            <tr>
+              <th>결재금액</th>
+              <td>{data[0].amount}</td>
+              {/* <td className="colorRed">26,900원</td> */}
+            </tr>
+            {/* <tr>
             <th>분류</th>
             <td>온라인 PC결제</td>
-          </tr>
-          <tr>
-            <th>구매일시</th>
-            <td>2022.06.04(토) 17:00:00</td>
-          </tr>
+          </tr> 
+            <tr>
+              <th>구매일시</th>
+              <td>2022.06.04(토) 17:00:00</td>
+            </tr>
+            */}
+          </tbody>
         </table>
         <h4>방문자 정보</h4>
         <table className="PaymentListTable">
-          <tr>
-            <th>방문자</th>
-            <td>홍길동</td>
-          </tr>
-          <tr>
-            <th>휴대폰</th>
-            <td>010-1234-1234</td>
-          </tr>
-          <tr>
-            <th>이메일</th>
-            <td>email1234@gmail.com</td>
-          </tr>
+          <tbody>
+            <tr>
+              <th>방문자</th>
+              {/* <td>홍길동</td> */}
+              <td>{data[0].visit_name}</td>
+            </tr>
+            <tr>
+              <th>휴대폰</th>
+              <td>{data[0].visit_tel}</td>
+            </tr>
+            <tr>
+              <th>이메일</th>
+              <td>{data[0].visit_mail}</td>
+            </tr>
+          </tbody>
         </table>
-        <Link to="/TicketingPage/PaymentList">
-          <button className="orderCancel" type="button">
-            예매취소
-          </button>
-        </Link>
+        
+        <button className="orderCancel" type="button" data-id={data[0].id} onClick={paymentDelete}>
+          예매취소
+        </button>
+        {/* </Link> */}
       </div>
     </MypageContainer>
-  );
+  ) : (
+    <>데이터 없삼</>
+  )}
+  </>
+  )
+  
 });
 
 export default PaymentView;

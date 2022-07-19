@@ -194,6 +194,7 @@ const ProductHeader = memo(() => {
             </a>
             <ul className="twodepth">
               <li>
+                {/* // onClick={window.location.replace('/TicketingPage/PaymentList') */}
                 <Link to="/TicketingPage/PaymentList">결제 내역</Link>
                 <Link to="/TicketingPage/HelpPwdConfirm">회원정보 변경</Link>
               </li>

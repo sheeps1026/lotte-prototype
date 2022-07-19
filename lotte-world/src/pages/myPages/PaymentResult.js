@@ -69,6 +69,7 @@ const MypageContainer = styled.div`
       tr {
         th,
         td {
+          vertical-align: middle;
           padding: 15px 10px;
           font-size: 15px;
           border-top: 1px solid #ccc;
@@ -130,8 +131,12 @@ const PaymentResult = memo(() => {
 
   React.useEffect(() => {
     dispatch(getPaymentInfo({ merchant_uid: state }));
+    
   }, [dispatch]);
 
+  // const datas = data[0];
+  
+  // console.log(data);
 
 
   return (
@@ -144,8 +149,10 @@ const PaymentResult = memo(() => {
             <p className="result-p">예매가 완료되었습니다.</p>
             <NavLink
               to="/TicketingPage/PaymentView"
+              state={{data:data[0].merchant_uid}}
               className="paymentList"
               type="button"
+              
             >
               결제 내역
             </NavLink>
@@ -161,26 +168,51 @@ const PaymentResult = memo(() => {
                 </tr>
                 <tr>
                   <th>수량</th>
-                  <td>총 2매 (어른)</td>
+                  {/* <td>총 2매 (어른)</td> */}
+                  <td>
+                    
+                      {
+                        data[0].numberA ? <p>총 {data[0].numberA }매 (어른)
+                        </p>:(
+                          <></>
+                        )
+                      }                      
+                      {
+                        data[0].numberY ? <p>총 {data[0].numberY }매 (청소년)
+                        </p>:(
+                          <></>
+                        )
+                      }       
+                      {
+                        data[0].numberC ? <p>총 {data[0].numberC }매 (어린이)
+                        </p>:(
+                          <></>
+                        )
+                      }       
+                      
+                    
+                  </td>
                 </tr>
-                <tr>
+                {/* <tr>
                   <th>예매번호</th>
                   <td>
                     <p>1234-1234-1234-1234</p>
                     <p>1234-1234-1234-1234</p>
                   </td>
-                </tr>
+                </tr> */}
                 <tr>
                   <th>이용예정</th>
-                  <td>2022.06.04(토)</td>
+                  <td>{data[0].paymentDate}</td>
+                  
                 </tr>
                 <tr>
                   <th>총 결제금액</th>
                   <td className="colorRed">{data[0].amount}원</td>
+
                 </tr>
                 <tr>
                   <th>결제수단</th>
-                  <td>간편결제</td>
+                  <td>{data[0].pay_method}</td>
                 </tr>
                 {/* <tr>
                   <th>결재금액</th>
