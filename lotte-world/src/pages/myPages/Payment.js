@@ -14,7 +14,7 @@ import shadow from "../../assets/images/pages/product/bg_con_shadow.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getPayment, postPaymentInfo } from "../../slice/PaymentSlice";
 
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate,useLocation, useResolvedPath } from "react-router-dom";
 
 const TicketingStyled = styled.div`
   width: 100%;
@@ -339,7 +339,9 @@ const TitleArea = styled.div`
         div.agree-btn {
           display: flex;
           justify-content: space-between;
-
+          span {
+            color: #e12f36 !important;
+          }
           input {
             width: 20px;
             height: 20px;
@@ -464,9 +466,6 @@ const Payment = memo(({props}) => {
   const numberY = location.state.numberY;
   const numberC = location.state.numberC;
 
-  
-
-
   // 약관 동의 모달창들
   let [paymentChk1, setPaymentChk1] = useState(false);
   let [paymentChk2, setPaymentChk2] = useState(false);
@@ -479,12 +478,12 @@ const Payment = memo(({props}) => {
 
   // 전체 동의
   const [allCheck, setAllCheck] = useState(false);
-  const check1 = React.useRef();
-  const check2 = React.useRef();
-  const check3 = React.useRef();
-  const check4 = React.useRef();
+  const [check1, setCheck1] = useState(false);
+  const [check2, setCheck2] = useState(false);
+  const [check3, setCheck3] = useState(false);
+  const [check4, setCheck4] = useState(false);
+  // 토글용
   const [openSelect, setOpenSelect] = useState([]);
-
 
   const onClickPayment = useCallback(
     (e) => {
@@ -559,13 +558,11 @@ const Payment = memo(({props}) => {
       
     },
     [dispatch]
-    
   );
 
   /* 3. 콜백 함수 정의하기 */
   function callback(response) {
     const { success, merchant_uid, error_msg } = response;
-
     if (success) {
       alert("결제 성공");
       navigate("/TicketingPage/paymentResult", { state: merchant_uid });
@@ -595,20 +592,63 @@ const Payment = memo(({props}) => {
   const userNumRef = React.useRef();
 
 
-  const temsAllCheckedBtn = (e) => {
-    check1.current.checked = "checked";
-    check2.current.checked = "checked";
-    check3.current.checked = "checked";
-    check4.current.checked = "checked";
-    if (!e.target.checked) {
+  // const termsAllCheckedBtn = (e) => {
+  //   check1.current.checked = "checked";
+  //   check2.current.checked = "checked";
+  //   check3.current.checked = "checked";
+  //   check4.current.checked = "checked";
+  //   if (!e.target.checked) {
       
-      check1.current.checked = e.target.checked;
-      check2.current.checked = e.target.checked;
-      check3.current.checked = e.target.checked;
-      check4.current.checked = e.target.checked;
+  //     check1.current.checked = e.target.checked;
+  //     check2.current.checked = e.target.checked;
+  //     check3.current.checked = e.target.checked;
+  //     check4.current.checked = e.target.checked;
+  //   }
+  // };
+  const termsAllCheckedBtn = () => {
+    if (allCheck === false) {
+      setCheck1(true);
+      setCheck2(true);
+      setCheck3(true);
+      setCheck4(true);
+    } else {
+      setCheck1(false);
+      setCheck2(false);
+      setCheck3(false);
+      setCheck4(false);
     }
   };
+  const checkedBtn1 = (e) => {
+    !check1 ? setCheck1(true) : setCheck1(false);
+  }
+  const checkedBtn2 = (e) => {
+    !check2 ? setCheck2(true) : setCheck2(false);
+  }
+  const checkedBtn3 = (e) => {
+    !check3 ? setCheck3(true) : setCheck3(false);
+  }
+  const checkedBtn4 = (e) => {
+    !check4 ? setCheck4(true) : setCheck4(false);
+  }
 
+useEffect(() => {
+  if(check1 === true &&
+    check2 === true &&
+    check3 === true &&
+    check4 === true) {
+      setAllCheck(true);
+    } else {
+      setAllCheck(false);
+    }
+}, [check1, check2, check3, check4] )
+
+  const mustCheckAlert = (e) => {
+    if (!check1) {
+      alert("전자상거래 이용약관에 동의해주세요.");
+    } else if (!check2) {
+      alert("개인정보 수집이용에 동의해주세요.")
+    }
+  }
   
   const Allchecked = (e) => {
     
@@ -655,7 +695,7 @@ const Payment = memo(({props}) => {
               </div>
               <div className="reserveWrap">
                 <TitleArea>
-                  <form onSubmit={onClickPayment}>
+                  <form onSubmit={check1 && check2 && onClickPayment}>
                     {/* 구매자 정보 */}
                     <ul
                       id={0}
@@ -852,8 +892,9 @@ const Payment = memo(({props}) => {
                         <div>
                           <input
                             type="checkbox"
-                            onChange={temsAllCheckedBtn}
+                            onClick={termsAllCheckedBtn}
                             value={allCheck}
+                            checked={allCheck}
                           />
                           <label htmlFor="">전체동의</label>
                         </div>
@@ -862,9 +903,9 @@ const Payment = memo(({props}) => {
                       <div className="agree-mid">
                         <div className="mid-item">
                           <div className="agree-btn">
-                            <input type="checkbox" ref={check1} />
+                            <input type="checkbox" checked={check1} onClick={checkedBtn1} />
                             <label htmlFor="">
-                              전자상거래 이용약관<span>필수</span>
+                              전자상거래 이용약관<span> (필수)</span>
                             </label>
                           </div>
                           <button
@@ -878,9 +919,9 @@ const Payment = memo(({props}) => {
                         </div>
                         <div className="mid-item">
                           <div className="agree-btn">
-                            <input type="checkbox" ref={check2} />
+                            <input type="checkbox" checked={check2} onClick={checkedBtn2}/>
                             <label htmlFor="">
-                              개인정보 수집·이용<span>필수</span>
+                              개인정보 수집·이용<span> (필수)</span>
                             </label>
                           </div>
                           <button
@@ -894,10 +935,10 @@ const Payment = memo(({props}) => {
                         </div>
                         <div className="mid-item">
                           <div className="agree-btn">
-                            <input type="checkbox" ref={check3} />
+                            <input type="checkbox" checked={check3} onClick={checkedBtn3}/>
                             <label htmlFor="">
                               마케팅 정보 활용 및 관련 정보 수신 동의
-                              <span>선택</span>
+                              <span> (선택)</span>
                             </label>
                           </div>
                           <button
@@ -911,9 +952,9 @@ const Payment = memo(({props}) => {
                         </div>
                         <div className="mid-item">
                           <div className="agree-btn">
-                            <input type="checkbox" ref={check4} />
+                            <input type="checkbox" checked={check4} onClick={checkedBtn4}/>
                             <label htmlFor="">
-                              개인정보 제3자 제공 동의<span>선택</span>
+                              개인정보 제3자 제공 동의<span> (선택)</span>
                             </label>
                           </div>
                           <button
@@ -932,7 +973,7 @@ const Payment = memo(({props}) => {
                       </div>
                       <div className="agree-bottom">
                         {/* <button type="submit" onClick={onClickPayment}>결제하기</button> */}
-                        <button type="submit">결제하기</button>
+                        <button type="submit" onClick={mustCheckAlert}>결제하기</button>
                       </div>
                     </div>
                   </form>
