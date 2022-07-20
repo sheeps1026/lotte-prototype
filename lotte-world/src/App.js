@@ -57,9 +57,8 @@ import InfoDelete from "./components/alert/InfoDelete";
 // `;
 const GlobalStyle = createGlobalStyle`
   ${reset}
-  * {
+  body {
     font-family: 'Noto Sans KR', sans-serif;
-    letter-spacing: -0.025em;
   }
   /* other styles */
   a{
@@ -143,7 +142,11 @@ const App = memo(() => {
           <Route path="/SideTab" exact={true} element={<SideTab />} />
 
           <Route path="/enjoyList" exact={true} element={<EnjoyList />} />
-          <Route path="/enjoyList/:EN_id" exact={true} element={<EnjoyView />} />
+          <Route
+            path="/enjoyList/:EN_id"
+            exact={true}
+            element={<EnjoyView />}
+          />
           <Route path="/enjoyList/guide" exact={true} element={<Guide />} />
           <Route path="/customer" exact={true} element={<NoticeList />} />
           <Route path="/customer/notice-list/:N_id" element={<NoticeView />} />
@@ -179,13 +182,13 @@ const App = memo(() => {
 
           {/* 예매 페이지 */}
 
-          <Route path="/Payment:index"  element={<Payment />} />
+          <Route path="/Payment:index" element={<Payment />} />
           <Route path="/PaymentChk1" element={<PaymentChk1 />} />
           <Route path="/PaymentChk2" element={<PaymentChk2 />} />
           <Route path="/PaymentChk3" element={<PaymentChk3 />} />
           <Route path="/PaymentChk4" element={<PaymentChk4 />} />
-          <Route path="/TicketingPage" element={<TicketingMain  />} />
-          <Route path="/TicketingPage/Ticketing/*" element={<Ticketing  />} />
+          <Route path="/TicketingPage" element={<TicketingMain />} />
+          <Route path="/TicketingPage/Ticketing/*" element={<Ticketing />} />
           <Route
             path="/TicketingPage/Ticketing/Payment"
             element={<Payment />}
