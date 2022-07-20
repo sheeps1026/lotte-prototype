@@ -154,7 +154,7 @@ p {
                     font-weight: 600;
                     position: relative;
                     overflow:hidden;
-                    a {color: #333;}
+                    color: #333;
                   &:after {
                     left: -38px;
                     content: "";
@@ -170,7 +170,7 @@ p {
                     z-index: -1;
                   }
                   &:hover {
-                    a {color: #fff;}
+                    color: #fff;
                     border: 1px solid green;
                     &:after {
                       top: -56px;
@@ -543,9 +543,11 @@ const EnjoyView = memo(() => {
                                     </div>
                                 </div>
                                 <div className='btnArea inner'>
-                                    <div className='listBtn'>
-                                        <Link to="/enjoyList">목록</Link>
-                                    </div>
+                                    <Link to="/enjoyList">
+                                        <div className='listBtn'>
+                                            목록
+                                        </div>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

@@ -57,6 +57,10 @@ import InfoDelete from "./components/alert/InfoDelete";
 // `;
 const GlobalStyle = createGlobalStyle`
   ${reset}
+  * {
+    font-family: 'Noto Sans KR', sans-serif;
+    letter-spacing: -0.025em;
+  }
   /* other styles */
   a{
     text-decoration:none;
