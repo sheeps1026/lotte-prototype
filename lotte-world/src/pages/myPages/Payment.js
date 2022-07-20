@@ -622,13 +622,11 @@ const Payment = memo(({ props }) => {
     !check4 ? setCheck4(true) : setCheck4(false);
   };
 
-  useEffect(() => {
-    if (
-      check1 === true &&
-      check2 === true &&
-      check3 === true &&
-      check4 === true
-    ) {
+useEffect(() => {
+  if(check1 === true &&
+    check2 === true &&
+    check3 === true &&
+    check4 === true) {
       setAllCheck(true);
     } else {
       setAllCheck(false);
@@ -640,9 +638,10 @@ const Payment = memo(({ props }) => {
       alert("전자상거래 이용약관에 동의해주세요.");
       e.preventDefault();
     } else if (!check2) {
-      alert("개인정보 수집이용에 동의해주세요.");
+      alert("개인정보 수집이용에 동의해주세요.")
+      e.preventDefault();
     }
-  };
+  }
 
   const Allchecked = (e) => {
     const AllcheckedClick = AllcheckedBtn.current.checked;
