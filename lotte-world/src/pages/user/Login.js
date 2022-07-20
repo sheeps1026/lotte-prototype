@@ -68,14 +68,6 @@ const LoginContainer = styled.div`
 `;
 
 const Login = memo(() => {
-  // const useid = useRef();
-  // const pwdck = useRef();
-
-  // const inputId = useid.current.value;
-  // const inputPwd = pwdck.current.value;
-
-  // console.log(useid.current);
-
   const [useid, setUseid] = useState("");
   const [pwdck, setPwdck] = useState("");
 
@@ -98,8 +90,13 @@ const Login = memo(() => {
 
         json.map((v, i) => {
           if (v.M_useid == useid && v.M_pwdck == pwdck) {
+            document.location.href = "/TicketingPage";
+
             console.log("로그인 성공");
-          } else {
+            alert("로그인성공");
+          } else if (v.M_useid != useid && v.M_pwdck != pwdck) {
+            // document.location.href = "/TicketingPage/PaymentList";
+
             console.log("아이디or비번 틀림");
           }
         });
@@ -116,7 +113,6 @@ const Login = memo(() => {
         <div className="info">
           <label htmlFor="">아이디</label>
           <input type="text" name="useid" />
-
           <label htmlFor="">비밀번호</label>
           <input type="password" name="usepwd" />
         </div>
