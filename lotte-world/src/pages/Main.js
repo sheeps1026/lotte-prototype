@@ -24,6 +24,7 @@ import wave2 from "./../assets/images/zone-wave3.png";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
+
 const MainContainer = styled.div`
   .mainSlider {
     .slick-track {
@@ -427,24 +428,6 @@ const MainContainer = styled.div`
           font-size: 13px;
           font-weight: 700;
           line-height: 1.5;
-        }
-      }
-    }
-
-    .quick-top {
-      button {
-        text-align: center;
-        width: 48px;
-        height: 48px;
-        margin: 10px auto 0;
-        border: 1px solid #888;
-        border-radius: 50%;
-        background: #fff;
-
-        p {
-          color: #333;
-          font-size: 12px;
-          line-height: 46px;
         }
       }
     }

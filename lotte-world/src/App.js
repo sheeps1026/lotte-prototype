@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect, useRef } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import reset from "styled-reset";
 import styled from "styled-components";
@@ -128,6 +128,26 @@ const App = memo(() => {
     });
   };
 
+  let topBtnLoc = useRef();
+  let footerLoc = useRef();
+
+  // let footerLocY = window.screenY;
+
+  const handleScroll = () => {
+    // console.log(footerLoc);
+    // console.log(footerLocY);
+
+    if (window.scrollY > 500) {
+      topBtnLoc.current.style.bottom = "73%";
+    } else {
+      topBtnLoc.current.style.bottom = "45px";
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+  });
+
   return (
     <div>
       {path === "/TicketingPage" ? <ProductHeader /> : <Headers />}
@@ -221,10 +241,10 @@ const App = memo(() => {
         </Routes>
       )}
 
-      <TopBtn onClick={onTopScroll}>
+      <TopBtn onClick={onTopScroll} ref={topBtnLoc}>
         <button>TOP</button>
       </TopBtn>
-      <Footer setOpenEmail={setOpenEmail} />
+      <Footer setOpenEmail={setOpenEmail} ref={footerLoc} />
     </div>
   );
 });

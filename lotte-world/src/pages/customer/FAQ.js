@@ -124,13 +124,17 @@ const FAQ = memo(() => {
 
         //뿌려줄 리스트에 json 담기
         setList(json);
-
-        setCount(json.length);
+        list == "" ? setCount(json.length) : setCount(filterKeyword.length);
       } catch (e) {
         console.log(e);
       }
     })();
   }, [filterKeyword]);
+
+  const test = () => {
+    console.log(`count: ${count}`);
+    console.log(`count.length: ${count.length}`);
+  };
 
   return (
     <FlexBox>
@@ -143,7 +147,14 @@ const FAQ = memo(() => {
               ref={keywordInput}
               placeholder="검색어를 입력하세요."
             />
-            <button onClick={onFilterKeyword}>검색</button>
+            <button
+              onClick={() => {
+                onFilterKeyword();
+                test();
+              }}
+            >
+              검색
+            </button>
           </div>
         </div>
       </SearchWrap>
