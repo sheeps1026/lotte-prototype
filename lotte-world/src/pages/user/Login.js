@@ -1,7 +1,7 @@
 // @filename    : Login.js
 // @description : 로그인 폼 (아이디&비밀번호 찾기, 회원가입 버튼이 있음)
 
-import React, { memo, useState, useEffect, useRef } from "react";
+import React, { memo, useState, useEffect, } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
@@ -62,8 +62,6 @@ const LoginContainer = styled.div`
     display: flex;
     justify-content: space-around;
     margin-top: 30px;
-
-    l
   }
 `;
 

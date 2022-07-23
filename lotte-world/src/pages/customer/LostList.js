@@ -14,6 +14,8 @@ import btn from "../../assets/images/srch-icon.png";
 import selectIcon from "../../assets/images/select-icon2.png";
 import calendarIcon from "../../assets/images/calendar-icon.png";
 
+import popupIcon from "../../assets/images/lostguid-icon.png";
+
 const FlexBox = styled.div`
   width: 100%;
   margin: 25vh auto 30px;
@@ -70,6 +72,7 @@ const HowFind = styled.div`
   &:before {
     content: "${({ how }) => (how === "A" ? "보관중" : "방문수령")}";
     color: ${({ how }) => (how === "A" ? "#000" : "#ccc")};
+    word-break: keep-all;
   }
 `;
 
@@ -81,6 +84,12 @@ const LostListWrap = styled.div`
   .CountWrap {
     display: flex;
     justify-content: space-between;
+    margin:10px 0;
+    .popupIcon{
+      padding: 0 0 0 20px;
+      color:green;
+      background: url(${popupIcon}) no-repeat left center;
+    }
   }
 `;
 
@@ -275,6 +284,7 @@ const LostList = memo(() => {
             총 <span>{count}</span>개
           </div>
           <button
+            className="popupIcon"
             type="button"
             onClick={() => {
               setOpenLostModal(true);

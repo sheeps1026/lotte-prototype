@@ -881,7 +881,7 @@ const Ticketing = memo(({}) => {
   React.useEffect(()=>{
     navigate(`/TicketingPage/Ticketing?T_id=${T_id}&date=${dayjs(startDate).format("YYYY-MM-DD")}&amount=${amount}`)
       dispatch(getPayment({ id: "1" }));
-    console.log("실행됨");
+    // console.log("실행됨");
 
     let unlisten = history.listen((location) => {
 

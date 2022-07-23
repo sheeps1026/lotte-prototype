@@ -96,6 +96,7 @@ const PaymentListWrap = styled.div`
       line-height: 2;
     }
     ul {
+      margin:14px 0;
       li {
         display: inline-block;
         width: 50%;
@@ -117,6 +118,7 @@ const PaymentListWrap = styled.div`
       display: flex;
       align-items: start;
       justify-content: space-between;
+      align-items: center;
       padding: 20px;
       gap: 20px;
 
@@ -147,6 +149,7 @@ const PaymentListWrap = styled.div`
         flex: 1;
         p:first-child {
           font-size: 14px;
+          line-height: 2;
           span {
             color: red;
           }
