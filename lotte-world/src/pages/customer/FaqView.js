@@ -151,10 +151,12 @@ const FaqView = memo(
             );
 
             json = response.data;
+
+            console.log(F_division);
           }
 
-          setList(json);
-          list == "" ? setCount(json.length) : setCount(filterKeyword.length);
+          // setList(json);
+          // list == "" ? setCount(json.length) : setCount(filterKeyword.length);
         } catch (e) {
           console.log(e);
         }

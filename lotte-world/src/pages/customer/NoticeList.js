@@ -145,10 +145,7 @@ const NoticeList = memo(() => {
         //json에 리스트 담기
         json = response.data;
 
-        //뿌려줄 리스트에 json 담기
         setNotice(json);
-        //json의 갯수에 따라 바뀌는 리스트 갯수
-        // setN_count(json.length);
 
         notice == ""
           ? setN_count(json.length)
@@ -161,11 +158,9 @@ const NoticeList = memo(() => {
 
   const colorChange = useCallback((e) => {
     e.target.parentNode.classList.add("colorChange");
-    // console.log("마우스 들어옴", e.target.parentNode);
   });
   const colorReChange = useCallback((e) => {
     e.target.parentNode.classList.remove("colorChange");
-    // console.log("마우스 나감", e.target.parentNode);
   });
 
   return (

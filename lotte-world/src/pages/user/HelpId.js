@@ -1,8 +1,9 @@
 // @filename    : HelpId.js
 // @description : 등록되어 있는 회원 정보 중 택 1 확인 (전화번호, 이메일)
 
-import React, { memo } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 
 const HelpIdContainer = styled.div`
@@ -97,9 +98,40 @@ const HelpIdContainer = styled.div`
 `;
 
 const HelpId = memo(() => {
+  const [inputInfo, setInputInfo] = useState("");
+
+  const onClickFindId = (e) => {
+    e.preventDefault();
+
+    setInputInfo(e.target.inputInfo.value);
+  };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/members");
+
+        let json = response.data;
+
+        json.map((v, i) => {
+          if ((v.M_tel || v.M_email) == inputInfo) {
+            document.location.href = "/TicketingPage/HelpIdConfirm";
+
+            console.log("아이디 찾음");
+            alert("아이디 찾음");
+          } else {
+            console.log("전화번호 or 이메일 틀림");
+          }
+        });
+      } catch (err) {
+        console.log("캐치문");
+      }
+    })();
+  }, [onClickFindId]);
+
   return (
     <HelpIdContainer>
-      <form>
+      <form onSubmit={onClickFindId}>
         <div className="top-area">
           <h2>아이디 찾기</h2>
           <p>
@@ -117,13 +149,14 @@ const HelpId = memo(() => {
           <div className="find-info">
             <input
               type="text"
+              name="inputInfo"
               placeholder="선택하신 개인정보를 입력해주세요."
             />
           </div>
         </div>
-        <Link to="/TicketingPage/HelpIdConfirm">
-          <button type="submit">확인</button>
-        </Link>
+        {/* <Link to="/TicketingPage/HelpIdConfirm"> */}
+        <button type="submit">확인</button>
+        {/* </Link> */}
       </form>
     </HelpIdContainer>
   );

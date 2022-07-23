@@ -66,28 +66,15 @@ const LoginContainer = styled.div`
 `;
 
 const Login = memo(() => {
-  // const useid = useRef();
-  // const pwdck = useRef();
-
-  // const inputId = useid.current.value;
-  // const inputPwd = pwdck.current.value;
   const [useid, setUseid] = useState("");
   const [pwdck, setPwdck] = useState("");
 
-  // console.log(useid.current);
-
-  const test = (e) => {
+  const onClickLogin = (e) => {
     e.preventDefault();
 
     setUseid(e.target.useid.value);
     setPwdck(e.target.usepwd.value);
-
-    console.log(e.target.useid.value);
-    console.log(e.target.usepwd.value);
   };
-
-  console.log(useid);
-  console.log(pwdck);
 
   useEffect(() => {
     (async () => {
@@ -98,31 +85,32 @@ const Login = memo(() => {
 
         // console.log(json);
         // console.log(json[0].M_useid);
-        // console.log(json[1].M_useid);
 
         json.map((v, i) => {
-          // if (v.M_useid == inputId && v.M_pwdck == inputPwd) {
-          //   alert("로그인 성공");
-          // } else {
-          //   alert("아이디or비번 틀림");
-          // }
+          if (v.M_useid == useid && v.M_pwdck == pwdck) {
+            document.location.href = "/TicketingPage";
 
-          console.log(v.M_useid);
+            console.log("로그인 성공");
+            alert("로그인성공");
+          } else if (v.M_useid != useid && v.M_pwdck != pwdck) {
+            // document.location.href = "/TicketingPage/PaymentList";
+
+            console.log("아이디or비번 틀림");
+          }
         });
       } catch (err) {
         console.log("캐치문");
       }
     })();
-  }, []);
+  }, [onClickLogin]);
 
   return (
     <LoginContainer>
       <h2>로그인</h2>
-      <form onSubmit={test}>
+      <form onSubmit={onClickLogin}>
         <div className="info">
           <label htmlFor="">아이디</label>
           <input type="text" name="useid" />
-
           <label htmlFor="">비밀번호</label>
           <input type="password" name="usepwd" />
         </div>

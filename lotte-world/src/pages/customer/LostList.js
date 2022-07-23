@@ -3,6 +3,7 @@ import axios from "axios";
 
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
+import dayjs from "dayjs";
 
 import styled from "styled-components";
 
@@ -203,24 +204,30 @@ const SearchWrap = styled.div`
 `;
 
 const LostList = memo(() => {
-  const [startDate, setStartDate] = React.useState("");
-  const [endDate, setEndDate] = React.useState("");
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+  let diffDate = endDate - startDate;
 
+  const keywordInput = useRef();
   let [openLost, setOpenLost] = useState(false);
   let [openLostModal, setOpenLostModal] = useState(false);
-  const keywordInput = useRef();
 
   // 리스트 만드는 상태값
   const [lostList, setLostList] = useState([]);
   // 리스트 갯수 상태값
   const [count, setCount] = useState(0);
 
-  const onFilterKeyword = (e) => {
+  const onFilterKeyword = () => {
     const searchKeyword = keywordInput.current.value;
 
     const newFilter = lostList.filter((value) => {
-      return value.L_item.includes(searchKeyword);
+      return (
+        value.L_item.includes(searchKeyword),
+        value.L_reg_date.includes(searchKeyword)
+      );
     });
+
+    console.log(`diffDate: ${diffDate}`);
 
     setOpenLost(newFilter);
   };

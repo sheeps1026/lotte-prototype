@@ -18,21 +18,24 @@ import leaf2 from "../../assets/images/pages/business/Introduce/leaf2.png";
 import leaf3 from "../../assets/images/pages/business/Introduce/leaf3.png";
 
 const IntroduceContainer = styled.div`
-  h2 {
-    width: 1540px;
+  .title {
+    width: 1380px;
     margin: 0 auto;
-    margin-top: 175px;
-    color: #333333;
-    font-size: 60px;
-    font-weight: 700;
-    letter-spacing: -3.6px;
-    line-height: 60px;
+    margin-top: 293px; // 175px + 118px(헤더)
+    margin-bottom: 100px;
+
+    h2 {
+      color: #333;
+      font-size: 60px;
+      font-weight: 700;
+      letter-spacing: -3.6px;
+      line-height: 60px;
+    }
   }
 
   .bg1 {
     background: url(${bg1}) no-repeat center / cover;
     position: relative;
-    margin-top: 100px;
     height: 4119px;
     z-index: 2;
 
@@ -98,7 +101,7 @@ const IntroduceContainer = styled.div`
       h2 {
         position: absolute;
         top: 393px;
-        left: calc(50% - 770px);
+        left: calc(50% - 710px);
         color: #fff;
         font-size: 140px;
         line-height: 1;
@@ -111,14 +114,12 @@ const IntroduceContainer = styled.div`
 
         &.ent-item1 {
           top: 1180px;
-          // right: 0;
           left: calc(50% + 140px);
           text-align: right;
         }
 
         &.ent-item2 {
           top: 1783px;
-          // left: 0;
           left: calc(50% - 770px);
         }
 
@@ -172,13 +173,13 @@ const IntroduceContainer = styled.div`
       }
 
       .train-top {
-        background: url(${trainTop}) no-repeat center top;
+        // background: url(${trainTop}) no-repeat center top;
         background-size: 100% auto;
         position: absolute;
-        // top: 275px;
         top: 675px;
         left: 0;
         width: 100%;
+        min-width: 1920px;
         height: 1993px;
         transition: all 1s ease-in-out;
         z-index: 1;
@@ -188,11 +189,10 @@ const IntroduceContainer = styled.div`
         background: url(${trainBottom}) no-repeat center top;
         background-size: 100% auto;
         position: absolute;
-        // bottom: -40px;
         bottom: -340px;
         left: 0;
         width: 100%;
-        height: 1352px;
+        height: calc(1920 / 1202 * 100%);
         z-index: 3;
       }
     }
@@ -202,7 +202,7 @@ const IntroduceContainer = styled.div`
     background: url(${bg2}) no-repeat center top;
     background-size: cover;
     position: relative;
-    height: 1800px;
+    height: calc(1920 / 1800 * 100%);
     color: #fff;
     z-index: 1;
 
@@ -210,7 +210,6 @@ const IntroduceContainer = styled.div`
       background-image: url(${leaf1});
       background-repeat: no-repeat;
       position: absolute;
-      // top: 1363px;
       top: 563px;
       right: calc(50% - 34px);
       width: 225px;
@@ -222,7 +221,6 @@ const IntroduceContainer = styled.div`
       background-image: url(${leaf3});
       background-repeat: no-repeat;
       position: absolute;
-      // top: 937px;
       top: 857px;
       right: calc(50% - 757px);
       width: 174px;
@@ -234,7 +232,6 @@ const IntroduceContainer = styled.div`
       background-image: url(${leaf2});
       background-repeat: no-repeat;
       position: absolute;
-      // top: 1624px;
       top: 1124px;
       left: calc(50% + 445px);
       width: 137px;
@@ -285,7 +282,9 @@ const Introduce = memo(() => {
 
   return (
     <IntroduceContainer>
-      <h2>롯데월드 어드벤처 부산소개</h2>
+      <div class="title">
+        <h2>롯데월드 어드벤처 부산소개</h2>
+      </div>
       <div className="bg1">
         <img className="clouds" src={clouds} alt="" />
         <div className="about">

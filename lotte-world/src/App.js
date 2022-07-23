@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect, useRef } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import reset from "styled-reset";
 import styled from "styled-components";
@@ -57,6 +57,9 @@ import InfoDelete from "./components/alert/InfoDelete";
 // `;
 const GlobalStyle = createGlobalStyle`
   ${reset}
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+  }
   /* other styles */
   a{
     text-decoration:none;
@@ -125,6 +128,26 @@ const App = memo(() => {
     });
   };
 
+  let topBtnLoc = useRef();
+  let footerLoc = useRef();
+
+  // let footerLocY = window.screenY;
+
+  const handleScroll = () => {
+    // console.log(footerLoc);
+    // console.log(footerLocY);
+
+    if (window.scrollY > 500) {
+      topBtnLoc.current.style.bottom = "73%";
+    } else {
+      topBtnLoc.current.style.bottom = "45px";
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+  });
+
   return (
     <div>
       {path === "/TicketingPage" ? <ProductHeader /> : <Headers />}
@@ -139,7 +162,11 @@ const App = memo(() => {
           <Route path="/SideTab" exact={true} element={<SideTab />} />
 
           <Route path="/enjoyList" exact={true} element={<EnjoyList />} />
-          <Route path="/enjoyList/:EN_id" exact={true} element={<EnjoyView />} />
+          <Route
+            path="/enjoyList/:EN_id"
+            exact={true}
+            element={<EnjoyView />}
+          />
           <Route path="/enjoyList/guide" exact={true} element={<Guide />} />
           <Route path="/customer" exact={true} element={<NoticeList />} />
           <Route path="/customer/notice-list/:N_id" element={<NoticeView />} />
@@ -175,13 +202,13 @@ const App = memo(() => {
 
           {/* 예매 페이지 */}
 
-          <Route path="/Payment:index"  element={<Payment />} />
+          <Route path="/Payment:index" element={<Payment />} />
           <Route path="/PaymentChk1" element={<PaymentChk1 />} />
           <Route path="/PaymentChk2" element={<PaymentChk2 />} />
           <Route path="/PaymentChk3" element={<PaymentChk3 />} />
           <Route path="/PaymentChk4" element={<PaymentChk4 />} />
-          <Route path="/TicketingPage" element={<TicketingMain  />} />
-          <Route path="/TicketingPage/Ticketing/*" element={<Ticketing  />} />
+          <Route path="/TicketingPage" element={<TicketingMain />} />
+          <Route path="/TicketingPage/Ticketing/*" element={<Ticketing />} />
           <Route
             path="/TicketingPage/Ticketing/Payment"
             element={<Payment />}
@@ -214,10 +241,10 @@ const App = memo(() => {
         </Routes>
       )}
 
-      <TopBtn onClick={onTopScroll}>
+      <TopBtn onClick={onTopScroll} ref={topBtnLoc}>
         <button>TOP</button>
       </TopBtn>
-      <Footer setOpenEmail={setOpenEmail} />
+      <Footer setOpenEmail={setOpenEmail} ref={footerLoc} />
     </div>
   );
 });
