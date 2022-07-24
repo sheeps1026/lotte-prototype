@@ -18,6 +18,8 @@ import leaf2 from "../../assets/images/pages/business/Introduce/leaf2.png";
 import leaf3 from "../../assets/images/pages/business/Introduce/leaf3.png";
 
 const IntroduceContainer = styled.div`
+  overflow-x: hidden;
+
   .title {
     width: 1380px;
     margin: 0 auto;
@@ -42,12 +44,11 @@ const IntroduceContainer = styled.div`
     .about {
       position: relative;
       height: 1452px;
-      margin: 0 auto;
 
       p {
         position: absolute;
         top: 235px;
-        left: calc(50% - 770px);
+        left: calc(50% - 690px);
         color: #fff;
         font-size: 40px;
         font-weight: 600;
@@ -59,6 +60,7 @@ const IntroduceContainer = styled.div`
           top: 495px;
           left: calc(50% + 140px);
           font-size: 24px;
+          font-weight: 400;
           line-height: 34px;
           letter-spacing: -1.8px;
           z-index: 10;
@@ -67,12 +69,12 @@ const IntroduceContainer = styled.div`
 
       .bg-text {
         position: absolute;
-        // bottom: 50px;
         bottom: 425px;
         right: calc(50% - 22px);
         width: 1000px;
         color: rgba(0, 0, 0, 0.1);
         font-size: 170px;
+        font-weight: 700;
         line-height: 0.94;
       }
 
@@ -83,7 +85,6 @@ const IntroduceContainer = styled.div`
         bottom: 0;
         width: 100%;
         height: 792px;
-        z-index: 1;
       }
     }
 
@@ -104,38 +105,45 @@ const IntroduceContainer = styled.div`
         left: calc(50% - 710px);
         color: #fff;
         font-size: 140px;
+        font-weight: 700;
         line-height: 1;
         letter-spacing: -4px;
       }
 
-      div {
-        position: absolute;
-        z-index: 2;
+      .ent-text {
+        position: relative;
+        width: 1400px;
+        margin: 0 auto;
 
-        &.ent-item1 {
-          top: 1180px;
-          left: calc(50% + 140px);
-          text-align: right;
-        }
+        .ent-item {
+          position: absolute;
+          z-index: 2;
 
-        &.ent-item2 {
-          top: 1783px;
-          left: calc(50% - 770px);
-        }
+          &.ent-item1 {
+            top: 1180px;
+            right: 0;
+            text-align: right;
+          }
 
-        h3 {
-          font-size: 60px;
-          font-weight: 900;
-          letter-spacing: -3px;
-          line-height: 90px;
-        }
+          &.ent-item2 {
+            top: 1783px;
+            left: 0;
+          }
 
-        p {
-          margin-top: 35px;
-          font-size: 20px;
-          font-weight: 400;
-          letter-spacing: -1px;
-          line-height: 32px;
+          h3 {
+            font-size: 60px;
+            font-weight: 900;
+            letter-spacing: -3px;
+            line-height: 90px;
+          }
+
+          p {
+            margin-top: 35px;
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: -1px;
+            line-height: 32px;
+          }
         }
       }
 
@@ -146,6 +154,7 @@ const IntroduceContainer = styled.div`
         width: 800px;
         color: rgba(0, 0, 0, 0.06);
         font-size: 240px;
+        font-weight: 700;
         line-height: 0.94;
         z-index: 2;
       }
@@ -172,27 +181,31 @@ const IntroduceContainer = styled.div`
         z-index: 4;
       }
 
-      .train-top {
-        // background: url(${trainTop}) no-repeat center top;
+      .train_top {
+        background: url(${trainTop}) no-repeat center top;
         background-size: 100% auto;
         position: absolute;
-        top: 675px;
+        top: 275px;
         left: 0;
         width: 100%;
         min-width: 1920px;
         height: 1993px;
+        transform: translate(0px, 400px);
         transition: all 1s ease-in-out;
         z-index: 1;
       }
 
-      .train-bottom {
+      .train_bottom {
         background: url(${trainBottom}) no-repeat center top;
         background-size: 100% auto;
         position: absolute;
-        bottom: -340px;
         left: 0;
+        bottom: -40px;
         width: 100%;
-        height: calc(1920 / 1202 * 100%);
+        min-width: 1920px;
+        height: 1202px;
+        transform: translate(0px, 300px);
+        transition: all 1s ease-in-out;
         z-index: 3;
       }
     }
@@ -202,73 +215,77 @@ const IntroduceContainer = styled.div`
     background: url(${bg2}) no-repeat center top;
     background-size: cover;
     position: relative;
-    height: calc(1920 / 1800 * 100%);
+    height: 1800px;
     color: #fff;
     z-index: 1;
 
-    .leaf1 {
-      background-image: url(${leaf1});
-      background-repeat: no-repeat;
-      position: absolute;
-      top: 563px;
-      right: calc(50% - 34px);
-      width: 225px;
-      height: 199px;
-      z-index: 10;
-    }
-
-    .leaf2 {
-      background-image: url(${leaf3});
-      background-repeat: no-repeat;
-      position: absolute;
-      top: 857px;
-      right: calc(50% - 757px);
-      width: 174px;
-      height: 120px;
-      z-index: 10;
-    }
-
-    .leaf3 {
-      background-image: url(${leaf2});
-      background-repeat: no-repeat;
-      position: absolute;
-      top: 1124px;
-      left: calc(50% + 445px);
-      width: 137px;
-      height: 124px;
-      left: 13%;
-      z-index: 10;
-    }
-
     .ent {
-      width: 1540px;
       margin: 0 auto;
-      padding-top: 602px;
-      display: flex;
-      justify-content: space-evenly;
 
-      div {
+      .ent-text {
+        display: flex;
+        justify-content: space-between;
         position: relative;
-        text-align: center;
+        width: 1240px;
+        margin: 0 auto;
+        padding-top: 602px;
 
-        h3 {
-          margin-top: 45px;
-          font-size: 36px;
-          font-weight: 700;
-          letter-spacing: -0.36px;
-          line-height: 43.2px;
+        .photobox {
+          width: 620px;
+          text-align: center;
+
+          h3 {
+            margin-top: 45px;
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -0.36px;
+            line-height: 43.2px;
+          }
+
+          p {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: -0.36px;
+            line-height: 30px;
+          }
         }
 
-        p {
-          margin-top: 20px;
-          font-size: 20px;
-          font-weight: 400;
-          letter-spacing: -0.36px;
-          line-height: 30px;
-        }
-
-        &:last-child {
+        .photobox2 {
           margin-top: 216px;
+        }
+
+        .leaf1 {
+          background-image: url(${leaf1});
+          background-repeat: no-repeat;
+          position: absolute;
+          top: 713px;
+          right: calc(50% - 34px);
+          width: 225px;
+          height: 199px;
+          z-index: 10;
+        }
+
+        .leaf2 {
+          background-image: url(${leaf2});
+          background-repeat: no-repeat;
+          position: absolute;
+          top: 857px;
+          left: calc(50% - 757px);
+          width: 174px;
+          height: 120px;
+          z-index: 10;
+        }
+
+        .leaf3 {
+          background-image: url(${leaf3});
+          background-repeat: no-repeat;
+          position: absolute;
+          top: 1024px;
+          right: 0;
+          width: 137px;
+          height: 124px;
+          z-index: 10;
         }
       }
     }
@@ -285,6 +302,7 @@ const Introduce = memo(() => {
       <div class="title">
         <h2>롯데월드 어드벤처 부산소개</h2>
       </div>
+      <div></div>
       <div className="bg1">
         <img className="clouds" src={clouds} alt="" />
         <div className="about">
@@ -316,22 +334,24 @@ const Introduce = memo(() => {
         </div>
         <div className="ent">
           <h2 data-aos="fade-up">ENTERTAINMENT</h2>
-          <div data-aos="fade-left" className="ent-item1">
-            <h3>자이언트디거</h3>
-            <p>
-              국내 최초 도입되는 기종으로
-              <br /> 1,000m가 넘는 트랙 위를 100km/h 이상의 속도로 질주하며
-              <br /> 수차례 360도 회전하는 어트랙션
-            </p>
-          </div>
-          <div data-aos="fade-right" className="ent-item2">
-            <h3>자이언트스플래쉬</h3>
-            <p>
-              세계에서 네 번째로 설치되는 기종으로
-              <br /> 높이가 약 40m에 달하는 ‘U’자 모양의 트랙을
-              <br /> 시속 100km/h 속도로 여러 차례 왕복하는
-              <br /> 초대형 어트랙션
-            </p>
+          <div className="ent-text">
+            <div data-aos="fade-left" className="ent-item ent-item1">
+              <h3>자이언트디거</h3>
+              <p>
+                국내 최초 도입되는 기종으로
+                <br /> 1,000m가 넘는 트랙 위를 100km/h 이상의 속도로 질주하며
+                <br /> 수차례 360도 회전하는 어트랙션
+              </p>
+            </div>
+            <div data-aos="fade-right" className="ent-item ent-item2">
+              <h3>자이언트스플래쉬</h3>
+              <p>
+                세계에서 네 번째로 설치되는 기종으로
+                <br /> 높이가 약 40m에 달하는 ‘U’자 모양의 트랙을
+                <br /> 시속 100km/h 속도로 여러 차례 왕복하는
+                <br /> 초대형 어트랙션
+              </p>
+            </div>
           </div>
           <div className="bg-text">
             GIANT <br />
@@ -339,37 +359,51 @@ const Introduce = memo(() => {
           </div>
           <div className="water1"></div>
           <div className="water2"></div>
-          <div className="train-top" data-aos="fade-down"></div>
-          <div className="train-bottom" data-aos="fade-down"></div>
+          <div className="train_top" data-aos="fade-down"></div>
+          <div className="train_bottom" data-aos="fade-down"></div>
         </div>
       </div>
       <div className="bg2">
-        <div className="leaf1" data-aos="fade-up" data-aos-delay="900"></div>
-        <div className="leaf2" data-aos="fade-up" data-aos-delay="500"></div>
-        <div className="leaf3" data-aos="fade-up" data-aos-delay="1100"></div>
         <div className="ent">
-          <div data-aos="fade-up">
-            <img src={bg2Img1} alt="" />
-            <h3>
-              로티스
-              <br /> 매직 포레스트
-            </h3>
-            <p>
-              마녀의 마법에서 풀려난 매직 포레스트
-              <br /> 용감한 기사로티를 위한
-              <br /> 축제 퍼레이드
-            </p>
-          </div>
-          <div data-aos="fade-up">
-            <img src={bg2Img2} alt="" />
-            <h3>
-              푸드드롭
-              <br /> 레스토랑
-            </h3>
-            <p>
-              국내 최초로 도입되는
-              <br /> 트랙을 이용하여 서빙하는 레스토랑
-            </p>
+          <div className="ent-text">
+            <div className="photobox" data-aos="fade-up">
+              <img src={bg2Img1} alt="" />
+              <h3>
+                로티스
+                <br /> 매직 포레스트
+              </h3>
+              <p>
+                마녀의 마법에서 풀려난 매직 포레스트
+                <br /> 용감한 기사로티를 위한
+                <br /> 축제 퍼레이드
+              </p>
+            </div>
+            <div className="photobox photobox2" data-aos="fade-up">
+              <img src={bg2Img2} alt="" />
+              <h3>
+                푸드드롭
+                <br /> 레스토랑
+              </h3>
+              <p>
+                국내 최초로 도입되는
+                <br /> 트랙을 이용하여 서빙하는 레스토랑
+              </p>
+            </div>
+            <div
+              className="leaf1"
+              data-aos="fade-up"
+              data-aos-delay="900"
+            ></div>
+            <div
+              className="leaf2"
+              data-aos="fade-up"
+              data-aos-delay="500"
+            ></div>
+            <div
+              className="leaf3"
+              data-aos="fade-up"
+              data-aos-delay="1100"
+            ></div>
           </div>
         </div>
       </div>
