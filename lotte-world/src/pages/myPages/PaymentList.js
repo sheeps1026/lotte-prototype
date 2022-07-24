@@ -300,7 +300,7 @@ const PaymentList = memo(() => {
                     <li>
                       결제내역{" "}
                       <span>
-                        {data[0]?.amount} (
+                        {(data[0]?.amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} (
                         {data[0]?.numberA + data[0]?.numberY + data[0]?.numberC}
                         매)
                       </span>
@@ -322,7 +322,7 @@ const PaymentList = memo(() => {
                             {v.numberC ? `, 어린이` : <></>})
                           </p>
                         </div>
-                        <div className="price">{v.amount}원</div>
+                        <div className="price">{(v.amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</div>
                         <Link
                           to="/TicketingPage/PaymentView"
                           state={{ data: v.merchant_uid }}

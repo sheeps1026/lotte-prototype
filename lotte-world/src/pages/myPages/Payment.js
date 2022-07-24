@@ -841,21 +841,21 @@ useEffect(() => {
 
                         {numberA ? (
                           <li>
-                            어른 x {numberA} <span>{priceA * numberA}원</span>
+                            어른 x {numberA} <span>{(priceA * numberA).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</span>
                           </li>
                         ) : (
                           <></>
                         )}
                         {numberY ? (
                           <li>
-                            청소년 x {numberY} <span>{priceY * numberY}원</span>
+                            청소년 x {numberY} <span>{(priceY * numberY).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</span>
                           </li>
                         ) : (
                           <></>
                         )}
                         {numberC ? (
                           <li>
-                            어린이 x {numberC} <span>{priceC * numberC}원</span>
+                            어린이 x {numberC} <span>{(priceC * numberC).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</span>
                           </li>
                         ) : (
                           <></>

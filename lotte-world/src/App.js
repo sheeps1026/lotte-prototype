@@ -104,7 +104,7 @@ const TopBtn = styled.div`
     border: 1px solid #888;
     border-radius: 50%;
     background: #fff;
-
+    box-shadow: 5px 5px 7px 1px #ddd;
     p {
       color: #333;
       font-size: 12px;
