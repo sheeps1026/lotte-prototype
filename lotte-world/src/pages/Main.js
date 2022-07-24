@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect, useRef } from "react";
 import "animate.css";
 
 import SideTab from "../components/SideTab";
@@ -407,6 +407,7 @@ const MainContainer = styled.div`
         padding: 40px 20px 20px;
         border-radius: 50%;
         background: linear-gradient(135deg, #e50019 0%, #e88522 75%);
+        box-shadow: 0 10px 10px -6px gray;
 
         &::after {
           content: "";
@@ -542,6 +543,22 @@ const Main = memo(() => {
     e.target.parentNode.parentNode.classList.remove("active");
     e.target.parentNode.classList.remove("active");
   };
+
+  let quickBtnLoc = useRef();
+
+  const handleQuickScroll = () => {
+    if (window.scrollY > 5000) {
+      quickBtnLoc.current.style.bottom = "56%";
+    } else {
+      quickBtnLoc.current.style.bottom = "110px";
+    }
+
+    console.log(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleQuickScroll);
+  });
 
   return (
     <MainContainer>
@@ -685,7 +702,7 @@ const Main = memo(() => {
           </Link>
         </div>
       </div>
-      <div className="quick-btn">
+      <div className="quick-btn" ref={quickBtnLoc}>
         <div className="quick-today" onClick={() => setOpenSideTab(true)}>
           <button>
             <p>오늘의 운영시간</p>

@@ -51,6 +51,7 @@ import Ticketing from "./pages/product/Ticketing";
 import PaymentResult from "./pages/myPages/PaymentResult";
 import InfoChange from "./pages/myPages/InfoChange";
 import InfoDelete from "./components/alert/InfoDelete";
+import { logDOM } from "@testing-library/react";
 
 // const Wrap = styled.div`
 // padding-top: 120px;
@@ -79,7 +80,6 @@ const GlobalStyle = createGlobalStyle`
 
 const TopBtn = styled.div`
   position: fixed;
-  bottom: 45px;
   right: 95px;
   z-index: 20;
 
@@ -114,20 +114,19 @@ const App = memo(() => {
     });
   };
 
-  let topBtnLoc = useRef();
-  let footerLoc = useRef();
+  const topBtnLoc = useRef();
+  const footerLoc = useRef();
 
-  // let footerLocY = footerLoc.getBoundingClientRect().top;
+  // const footerLocY = footerLoc.current.getBoundingClientRect();
 
   const handleScroll = () => {
-    // console.log(footerLoc);
-    // console.log(footerLocY);
-
-    if (window.scrollY > 500) {
-      topBtnLoc.current.style.bottom = "73%";
+    if (window.scrollY > 5000) {
+      topBtnLoc.current.style.bottom = "49%";
     } else {
       topBtnLoc.current.style.bottom = "45px";
     }
+
+    console.log(window.scrollY);
   };
 
   useEffect(() => {
