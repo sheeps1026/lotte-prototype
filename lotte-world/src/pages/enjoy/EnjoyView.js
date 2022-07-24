@@ -350,6 +350,7 @@ margin: 15px auto 35px;
      width: 100%;
      margin: 0;
      .react-datepicker__week {
+        pointer-events: none;
        display: flex;
        justify-content: space-evenly;
        .react-datepicker__day--today {
@@ -371,6 +372,9 @@ margin: 15px auto 35px;
          border-radius: 50%;
          background: none;
          color: #000;
+       }
+       .react-datepicker__day--outside-month {
+        color: #fff;
        }
      }
    }
@@ -483,10 +487,6 @@ const EnjoyView = memo(() => {
                                                         </span>
                                                         이용안내
                                                     </div>
-                                                    {/* <div className='txt'>
-                                                        135cm 이상 탑승 가능 <br/>
-                                                        105cm 이상 ~ 135cm 미만 보호자 동반 시 탑승 가능
-                                                    </div> */}
                                                     <div className='txt'>
                                                         {v.info}
                                                     </div>
@@ -508,7 +508,9 @@ const EnjoyView = memo(() => {
                                         <div className='half'>
                                             <p className='guide_tit'>운휴정보</p>
                                             <Calendar>
-                                                <DatePicker inline locale={ko} showDisabledMonthNavigation/>
+                                                <DatePicker inline locale={ko}
+                                                showDisabledMonthNavigation={true}
+                                                dateFormatCalendar='yyyy년 M월'/>
                                             </Calendar>
                                             <div className='info_box'>
                                                 <ul className='info_list'>

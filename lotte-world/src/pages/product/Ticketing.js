@@ -4,8 +4,7 @@
  * @description: 예매할 날짜, 인원 선택
  */
 import React, { memo, useCallback, useState } from "react";
-import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
-import { useQueryString } from "../../hooks/useQueryString";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
@@ -19,7 +18,8 @@ import btnCal from "../../assets/images/pages/product/btn_cal.png";
 import minus from "../../assets/images/pages/product/btn_minus_on.png";
 import plus from "../../assets/images/pages/product/btn_plus_on.png";
 import thumbnail from "../../assets/images/pages/product/thumbnail.jpg";
-import arrow from "../../assets/images/pages/product/bg_accordion_arrow.png";
+import arrowDown from "../../assets/images/pages/product/bg_accordion_arrow.png";
+import arrowUp from "../../assets/images/pages/product/bg_accordion_arrow2_on.png";
 import close from "../../assets/images/pages/product/btn_pop_close.png";
 import nodata from "../../assets/images/pages/product/nodata.png";
 import share from "../../assets/images/shere.png";
@@ -425,6 +425,10 @@ const TicketForm = styled.form`
     &.open {
       max-height: 500px;
       padding-bottom: 50px;
+      .acco_title {
+      background: url(${arrowUp}) no-repeat 94% 50%;
+      background-size: 12px 7px;
+      }
     }
     transition: all 0.4s ease;
     max-height: 61px;
@@ -432,9 +436,10 @@ const TicketForm = styled.form`
     .acco_title {
       padding: 20px 60px;
       border-bottom: 1px solid #e4e4e4;
-      background: url(${arrow}) no-repeat 94% 50%;
+      background: url(${arrowDown}) no-repeat 94% 50%;
       background-size: 12px 7px;
       background-color: #fafafa;
+      
       &:after {
         content: "";
         display: block;
@@ -445,6 +450,14 @@ const TicketForm = styled.form`
         color: #222;
         font-weight: 500;
         float: left;
+      }
+      &.openArrow {
+        
+      padding: 20px 60px;
+      border-bottom: 1px solid #e4e4e4;
+      background-size: 12px 7px;
+      background-color: #fafafa;
+      background:no-repeat 94% 50%;   
       }
     }
     .acco_contents {
@@ -782,9 +795,6 @@ const Ticketing = memo(({}) => {
     !select.includes(item)
       ? setSelect((select) => [...select, item])
       : setSelect(select.filter((e) => e !== item));
-    // console.log(select);
-
-    // setToggleOn(!toggleOn);
   });
   
 
@@ -1268,7 +1278,7 @@ const Ticketing = memo(({}) => {
                               <li>- 본인+동반인 티켓 구매 후 취소하실 경우 동반인 티켓을 먼저 취소하셔야합니다.</li>
                               <li>- 시스템 자동 취소가 될 경우 제휴카드 실적은 은행영업일 기준 2~3일 후에 복구됩니다. </li>
                               <li>- 별도의 취소 수수료는 없으나 구매 후 환불요청 시 각 카드사에 따라 수수료를 차감합니다.</li>
-                              <li>- 예매취소를 원하시는 경우 [마이페이지 > 결제내역]에서 취소하실 수 있습니다.</li>
+                              <li>- 예매취소를 원하시는 경우 [마이페이지 {'>'} 결제내역]에서 취소하실 수 있습니다.</li>
                             </ul>
                           </li>
                           <li>

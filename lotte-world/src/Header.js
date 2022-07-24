@@ -196,7 +196,7 @@ const Header = memo(() => {
             <a className="onedepth">즐길거리</a>
             <ul className="twodepth">
               <li>
-                <Link to="/enjoyList">어트랙션</Link>
+                <Link to="/enjoyList" onClick={closeMenu}>어트랙션</Link>
               </li>
             </ul>
           </li>
@@ -204,7 +204,7 @@ const Header = memo(() => {
             <a className="onedepth">이용가이드</a>
             <ul className="twodepth">
               <li>
-                <Link to="/enjoyList/guide">가이드맵</Link>
+                <Link to="/enjoyList/guide" onClick={closeMenu}>가이드맵</Link>
               </li>
             </ul>
           </li>
@@ -212,13 +212,13 @@ const Header = memo(() => {
             <a className="onedepth">소통공간</a>
             <ul className="twodepth">
               <li>
-                <Link to="/customer/">공지사항</Link>
+                <Link to="/customer/" onClick={closeMenu}>공지사항</Link>
               </li>
               <li>
-                <Link to="/customer/FAQ/y">자주묻는질문</Link>
+                <Link to="/customer/FAQ/y" onClick={closeMenu}>자주묻는질문</Link>
               </li>
               <li>
-                <Link to="/customer/inquiry/">문의사항</Link>
+                <Link to="/customer/inquiry/" onClick={closeMenu}>문의사항</Link>
               </li>
             </ul>
           </li>

@@ -79,24 +79,36 @@ const GuideStyled = styled.div`
           .download {
             margin-top: 40px;
             .downBtn {
+              color: red;
               cursor: pointer;
               height: 40px;
-              padding: 0 30px;
-              font-size: 16px;
-              color: #333;
-              line-height: 39px;
               display: inline-block;
               border-radius: 28px;
               border: 1px solid #333;
-              font-weight: 600;
               position: relative;
               overflow: hidden;
+              line-height: 39px;
+              
+              button {
+                height: 40px;
+                padding: 0 30px;
+                display: inline-block;
+                border-radius: 28px;
+                position: relative;
+                overflow: hidden;
+                line-height: 39px;
+                font-weight: 600;
+                font-size: 16px;
+                background: none;
+                &:hover {
+                  color: #fff !important;}
+              }
 
               &:after {
                 left: -14px;
                 content: "";
                 display: block;
-                width: 240px;
+                width: 270px;
                 border-radius: 50%;
                 height: 200px;
                 background: green;
@@ -107,10 +119,9 @@ const GuideStyled = styled.div`
                 z-index: -1;
               }
               &:hover {
-                color: #fff;
                 border: 1px solid green;
                 &:after {
-                  top: -40px;
+                  top: -60px;
                 }
               }
             }
