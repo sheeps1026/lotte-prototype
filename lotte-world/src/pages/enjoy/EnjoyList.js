@@ -38,6 +38,18 @@ width: 100%;
     }
   }
 .contents {
+    .fixed_bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        z-index: -1;
+        transition: all 1.8s ease;
+    }
     .fixed_bg.zone {
         background-image: url(${bg});
     }
@@ -201,166 +213,6 @@ const EnjoyList = memo(() => {
                                         </li>
                                     )
                                 })}
-                                {/* <li>
-                                    <NavLink to={`/enjoyView/${view.EN_id}`} href='#!'>
-                                        <div className='cardimg'>
-                                            <p className='img'>
-                                                <img src={att1} alt='토킹트리'/>
-                                            </p>
-                                            <p className='category'>어트랙션 [팅커폴스]</p>
-                                        </div>
-                                        <div className='cardtxt'>
-                                            <p className='tit'>토킹트리</p>
-                                            <div className='taglist'>
-                                                <p>#패밀리</p>
-                                            </div>
-                                        </div>
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink to='/enjoyView/2' href='#!'>
-                                        <div className='cardimg'>
-                                            <p className='img'>
-                                                <img src={att2} alt='쿠키열차'/>
-                                            </p>
-                                            <p className='category'>어트랙션 [조이풀메도우]</p>
-                                        </div>
-                                        <div className='cardtxt'>
-                                            <p className='tit'>쿠키열차</p>
-                                            <div className='taglist'>
-                                                <p>#패밀리</p>
-                                                <p>#매직패스</p>
-                                                <p>#롤러코스터</p>
-                                            </div>
-                                        </div>
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <a href='#!'>
-                                        <div className='cardimg'>
-                                            <p className='img'>
-                                                <img src={att3} alt='날아라꼬꼬'/>
-                                            </p>
-                                            <p className='category'>어트랙션 [조이풀메도우]</p>
-                                        </div>
-                                        <div className='cardtxt'>
-                                            <p className='tit'>날아라꼬꼬</p>
-                                            <div className='taglist'>
-                                                <p>#어린이</p>
-                                                <p>#회전형</p>
-                                                <p>#꼬꼬</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href='#!'>
-                                        <div className='cardimg'>
-                                            <p className='img'>
-                                                <img src={att4} alt='달려라염소'/>
-                                            </p>
-                                            <p className='category'>어트랙션 [조이풀메도우]</p>
-                                        </div>
-                                        <div className='cardtxt'>
-                                            <p className='tit'>달려라염소</p>
-                                            <div className='taglist'>
-                                                <p>#어린이</p>
-                                                <p>#회전형</p>
-                                                <p>#염소</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href='#!'>
-                                        <div className='cardimg'>
-                                            <p className='img'>
-                                                <img src={att5} alt='춤추는포니'/>
-                                            </p>
-                                            <p className='category'>어트랙션 [조이풀메도우]</p>
-                                        </div>
-                                        <div className='cardtxt'>
-                                            <p className='tit'>춤추는포니</p>
-                                            <div className='taglist'>
-                                                <p>#어린이</p>
-                                                <p>#햇님달님</p>
-                                                <p>#포니</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href='#!'>
-                                        <div className='cardimg'>
-                                            <p className='img'>
-                                                <img src={att6} alt='아기돼지범퍼카'/>
-                                            </p>
-                                            <p className='category'>어트랙션 [조이풀메도우]</p>
-                                        </div>
-                                        <div className='cardtxt'>
-                                            <p className='tit'>아기돼지범퍼카</p>
-                                            <div className='taglist'>
-                                                <p>#어린이</p>
-                                                <p>#범퍼카</p>
-                                                <p>#아기돼지</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href='#!'>
-                                        <div className='cardimg'>
-                                            <p className='img'>
-                                                <img src={att7} alt='양들의격투'/>
-                                            </p>
-                                            <p className='category'>어트랙션 [조이풀메도우]</p>
-                                        </div>
-                                        <div className='cardtxt'>
-                                            <p className='tit'>양들의격투</p>
-                                            <div className='taglist'>
-                                                <p>#연인</p>
-                                                <p>#패밀리</p>
-                                                <p>#매직패스</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href='#!'>
-                                        <div className='cardimg'>
-                                            <p className='img'>
-                                                <img src={att8} alt='회전목마'/>
-                                            </p>
-                                            <p className='category'>어트랙션 [조이풀메도우]</p>
-                                        </div>
-                                        <div className='cardtxt'>
-                                            <p className='tit'>회전목마</p>
-                                            <div className='taglist'>
-                                                <p>#연인</p>
-                                                <p>#패밀리</p>
-                                                <p>#매직패스</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href='#!'>
-                                        <div className='cardimg'>
-                                            <p className='img'>
-                                                <img src={att9} alt='스완레이크'/>
-                                            </p>
-                                            <p className='category'>어트랙션 [로얄가든]</p>
-                                        </div>
-                                        <div className='cardtxt'>
-                                            <p className='tit'>스완레이크</p>
-                                            <div className='taglist'>
-                                                <p>#연인</p>
-                                                <p>#패밀리</p>
-                                                <p>#매직패스</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li> */}
                             </ul>
                         </div>
                     </div>

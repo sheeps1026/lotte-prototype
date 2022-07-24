@@ -62,21 +62,8 @@ const GlobalStyle = createGlobalStyle`
   }
   /* other styles */
   a{
-    text-decoration:none;
+    text-decoration: none;
     cursor: pointer;
-  }
-  /* 사진배경 */
-  .fixed_bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    z-index: -1;
-    transition: all 1.8s ease;
   }
   /* button초기화 */
   button {

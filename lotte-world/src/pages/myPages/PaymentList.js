@@ -251,7 +251,7 @@ const PaymentList = memo(() => {
             <h3>마이페이지</h3>
             <p className="mypageNotice">
               예매하신 티켓은 방문 일자에 사용하실 수 있으며
-              <span>사용후에는 예매취소가 불가</span> 하니 유의하시기 바랍니다.
+              <span> 사용후에는 예매취소가 불가</span> 하니 유의하시기 바랍니다.
             </p>
             <div className="datePickerCon">
               <button onClick={prevBtn} type="button">
