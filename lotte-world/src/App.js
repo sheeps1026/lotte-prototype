@@ -87,10 +87,10 @@ const TopBtn = styled.div`
     text-align: center;
     width: 48px;
     height: 48px;
-    margin: 10px auto 0;
     border: 1px solid #888;
     border-radius: 50%;
     background: #fff;
+    box-shadow: 0 4px 4px -2px gray;
 
     p {
       color: #333;
@@ -102,7 +102,6 @@ const TopBtn = styled.div`
 
 const App = memo(() => {
   const location = useLocation();
-  // console.log(location.pathname.substring(0, 14));
   const path = location.pathname.substring(0, 14);
 
   // 이메일 모달
@@ -118,7 +117,7 @@ const App = memo(() => {
   let topBtnLoc = useRef();
   let footerLoc = useRef();
 
-  // let footerLocY = window.screenY;
+  // let footerLocY = footerLoc.getBoundingClientRect().top;
 
   const handleScroll = () => {
     // console.log(footerLoc);
