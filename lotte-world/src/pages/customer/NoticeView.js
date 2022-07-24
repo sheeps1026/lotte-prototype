@@ -121,7 +121,7 @@ const NoticeView = memo(() => {
         return (
           <div className="con" key={i}>
             <div className="left-wrap">
-              <h4>{v.N_division}</h4>
+              <h4>{v.N_division === "1" ? `공지` : `안내`}</h4>
               <h2>{v.N_title}</h2>
               <h5>{v.N_reg_date}</h5>
             </div>

@@ -50,7 +50,7 @@ const MainContainer = styled.div`
       border-radius: 50%;
       padding: 22px;
       display: block;
-      z-index: 999;
+      z-index: 1;
       // transform: rotate(180deg);
     }
     .slick-prev:before,
@@ -201,7 +201,7 @@ const MainContainer = styled.div`
       }
     }
     .slick-dots {
-      z-index: 999;
+      z-index: 50;
       position: absolute;
       top: -100px;
       bottom: auto;

@@ -28,7 +28,7 @@ const SideTabContainer = styled.div`
   padding: 43px 0 37px 60px;
   background-color: #fff;
   transition: transform 5s;
-  z-index: 60;
+  z-index: 1000;
 
   header {
     display: flex;
@@ -69,6 +69,7 @@ const SideTabContainer = styled.div`
       height: 85px;
       background: none;
       cursor: pointer;
+      z-index: 1000 !important;
     }
   }
 

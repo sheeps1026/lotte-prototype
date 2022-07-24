@@ -141,7 +141,7 @@ const PaymentView = memo(() => {
             </tr>
             <tr>
               <th>결재금액</th>
-              <td>{data[0].amount}</td>
+              <td>{(data[0].amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</td>
               {/* <td className="colorRed">26,900원</td> */}
             </tr>
             {/* <tr>

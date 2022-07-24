@@ -1094,9 +1094,9 @@ const Ticketing = memo(({}) => {
                                <div className="ticketAge">어른 X {numberA}</div>
                                <div className="ticketPrice">
                                  {/* 가격 db에서 불러오기? */}
-                                 <span>{numberA * 33000}</span>
+                                 <span>{(numberA * 33000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>
                                  <strong className="discount">
-                                   <strong>{numberA*priceA}</strong> 원
+                                   <strong>{(numberA*priceA).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> 원
                                  </strong>
                                </div>
                              </li>
@@ -1106,9 +1106,9 @@ const Ticketing = memo(({}) => {
                                <div className="ticketAge">청소년 X {numberY}</div>
                                <div className="ticketPrice">
                                  {/* 가격 db에서 불러오기? */}
-                                 <span>{numberY * 22000}</span>
+                                 <span>{(numberY * 22000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>
                                  <strong className="discount">
-                                   <strong>{numberY*priceY}</strong> 원
+                                   <strong>{(numberY*priceY).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> 원
                                  </strong>
                                </div>
                              </li>
@@ -1118,9 +1118,9 @@ const Ticketing = memo(({}) => {
                                <div className="ticketAge">어린이 X {numberC}</div>
                                <div className="ticketPrice">
                                  {/* 가격 db에서 불러오기? */}
-                                 <span>{numberC * 11000}</span>
+                                 <span>{(numberC * 11000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>
                                  <strong className="discount">
-                                   <strong>{numberC*priceC}</strong> 원
+                                   <strong>{(numberC*priceC).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</strong> 원
                                  </strong>
                                </div>
                              </li>
@@ -1129,7 +1129,7 @@ const Ticketing = memo(({}) => {
                          <div className="finalPrice">
                            <div className="ticketCount">최종결제금액</div>
                            <div className="price">
-                             <span>{amount}</span> 원
+                             <span>{(amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span> 원
                            </div>
                          </div>
                          <div className="ticketingBtn">
