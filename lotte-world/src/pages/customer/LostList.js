@@ -4,6 +4,7 @@ import axios from "axios";
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
 import dayjs from "dayjs";
+import moment from "moment";
 
 import styled from "styled-components";
 
@@ -85,10 +86,10 @@ const LostListWrap = styled.div`
   .CountWrap {
     display: flex;
     justify-content: space-between;
-    margin:10px 0;
-    .popupIcon{
+    margin: 10px 0;
+    .popupIcon {
       padding: 0 0 0 20px;
-      color:green;
+      color: green;
       background: url(${popupIcon}) no-repeat left center;
     }
   }
@@ -206,7 +207,22 @@ const SearchWrap = styled.div`
 const LostList = memo(() => {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
-  let diffDate = endDate - startDate;
+
+  // const startTime = new Date(moment(startDate).format("YYYY.MM.DD"));
+  // const endTime = new Date(moment(endDate).format("YYYY.MM.DD"));
+  const startTime = moment(startDate).format("YYYY.MM.DD");
+  const endTime = moment(endDate).format("YYYY.MM.DD");
+  // console.log(startTime, endTime);
+  // const diffDate = startTime.getTime() - endTime.getTime();
+  // console.log(diffTime);
+  // console.log(Math.abs(diffDate / (1000 * 60 * 60 * 24)));
+
+  // let str = "Hello.World.Javascript";
+  // console.log(startTime);
+  let startDateArray = startTime.split(".");
+  let endDateArray = endTime.split(".");
+  // console.log(startDateArray);
+  // console.log(endDateArray);
 
   const keywordInput = useRef();
   let [openLost, setOpenLost] = useState(false);
@@ -217,20 +233,7 @@ const LostList = memo(() => {
   // 리스트 갯수 상태값
   const [count, setCount] = useState(0);
 
-  const onFilterKeyword = () => {
-    const searchKeyword = keywordInput.current.value;
-
-    const newFilter = lostList.filter((value) => {
-      return (
-        value.L_item.includes(searchKeyword),
-        value.L_reg_date.includes(searchKeyword)
-      );
-    });
-
-    console.log(`diffDate: ${diffDate}`);
-
-    setOpenLost(newFilter);
-  };
+  let regDate;
 
   useEffect(() => {
     (async () => {
@@ -243,11 +246,39 @@ const LostList = memo(() => {
         setLostList(json);
 
         lostList == "" ? setCount(json.length) : setCount(openLost.length);
+
+        regDate = json.filter((v, i) => {
+          if (startDateArray[2] != endDateArray[2]) {
+            if (startDateArray[2] <= v.L_reg_date <= endDateArray[2]) {
+              console.log("나오나");
+            }
+          } else {
+            console.log("해당안됨");
+          }
+        });
       } catch (e) {
         console.log(e);
       }
+
+      // if (startDateArray[2] != endDateArray[2]) {
+      //   if (startDateArray[2] <= v.L_reg_date <= endDateArray[2]) {
+      //     console.log("나오나");
+      //   }
+      // } else {
+      //   console.log("날짜같음");
+      // }
     })();
   }, [openLost]);
+
+  const onFilterKeyword = () => {
+    const searchKeyword = keywordInput.current.value;
+
+    const newFilter = lostList.filter((value) => {
+      return value.L_item.includes(searchKeyword), value.L_reg_date;
+    });
+
+    setOpenLost(newFilter);
+  };
 
   return (
     <FlexBox>

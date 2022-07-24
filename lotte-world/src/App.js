@@ -90,12 +90,8 @@ const TopBtn = styled.div`
     border: 1px solid #888;
     border-radius: 50%;
     background: #fff;
-<<<<<<< HEAD
     box-shadow: 0 4px 4px -2px gray;
 
-=======
-    box-shadow: 5px 5px 7px 1px #ddd;
->>>>>>> 5a7fc530abb8294d5a441917c0b54e4f24b10b58
     p {
       color: #333;
       font-size: 12px;
@@ -129,8 +125,6 @@ const App = memo(() => {
     } else {
       topBtnLoc.current.style.bottom = "45px";
     }
-
-    console.log(window.scrollY);
   };
 
   useEffect(() => {
