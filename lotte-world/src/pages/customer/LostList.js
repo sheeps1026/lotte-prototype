@@ -233,7 +233,17 @@ const LostList = memo(() => {
   // 리스트 갯수 상태값
   const [count, setCount] = useState(0);
 
-  let regDate;
+  const compareDate = (sd, ed, rd) => {
+    if (sd <= rd && rd <= ed) {
+      return 1;
+    } else {
+      return -1;
+    }
+  };
+
+  // let newArray = [{ L_reg_date: null }];
+  // let newArray = [];
+  const [newArray, setNewArray] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -247,34 +257,87 @@ const LostList = memo(() => {
 
         lostList == "" ? setCount(json.length) : setCount(openLost.length);
 
-        regDate = json.filter((v, i) => {
-          if (startDateArray[2] != endDateArray[2]) {
-            if (startDateArray[2] <= v.L_reg_date <= endDateArray[2]) {
-              console.log("나오나");
+        let regDate = json.filter((v, i) => {
+          {
+            let regDateArray = v.L_reg_date.split(".");
+
+            let year = compareDate(
+              startDateArray[0],
+              endDateArray[0],
+              regDateArray[0]
+            );
+
+            let month = compareDate(
+              startDateArray[1],
+              endDateArray[1],
+              regDateArray[1]
+            );
+
+            let day = compareDate(
+              startDateArray[2],
+              endDateArray[2],
+              regDateArray[2]
+            );
+
+            if (year == 1 && month == 1 && day == 1) {
+              // console.log(v.L_reg_date);
+
+              setNewArray(v);
+
+              // console.log(v);
+              // console.log(newArray);
             }
-          } else {
-            console.log("해당안됨");
+
+            // if (startDateArray[0] == endDateArray[0]) {
+            //   if (startDateArray[1] == endDateArray[1]) {
+            //     if (startDateArray[2] == endDateArray[2]) {
+            //       console.log("시작, 종료날짜가 같음");
+
+            //       return;
+            //     }
+            //   } else if (
+            //     startDateArray[1] <= v.L_reg_date &&
+            //     endDateArray[1] >= v.L_reg_date
+            //   ) {
+            //   }
+            // } else {
+            //   if (
+            //     startDateArray[0] <= v.L_reg_date &&
+            //     endDateArray[0] >= v.L_reg_date
+            //   ) {
+            //     console.log("년다름");
+            //   }
+
+            //   if (startDateArray[1] != endDateArray[1]) {
+            //     if (startDateArray[1] <= v.L_reg_date <= endDateArray[1]) {
+            //       console.log("월다름");
+            //     }
+
+            //     if (startDateArray[2] != endDateArray[2]) {
+            //       if (startDateArray[2] <= v.L_reg_date <= endDateArray[2]) {
+            //         console.log("일다름");
+            //       }
+            //     }
+            //   }
+            // }
           }
         });
       } catch (e) {
         console.log(e);
+      } finally {
+        console.log();
       }
-
-      // if (startDateArray[2] != endDateArray[2]) {
-      //   if (startDateArray[2] <= v.L_reg_date <= endDateArray[2]) {
-      //     console.log("나오나");
-      //   }
-      // } else {
-      //   console.log("날짜같음");
-      // }
     })();
-  }, [openLost]);
+  }, [openLost, setNewArray]);
+
+  console.log("---------------------------");
+  // console.log(newArray);
 
   const onFilterKeyword = () => {
     const searchKeyword = keywordInput.current.value;
 
     const newFilter = lostList.filter((value) => {
-      return value.L_item.includes(searchKeyword), value.L_reg_date;
+      return value.L_item.includes(searchKeyword);
     });
 
     setOpenLost(newFilter);

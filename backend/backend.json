@@ -62,26 +62,26 @@
       "L_division": "지갑",
       "L_item": "화이트 지갑",
       "L_loc": "로스트 밸리 앞",
-      "L_reg_date": "2022-07-24",
+      "L_reg_date": "2022.07.24",
       "L_state": "보관중"
     },
     {
       "L_id": "일련번호",
-      "L_division": "기타",
+      "L_division": "기타3",
       "L_item": "사진상점 4인 가족사진",
       "L_loc": "유모차 대여소",
       "L_reg_date": "2022.07.21",
       "L_state": "A"
     },
     {
-      "L_division": "기타",
+      "L_division": "기타2",
       "L_item": "검정색 스마트 워치",
       "L_loc": "회전목마 근처",
       "L_reg_date": "2022.07.16",
       "L_state": "B"
     },
     {
-      "L_division": "기타",
+      "L_division": "기타1",
       "L_item": "검정색 리본 핀",
       "L_loc": "로리스엠포리움",
       "L_reg_date": "2022.07.11",
