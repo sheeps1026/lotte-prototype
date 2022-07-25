@@ -206,7 +206,7 @@ const InquiryWriteWrap = styled.div`
       background: #777;
       position: absolute;
       /* bottom: 20px; */
-      top: 55px;
+      top: 60px;
       transition: all 0.4s;
       z-index: -1;
     }
@@ -231,6 +231,7 @@ const InquiryWriteWrap = styled.div`
     position: relative;
     overflow: hidden;
     z-index: 1;
+    margin: 0 0 0 20px;
     /* &:hover {
       color: #fff; */
     &:after {
@@ -243,7 +244,7 @@ const InquiryWriteWrap = styled.div`
       background: green;
       position: absolute;
       /* bottom: 20px; */
-      top: 55px;
+      top: 60px;
       transition: all 0.4s;
       z-index: -1;
     }
