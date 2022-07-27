@@ -9,6 +9,8 @@ import q from "../../assets/images/faq-icon-q.png";
 import a from "../../assets/images/faq-icon-a.png";
 import toggle from "../../assets/images/toggle.png";
 
+import { useNavigate } from "react-router-dom";
+
 const FaqViewWrap = styled.div`
   /* background: #eee; */
 
@@ -112,6 +114,8 @@ const FaqView = memo(
     setList,
     count,
     setCount,
+    keywordInput,
+    onFilterKeyword,
   }) => {
     let clicked = 1;
 
@@ -136,27 +140,30 @@ const FaqView = memo(
       }
     };
 
+    const navigate = useNavigate();
+
     useEffect(() => {
       (async () => {
         let json = null;
 
         try {
           if (F_division === "all") {
-            const response = await axios.get(`http://localhost:3001/bbs_faq?`);
+            const response = await axios.get(`http://localhost:3001/bbs_faq`);
 
+            onFilterKeyword();
+            // console.log("전체 카테고리로 바뀜");
             json = response.data;
           } else {
             const response = await axios.get(
               `http://localhost:3001/bbs_faq?F_division=${F_division}`
             );
 
+            onFilterKeyword();
             json = response.data;
 
-            console.log(F_division);
-          }
+            console.log("카테고리 바뀜");
 
-          // setList(json);
-          // list == "" ? setCount(json.length) : setCount(filterKeyword.length);
+          }
         } catch (e) {
           console.log(e);
         }

@@ -7,7 +7,7 @@ import styled from "styled-components";
 import FaqView from "../customer/FaqView";
 
 import btn from "../../assets/images/srch-icon.png";
-
+import { useNavigate } from "react-router-dom";
 const FlexBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -97,6 +97,7 @@ const FAQ = memo(() => {
   const { F_division } = useParams();
   const keywordInput = useRef();
 
+  const navigate = useNavigate();
   const [filterKeyword, setFilterKeyword] = useState([]);
   const [count, setCount] = useState(0);
 
@@ -105,12 +106,14 @@ const FAQ = memo(() => {
 
   const onFilterKeyword = (e) => {
     const searchKeyword = keywordInput.current.value;
+    console.log("------------------------");
 
     const newFilter = list.filter((value) => {
       return value.F_title.includes(searchKeyword);
     });
 
     setFilterKeyword(newFilter);
+    console.log("---------된거임---------------");
   };
 
   useEffect(() => {
@@ -118,18 +121,32 @@ const FAQ = memo(() => {
       let json = null;
 
       try {
-        const response = await axios.get(`http://localhost:3001/bbs_faq`);
-        //json에 리스트 담기
-        json = response.data;
+        //키워드 있을때 전체리스트에서 요청
+
+        if (F_division === "all" && count > 0) {
+          const response = await axios.get(`http://localhost:3001/bbs_faq`);
+          //json에 리스트 담기
+          json = response.data;
+          setList(json);
+        } else{
+          const response = await axios.get(
+            `http://localhost:3001/bbs_faq?F_division=${F_division}`
+          );
+
+          json = response.data;
+          setList(json);
+        }
 
         //뿌려줄 리스트에 json 담기
-        setList(json);
         list == "" ? setCount(json.length) : setCount(filterKeyword.length);
+
+        //키워드 없을 때
+
       } catch (e) {
         console.log(e);
       }
     })();
-  }, [filterKeyword]);
+  }, [navigate, filterKeyword]);
 
   const test = () => {
     console.log(`count: ${count}`);
@@ -176,6 +193,8 @@ const FAQ = memo(() => {
                 setList={setList}
                 count={count}
                 setCount={setCount}
+                keywordInput={keywordInput}
+                onFilterKeyword={onFilterKeyword}
               />
             }
           />
