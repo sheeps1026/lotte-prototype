@@ -8,7 +8,6 @@ import FaqView from "../customer/FaqView";
 
 import btn from "../../assets/images/srch-icon.png";
 import { useNavigate } from "react-router-dom";
-
 const FlexBox = styled.div`
   display: flex;
   justify-content: space-between;
