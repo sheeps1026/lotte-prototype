@@ -207,23 +207,13 @@ const SearchWrap = styled.div`
 let newArray = [];
 
 const LostList = memo(() => {
-  // 처음 날
   const [startDate, setStartDate] = useState(null);
-  // 마지막 날
   const [endDate, setEndDate] = useState(null);
   // 날짜 변환
   const startTime = moment(startDate).format("YYYY.MM.DD");
   const endTime = moment(endDate).format("YYYY.MM.DD");
   let startDateArray = startTime.split(".");
   let endDateArray = endTime.split(".");
-
-  console.log(startDate);
-  console.log(startTime);
-  console.log(startDateArray);
-  console.log("-----");
-  console.log(endDate);
-  console.log(endTime);
-  console.log(endDateArray);
 
   // input ref
   const keywordInput = useRef();
@@ -248,12 +238,8 @@ const LostList = memo(() => {
 
   // 날짜 비교하기
   const compareDate = (json) => {
-    // 날짜 선택이 하나라도 하나라도 안되있으면, 그냥 끝냄
-    if (startTime == null || endTime == null) {
-      return;
-    }
-
     lostList == "" ? setCount(json.length) : setCount(openLost.length);
+    // setCount(json.length);
 
     json.map((v, i) => {
       {
@@ -309,26 +295,41 @@ const LostList = memo(() => {
 
     // 리스트에서 input창에 입력된 값이 json에 있으면
     let newFilter = lostList.filter((value) => {
+      console.log(searchKeyword);
+
       return value.L_item.includes(searchKeyword);
     });
 
-    // 검색어가 있다면
-    if (searchKeyword) {
-      compareDate(newFilter);
-    } else {
-      // 검색어가 없으면 전체 데이터를 compareDate함수에 넣고
-      compareDate(lostList);
+    if (searchKeyword == "") {
+      console.log("검색어가 없음");
     }
 
-    setOpenLost(newArray);
+    // 날짜 선택안하고, 검색어만 있을 때
+    if (searchKeyword != "" && startDate == null && endDate == null) {
+      // compareDate(newFilter);
+      setOpenLost(newFilter);
+      console.log("1111111");
+    } else if (searchKeyword == "" && startDate != null && endDate != null) {
+      // 날짜 선택하고, 검색어는 없을 때
+
+      // 검색어가 없으면 전체 데이터를 compareDate함수에 넣고
+      compareDate(lostList);
+      setOpenLost(newArray);
+      console.log("22222222");
+    } else if (searchKeyword != "" && startDate != null && endDate != null) {
+      // 날짜, 검색어 둘 다 있을 때
+      compareDate(newFilter);
+      setOpenLost(newArray);
+      console.log("33333333");
+    }
 
     // 중복으로 나오니 배열 초기화
     newArray = [];
+    newFilter = [];
 
-    console.log("클릭");
+    console.log(searchKeyword);
   };
 
-  console.log(newArray);
   console.log(count);
 
   return (
