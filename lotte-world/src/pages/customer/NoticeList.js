@@ -119,6 +119,7 @@ const SearchWrap = styled.div`
 const NoticeList = memo(() => {
   const [filterKeyword, setFilterKeyword] = useState([]);
 
+  // input ref
   const keywordInput = useRef();
 
   // 공지사항 리스트 만드는 상태값
@@ -126,6 +127,7 @@ const NoticeList = memo(() => {
   // 공지사항 리스트 갯수 상태값
   const [N_count, setN_count] = useState(0);
 
+  // 검색
   const onFilterKeyword = (e) => {
     const searchKeyword = keywordInput.current.value;
 

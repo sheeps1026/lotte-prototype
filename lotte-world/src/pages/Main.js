@@ -552,8 +552,6 @@ const Main = memo(() => {
     } else {
       quickBtnLoc.current.style.bottom = "110px";
     }
-
-    console.log(window.scrollY);
   };
 
   useEffect(() => {

@@ -3,7 +3,6 @@ import axios from "axios";
 
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
-import dayjs from "dayjs";
 import moment from "moment";
 
 import styled from "styled-components";
@@ -204,25 +203,39 @@ const SearchWrap = styled.div`
   }
 `;
 
+// 날짜 검색 한 것
 let newArray = [];
-// const [newArray, setNewArray] = useState([]);
 
 const LostList = memo(() => {
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
-
+  // 처음 날
+  const [startDate, setStartDate] = useState(null);
+  // 마지막 날
+  const [endDate, setEndDate] = useState(null);
+  // 날짜 변환
   const startTime = moment(startDate).format("YYYY.MM.DD");
   const endTime = moment(endDate).format("YYYY.MM.DD");
-
   let startDateArray = startTime.split(".");
   let endDateArray = endTime.split(".");
 
+  console.log(startDate);
+  console.log(startTime);
+  console.log(startDateArray);
+  console.log("-----");
+  console.log(endDate);
+  console.log(endTime);
+  console.log(endDateArray);
+
+  // input ref
   const keywordInput = useRef();
+
+  // 키워드
   let [openLost, setOpenLost] = useState(false);
+  // 모달창 열기
   let [openLostModal, setOpenLostModal] = useState(false);
 
   // 리스트 만드는 상태값
   const [lostList, setLostList] = useState([]);
+  // 리스트 개수 상태값
   const [count, setCount] = useState(0);
 
   const compareInt = (sd, ed, rd) => {
@@ -233,11 +246,18 @@ const LostList = memo(() => {
     }
   };
 
+  // 날짜 비교하기
   const compareDate = (json) => {
+    // 날짜 선택이 하나라도 하나라도 안되있으면, 그냥 끝냄
+    if (startTime == null || endTime == null) {
+      return;
+    }
+
     lostList == "" ? setCount(json.length) : setCount(openLost.length);
 
     json.map((v, i) => {
       {
+        // json 데이터를 분리해서 담음
         let regDateArray = v.L_reg_date.split(".");
 
         let year = compareInt(
@@ -258,6 +278,7 @@ const LostList = memo(() => {
           regDateArray[2]
         );
 
+        // 선택한 날짜 기간에 저장된 데이터가 포함되어 있으면, 배열에 추가
         if (year == 1 && month == 1 && day == 1) {
           newArray.push(v);
         }
@@ -272,6 +293,7 @@ const LostList = memo(() => {
       try {
         const response = await axios.get(`http://localhost:3001/bbs_lost`);
 
+        // json에 리스트 담기
         json = response.data;
         setLostList(json);
 
@@ -285,20 +307,29 @@ const LostList = memo(() => {
   const onFilterKeyword = () => {
     const searchKeyword = keywordInput.current.value;
 
+    // 리스트에서 input창에 입력된 값이 json에 있으면
     let newFilter = lostList.filter((value) => {
       return value.L_item.includes(searchKeyword);
     });
 
+    // 검색어가 있다면
     if (searchKeyword) {
       compareDate(newFilter);
+    } else {
+      // 검색어가 없으면 전체 데이터를 compareDate함수에 넣고
+      compareDate(lostList);
     }
 
     setOpenLost(newArray);
 
+    // 중복으로 나오니 배열 초기화
     newArray = [];
+
+    console.log("클릭");
   };
 
   console.log(newArray);
+  console.log(count);
 
   return (
     <FlexBox>
@@ -352,6 +383,10 @@ const LostList = memo(() => {
           </button>
         </div>
         <ul className="ulList">
+          {/* 리스트 개수가 0이면 결과없음 보여주고,
+              입력된 값이 없으면, 원래 상태값
+              입력된 값 있으면, 해당 키워드 포함해서
+          */}
           {count == 0 ? (
             <NoResultWrap />
           ) : openLost == "" ? (
@@ -385,6 +420,8 @@ const LostList = memo(() => {
           )}
         </ul>
       </LostListWrap>
+
+      {/* 모달창 */}
       {openLostModal && <LostNotice setOpenLostModal={setOpenLostModal} />}
     </FlexBox>
   );
