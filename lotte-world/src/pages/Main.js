@@ -112,6 +112,8 @@ const MainContainer = styled.div`
     background: url(${enjoyBg}) no-repeat 100% 0 / cover;
     padding: 450px 0 100px;
     position: relative;
+    overflow-x: hidden;
+    z-index: 1;
     .enjoySlide {
       padding: 50px 0 300px;
     }
@@ -267,6 +269,7 @@ const MainContainer = styled.div`
   .showCon {
     background: url(${showBg}) no-repeat;
     padding: 100px 0;
+    overflow-x: hidden;
     h1 {
       color: #fff;
       text-align: center;
