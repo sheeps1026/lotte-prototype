@@ -51,11 +51,7 @@ import Ticketing from "./pages/product/Ticketing";
 import PaymentResult from "./pages/myPages/PaymentResult";
 import InfoChange from "./pages/myPages/InfoChange";
 import InfoDelete from "./components/alert/InfoDelete";
-import { logDOM } from "@testing-library/react";
 
-// const Wrap = styled.div`
-// padding-top: 120px;
-// `;
 const GlobalStyle = createGlobalStyle`
   ${reset}
   body {
@@ -79,8 +75,10 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const TopBtn = styled.div`
-  position: fixed;
-  right: 95px;
+  position: sticky;
+  width: 48px;
+  margin: 0 auto;
+  margin-right: 95px;
   z-index: 20;
 
   button {
@@ -115,16 +113,15 @@ const App = memo(() => {
   };
 
   const topBtnLoc = useRef();
-  const footerLoc = useRef();
-
-  // const footerLocY = footerLoc.current.getBoundingClientRect();
 
   const handleScroll = () => {
-    if (window.scrollY > 5000) {
-      topBtnLoc.current.style.bottom = "49%";
+    if (window.scrollY > 5100) {
+      topBtnLoc.current.style.bottom = "47%";
     } else {
-      topBtnLoc.current.style.bottom = "45px";
+      topBtnLoc.current.style.bottom = "6%";
     }
+
+    // console.log(window.scrollY);
   };
 
   useEffect(() => {
@@ -227,7 +224,7 @@ const App = memo(() => {
       <TopBtn onClick={onTopScroll} ref={topBtnLoc}>
         <button>TOP</button>
       </TopBtn>
-      <Footer setOpenEmail={setOpenEmail} ref={footerLoc} />
+      <Footer setOpenEmail={setOpenEmail} />
     </div>
   );
 });

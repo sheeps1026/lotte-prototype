@@ -143,10 +143,9 @@ const NoticeList = memo(() => {
       let json = null;
 
       try {
-        const response = await axios.get(`http://localhost:3001/bbs_notices`);
-        // const response = await axios.get(
-        //   "https://sheeps1026.github.io/backend/bbs_notices.json"
-        // );
+        const response = await axios.get(
+          "https://sheeps1026.github.io/backend/bbs_notices.json"
+        );
         //json에 리스트 담기
         json = response.data;
 

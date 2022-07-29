@@ -119,13 +119,16 @@ const FAQ = memo(() => {
         //키워드 있을때 전체리스트에서 요청
 
         if (F_division === "all" && count > 0) {
-          const response = await axios.get(`http://localhost:3001/bbs_faq`);
+          const response = await axios.get(
+            `https://sheeps1026.github.io/backend/bbs_faq.json`
+          );
+
           //json에 리스트 담기
           json = response.data;
           setList(json);
         } else {
           const response = await axios.get(
-            `http://localhost:3001/bbs_faq?F_division=${F_division}`
+            `https://sheeps1026.github.io/backend/bbs_faq.json?F_division=${F_division}`
           );
 
           json = response.data;

@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { Routes, Route, Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
@@ -96,13 +96,14 @@ const FlexBox = styled.div`
 const NoticeView = memo(() => {
   const { N_id } = useParams();
   console.log(N_id);
-  const [notice, setNotice] = React.useState([]);
-  React.useEffect(() => {
+  const [notice, setNotice] = useState([]);
+
+  useEffect(() => {
     (async () => {
       let json = null;
       try {
         const response = await axios.get(
-          `http://localhost:3001/bbs_notices?N_id=${N_id}`
+          `https://sheeps1026.github.io/backend/bbs_notices.json?N_id=${N_id}`
         );
         json = response.data;
         // console.log(json);

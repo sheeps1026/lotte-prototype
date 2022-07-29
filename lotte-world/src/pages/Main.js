@@ -387,12 +387,13 @@ const MainContainer = styled.div`
   }
 
   .quick-btn {
-    position: fixed;
+    position: sticky;
     display: flex;
     flex-direction: column;
     align-items: center;
-    bottom: 100px;
-    right: 50px;
+    width: 140px;
+    margin: 0 auto;
+    margin-right: 50px;
     z-index: 20;
 
     .quick-today {
@@ -547,10 +548,10 @@ const Main = memo(() => {
   let quickBtnLoc = useRef();
 
   const handleQuickScroll = () => {
-    if (window.scrollY > 5000) {
-      quickBtnLoc.current.style.bottom = "56%";
+    if (window.scrollY > 5100) {
+      quickBtnLoc.current.style.bottom = "54%";
     } else {
-      quickBtnLoc.current.style.bottom = "110px";
+      quickBtnLoc.current.style.bottom = "13%";
     }
   };
 

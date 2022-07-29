@@ -277,8 +277,9 @@ const LostList = memo(() => {
       let json = null;
 
       try {
-        const response = await axios.get(`http://localhost:3001/bbs_lost`);
-
+        const response = await axios.get(
+          "https://sheeps1026.github.io/backend/bbs_lost.json"
+        );
         // json에 리스트 담기
         json = response.data;
         setLostList(json);

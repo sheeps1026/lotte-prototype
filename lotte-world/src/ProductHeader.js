@@ -134,17 +134,17 @@ const ProHeaderWrap = styled.div`
       font-size: 14px;
       font-weight: 700;
       text-align: center;
-        .user_info {
-          display: inline-block;
-          color: #3e3e4d;
-        }
-        a {
-          display: inline-block;
-          padding: 18px 9px;
-          line-height: 1.5;
-          color: #505050;
-        }
+      .user_info {
+        display: inline-block;
+        color: #3e3e4d;
       }
+      a {
+        display: inline-block;
+        padding: 18px 9px;
+        line-height: 1.5;
+        color: #505050;
+      }
+    }
     .btn_close {
       width: 17px;
       height: 17px;
@@ -155,7 +155,6 @@ const ProHeaderWrap = styled.div`
       bottom: 15px;
       right: 500px;
     }
-    
   }
 `;
 
@@ -172,12 +171,11 @@ const ProductHeader = memo(() => {
 
   return (
     <ProHeaderWrap className={`${openList ? "open" : ""}`}>
-
       <nav>
         <ul className="gnb">
-        <Link to="/" className="logo-btn">
-          <h1></h1>
-        </Link>
+          <Link to="/" className="logo-btn">
+            <h1></h1>
+          </Link>
           <li className="gnbList">
             <a className="onedepth" onClick={openMenu}>
               예매
@@ -214,7 +212,6 @@ const ProductHeader = memo(() => {
             )}
           </div>
         </ul>
-
       </nav>
     </ProHeaderWrap>
   );

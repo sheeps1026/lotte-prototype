@@ -145,14 +145,16 @@ const FaqView = memo(
 
         try {
           if (F_division === "all") {
-            const response = await axios.get(`http://localhost:3001/bbs_faq`);
+            const response = await axios.get(
+              `https://sheeps1026.github.io/backend/bbs_faq.json`
+            );
 
             onFilterKeyword();
             // console.log("전체 카테고리로 바뀜");
             json = response.data;
           } else {
             const response = await axios.get(
-              `http://localhost:3001/bbs_faq?F_division=${F_division}`
+              `https://sheeps1026.github.io/backend/bbs_faq.json?F_division=${F_division}`
             );
 
             onFilterKeyword();
@@ -170,7 +172,7 @@ const FaqView = memo(
 
         return () => {};
       })();
-    }, [F_division]);
+    }, [navigate, F_division]);
 
     return (
       <FaqViewWrap>
