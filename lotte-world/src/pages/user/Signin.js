@@ -2,11 +2,8 @@
 // @description : 이름, 아이디, 비밀번호, 비밀번호 확인, 주민번호,
 //                성별, 휴대전화, 이메일 정보를 입력하여 가입
 
-import React, { memo } from "react";
-import useAxios from "axios-hooks";
-
-import regexHelper from "../../libs/RegexHelper";
-
+import React, { memo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const SigninContainer = styled.form`
@@ -71,137 +68,99 @@ const SigninContainer = styled.form`
 `;
 
 const Signin = memo(() => {
-  // 백엔드에 데이터 저장을 위한 Ajax 요청 객체 생성
-  const [{ loading }, refetch] = useAxios(
-    {
-      url: "http://localhost:3001/members",
-      method: "POST",
-    },
-    { manual: true }
-  );
+  const history = useNavigate();
 
-  const onSubmit = (e) => {
+  const [inpval, setInpval] = useState({
+    id: "",
+    pwd: "",
+    name: "",
+    tel: "",
+    email: "",
+  });
+
+  const [data, setData] = useState([]);
+  console.log(inpval);
+
+  const getData = (e) => {
+    // console.log(e.target.value);
+
+    // value, name 고정인듯
+    const { value, name } = e.target;
+
+    // 입력값 확인
+    // console.log(value, name);
+
+    setInpval(() => {
+      return {
+        ...inpval,
+        [name]: value,
+      };
+    });
+  };
+
+  const addData = (e) => {
     e.preventDefault();
 
-    // 이벤트가 발생한 폼 객체
-    const current = e.target;
+    const { id, pwd, name, tel, email } = inpval;
 
-    // 입력값에 대한 유효성 검사
-    try {
-      // 아이디 검사
-      regexHelper.value(current.id, "필수 정보입니다. (아이디)");
-      regexHelper.idCheck(
-        current.id,
-        5,
-        20,
-        "5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다."
-      );
+    if (id === "") {
+      alert("아이디를 입력하세요");
+    } else if (pwd === "") {
+      alert("비밀번호를 입력하세요");
+    } else if (name === "") {
+      alert("이름을 입력하세요");
+    } else if (tel === "") {
+      alert("전화번호를 입력하세요");
+    } else if (email === "") {
+      alert("이메일을 입력하세요");
+    } else if (!email.includes("@")) {
+      alert("이메일 형식이 맞지 않습니다.");
+    } else {
+      alert("회원가입이 완료되었습니다");
 
-      // 비밀번호 검사
-      regexHelper.value(current.pwd, "필수 정보입니다. (비밀번호)");
-      regexHelper.pwdCheck(
-        current.pwd,
-        8,
-        16,
-        "8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요."
-      );
-      regexHelper.pwdCompareTo(
-        current.pwd,
-        current.pwdCheck,
-        "비밀번호가 일치하지 않습니다."
-      );
+      localStorage.setItem("members", JSON.stringify([...data, inpval]));
 
-      // 이름 검사
-      regexHelper.value(current.name, "필수 정보입니다. (이름)");
-      regexHelper.nameCheck(
-        current.name,
-        "한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)"
-      );
-
-      // 주민번호 검사
-
-      // 이메일 검사
-      regexHelper.emailCheck(current.email, "이메일 주소를 다시 확인해주세요.");
-
-      // 휴대전화 검사
-      regexHelper.value(current.tel, "필수 정보입니다. (휴대전화)");
-      regexHelper.phoneCheck(current.tel, "형식에 맞지 않는 번호입니다.");
-    } catch (e) {
-      window.alert(e.message);
-      e.field.focus();
-
-      return;
+      history("/TicketingPage/Login");
     }
-
-    let json = null;
-
-    // 입력받은 값 취득
-    const M_useid = current.M_useid.value; // 아이디
-    const M_pwdck = current.M_pwdck.value; // 비밀번호
-    const M_name = current.M_name.value; // 이름
-    const M_tel = current.M_tel.value; // 휴대전화
-    const M_email = current.M_email.value; // 이메일
-
-    (async () => {
-      try {
-        const response = await refetch({
-          data: {
-            M_useid: M_useid,
-            M_pwdck: M_pwdck,
-            M_name: M_name,
-            M_tel: M_tel,
-            M_email: M_email,
-          },
-        });
-
-        json = response.data;
-      } catch (e) {
-        console.error(e);
-        window.alert(
-          `[${e.response.status} : ${e.response.statusText}\n${e.message}]`
-        );
-      }
-
-      if (json != null) {
-        window.alert("저장되었습니다.");
-      }
-    })();
   };
 
   return (
-    // <SigninContainer action="/add" method="POST" onSubmit={onSubmit}>
-    <SigninContainer onSubmit={onSubmit}>
+    <SigninContainer>
       <h2>회원가입</h2>
       <div className="info">
-        <label htmlFor="M_useid">아이디</label>
-        <input type="text" name="M_useid" placeholder="아이디" />
+        <label htmlFor="">아이디</label>
+        <input type="text" name="id" onChange={getData} placeholder="아이디" />
 
-        <label htmlFor="M_pwdck">비밀번호</label>
-        <input type="password" name="M_pwdck" placeholder="비밀번호" />
-        <label htmlFor="pwdCheck" placeholder="비밀번호 확인">
-          비밀번호 확인
-        </label>
-        <input type="password" name="pwdCheck" />
+        <label htmlFor="">비밀번호</label>
+        <input
+          type="text"
+          name="pwd"
+          onChange={getData}
+          placeholder="비밀번호"
+        />
 
-        <label htmlFor="name">이름</label>
-        <input type="text" name="name" placeholder="이름" />
+        <label htmlFor="">이름</label>
+        <input type="text" name="name" onChange={getData} placeholder="이름" />
 
-        <div className="info-rrn">
-          <label htmlFor="">주민번호</label>
-          <div>
-            <input type="text" name="M_regnum1" />
-            <p>-</p>
-            <input type="text" name="M_regnum2" />
-          </div>
-        </div>
-        <label htmlFor="M_tel">전화번호</label>
-        <input type="text" name="M_tel" placeholder="전화번호" />
+        <label htmlFor="">전화번호</label>
+        <input
+          type="text"
+          name="tel"
+          onChange={getData}
+          placeholder="전화번호"
+        />
 
-        <label htmlFor="M_email">이메일</label>
-        <input type="M_email" name="M_email" placeholder="이메일" />
+        <label htmlFor="">이메일</label>
+        <input
+          type="text"
+          name="email"
+          onChange={getData}
+          placeholder="이메일"
+        />
       </div>
-      {/* <Link to="/TicketingPage/SigninConfirm"> */}
-      <button type="submit">확인</button>
+      <button type="submit" onClick={addData}>
+        확인
+      </button>
       {/* </Link> */}
     </SigninContainer>
   );

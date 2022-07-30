@@ -115,8 +115,9 @@ const App = memo(() => {
   const topBtnLoc = useRef();
 
   const handleScroll = () => {
-    if (window.scrollY > 5100) {
-      topBtnLoc.current.style.bottom = "47%";
+    if (window.scrollY > 5050) {
+      // topBtnLoc.current.style.bottom = "47%";
+      topBtnLoc.current.style.bottom = "415px";
     } else {
       topBtnLoc.current.style.bottom = "6%";
     }

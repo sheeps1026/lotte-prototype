@@ -109,7 +109,9 @@ const HelpId = memo(() => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get("http://localhost:3001/members");
+        const response = await axios.get(
+          "https://sheeps1026.github.io/backend/members.json"
+        );
 
         let json = response.data;
 
@@ -117,10 +119,9 @@ const HelpId = memo(() => {
           if ((v.M_tel || v.M_email) == inputInfo) {
             document.location.href = "/TicketingPage/HelpIdConfirm";
 
-            console.log("아이디 찾음");
             alert("아이디 찾음");
           } else {
-            console.log("전화번호 or 이메일 틀림");
+            alert("전화번호 or 이메일 틀림");
           }
         });
       } catch (err) {

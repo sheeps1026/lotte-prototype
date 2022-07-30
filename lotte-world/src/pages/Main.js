@@ -551,9 +551,11 @@ const Main = memo(() => {
   let quickBtnLoc = useRef();
 
   const handleQuickScroll = () => {
-    if (window.scrollY > 5100) {
-      quickBtnLoc.current.style.bottom = "54%";
+    if (window.scrollY > 5050) {
+      // quickBtnLoc.current.style.bottom = "54%";
+      quickBtnLoc.current.style.bottom = "480px";
     } else {
+      // quickBtnLoc.current.style.bottom = "13%";
       quickBtnLoc.current.style.bottom = "13%";
     }
   };
