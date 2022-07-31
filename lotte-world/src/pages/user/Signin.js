@@ -118,8 +118,7 @@ const Signin = memo(() => {
     } else {
       alert("회원가입이 완료되었습니다");
 
-      // localStorage.setItem("members", JSON.stringify([...data, inpval]));
-      sessionStorage.setItem("members", JSON.stringify([...data, inpval]));
+      localStorage.setItem("members", JSON.stringify([...data, inpval]));
 
       history("/TicketingPage/Login");
     }
