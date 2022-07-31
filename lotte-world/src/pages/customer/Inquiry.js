@@ -50,36 +50,29 @@ const Category = styled(NavLink)`
 
 const Inquiry = memo(() => {
   const mouseHoverEvent = React.useCallback((e) => {
-
-  //  console.log(e.target.dataset.number);
-  //  e.target.children[0].src= `${inquiry1On}`;
-    if ((e.target.dataset.number == 0)) {
-      
+    //  console.log(e.target.dataset.number);
+    //  e.target.children[0].src= `${inquiry1On}`;
+    if (e.target.dataset.number == 0) {
       const link = e.target.parentNode.children[0];
       link.children[0].src = `${inquiry1On}`;
       link.children[1].children[0].style.color = "green";
       link.children[1].children[1].style.color = "green";
-    }  else {
+    } else {
       const link = e.target.parentNode.children[1];
       link.children[0].src = `${inquiry2On}`;
       link.children[1].children[0].style.color = "green";
       link.children[1].children[1].style.color = "green";
-      
     }
   });
 
   const mouseLeaveEvent = React.useCallback((e) => {
-    e.target.children[0].src= `${inquiry1}`;
-    if ((e.target.dataset.number == 0)) {
-      
+    e.target.children[0].src = `${inquiry1}`;
+    if (e.target.dataset.number == 0) {
       const link = e.target.parentNode.children[0];
       link.children[0].src = `${inquiry1}`;
       link.children[1].children[0].style.color = "#222";
       link.children[1].children[1].style.color = "#222";
-    } 
-    
-    else{
-    
+    } else {
       const link4 = e.target.parentNode.children[1];
       link4.children[0].src = `${inquiry2}`;
       link4.children[1].children[0].style.color = "#222";
@@ -91,18 +84,18 @@ const Inquiry = memo(() => {
     {
       src: `${inquiry1}`,
       title: "이용문의",
-      to:"/customer/InquiryWrite"
+      to: "/customer/InquiryWrite",
     },
     {
       src: `${inquiry2}`,
       title: "분실물센터",
-      to:"/customer/LostList"
+      to: "/customer/LostList",
     },
   ];
   return (
     <FlexBox>
       <TtitleArea title={title} />
-     
+
       <div>
         {Arr.map((v, i) => {
           return (
