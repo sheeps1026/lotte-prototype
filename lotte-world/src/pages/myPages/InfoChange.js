@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import InfoDelete from "../../components/alert/InfoDelete";
@@ -78,8 +78,51 @@ const InfoContainer = styled.form`
 `;
 
 const InfoChange = memo(() => {
+  const history = useNavigate();
+
   // 회원탈퇴 모달
   let [openDelete, setOpenDelete] = useState(false);
+
+  const [inpval, setInpval] = useState({
+    id: "",
+    pwd: "",
+    name: "",
+    tel: "",
+    email: "",
+  });
+
+  const getData = (e) => {
+    // console.log(e.target.value);
+
+    // value, name 고정인듯
+    const { value, name } = e.target;
+
+    // 입력값 확인
+    // console.log(value, name);
+
+    setInpval(() => {
+      return {
+        ...inpval,
+        [name]: value,
+      };
+    });
+  };
+
+  const addData = (e) => {
+    e.preventDefault();
+
+    const getUserArr = localStorage.getItem("members");
+    // console.log(getUserArr);
+
+    const { id, pwd, name, tel, email } = inpval;
+
+    if (getUserArr && getUserArr.length) {
+      const userData = JSON.parse(getUserArr);
+      // console.log(userData);
+    }
+
+    // history("/TicketingPage/Login");
+  };
 
   return (
     <InfoContainer>
@@ -88,25 +131,19 @@ const InfoChange = memo(() => {
       <h2>회원정보 변경</h2>
       <div className="info">
         <label htmlFor="">아이디</label>
-        <input type="text" disabled />
+        <input type="text" name="id" disabled />
+
         <label htmlFor="">비밀번호</label>
-        <input type="password" />
-        <label htmlFor="">비밀번호 확인</label>
-        <input type="password" />
+        <input type="text" name="pwd" onChange={getData} />
+
         <label htmlFor="">이름</label>
-        <input type="text" disabled />
-        <div className="info-rrn">
-          <label htmlFor="">주민번호</label>
-          <div>
-            <input type="text" disabled />
-            <p>-</p>
-            <input type="text" disabled />
-          </div>
-        </div>
+        <input type="text" name="name" disabled />
+
         <label htmlFor="">전화번호</label>
-        <input type="number" />
+        <input type="number" name="tel" onChange={getData} />
+
         <label htmlFor="">이메일</label>
-        <input type="email" />
+        <input type="email" name="email" onChange={getData} />
       </div>
       <div className="info-bottom">
         <Link
@@ -118,9 +155,9 @@ const InfoChange = memo(() => {
         >
           <button type="button">회원탈퇴</button>
         </Link>
-        <Link to="/TicketingPage/Login">
-          <button type="submit">정보수정</button>
-        </Link>
+        <button type="submit" onClick={addData}>
+          정보수정
+        </button>
       </div>
     </InfoContainer>
   );

@@ -67,6 +67,25 @@ const LoginContainer = styled.div`
 const Login = memo(() => {
   const history = useNavigate();
 
+  // const [userId, setUserId] = useState("");
+  // const [userPwd, setUserPwd] = useState("");
+  // const [check, setCheck] = useState(false);
+
+  // const saveData = () => {
+  //   const userInfo = [{ id: userId }, { pwd: userPwd }];
+
+  //   window.localStorage.setItem("userName", JSON.stringify(userInfo));
+  // };
+
+  // const callData = () => {
+  //   setCheck(true);
+  // };
+
+  // const onChange = (e) => {
+  //   setUserName(e.target.value);
+  //   setCheck(false);
+  // };
+
   const [inpval, setInpval] = useState({
     id: "",
     pwd: "",

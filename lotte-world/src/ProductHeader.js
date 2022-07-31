@@ -194,7 +194,7 @@ const ProductHeader = memo(() => {
               <li>
                 {/* // onClick={window.location.replace('/TicketingPage/PaymentList') */}
                 <Link to="/TicketingPage/PaymentList">결제 내역</Link>
-                <Link to="/TicketingPage/HelpPwdConfirm">회원정보 변경</Link>
+                <Link to="/TicketingPage/InfoChange">회원정보 변경</Link>
               </li>
             </ul>
           </li>

@@ -144,6 +144,7 @@ const HelpId = memo(() => {
           <div className="ui-radio">
             <input type="radio" name="info" id="find-way-hp" />
             <label htmlFor="find-way-hp">전화번호</label>
+
             <input type="radio" name="info" id="find-way-email" />
             <label htmlFor="find-way-email">이메일</label>
           </div>
