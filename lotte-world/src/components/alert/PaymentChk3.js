@@ -131,7 +131,7 @@ const PaymentChk3 = memo(({ setPaymentChk3 }) => {
         </div>
         <div className="pop-bottom">
           <button onClick={() => setPaymentChk3(false)}>취소</button>
-          <button>확인</button>
+          <button onClick={() => setPaymentChk3(false)}>확인</button>
         </div>
       </PaymentChkContainer>
     </Background>

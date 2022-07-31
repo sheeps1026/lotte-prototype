@@ -671,10 +671,10 @@ useEffect(() => {
         <TicketingStyled>
           <Spinner loading={loading} />
 
-          {paymentChk1 && <PaymentChk1 setPaymentChk1={setPaymentChk1} />}
-          {paymentChk2 && <PaymentChk2 setPaymentChk2={setPaymentChk2} />}
-          {paymentChk3 && <PaymentChk3 setPaymentChk3={setPaymentChk3} />}
-          {paymentChk4 && <PaymentChk4 setPaymentChk4={setPaymentChk4} />}
+          {paymentChk1 && <PaymentChk1 setPaymentChk1={setPaymentChk1}/>}
+          {paymentChk2 && <PaymentChk2 setPaymentChk2={setPaymentChk2}/>}
+          {paymentChk3 && <PaymentChk3 setPaymentChk3={setPaymentChk3}/>}
+          {paymentChk4 && <PaymentChk4 setPaymentChk4={setPaymentChk4}/>}
 
           <div className="containerWrap">
             <div className="container">

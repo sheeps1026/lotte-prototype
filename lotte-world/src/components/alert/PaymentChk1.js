@@ -92,7 +92,7 @@ const PaymentChkContainer = styled.div`
   }
 `;
 
-const PaymentChk1 = memo(({ setPaymentChk1 }) => {
+const PaymentChk1 = memo(({ setPaymentChk1, setCheck1 }) => {
   return (
     <Background>
       <PaymentChkContainer>
@@ -465,7 +465,7 @@ const PaymentChk1 = memo(({ setPaymentChk1 }) => {
         </div>
         <div className="pop-bottom">
           <button onClick={() => setPaymentChk1(false)}>취소</button>
-          <button>확인</button>
+          <button onClick={() => setPaymentChk1(false)}>확인</button>
         </div>
       </PaymentChkContainer>
     </Background>
