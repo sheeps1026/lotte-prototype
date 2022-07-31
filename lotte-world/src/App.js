@@ -51,6 +51,7 @@ import Ticketing from "./pages/product/Ticketing";
 import PaymentResult from "./pages/myPages/PaymentResult";
 import InfoChange from "./pages/myPages/InfoChange";
 import InfoDelete from "./components/alert/InfoDelete";
+import Session from "./components/Session";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -218,6 +219,10 @@ const App = memo(() => {
           <Route
             path="/TicketingPage/SigninConfirm"
             element={<SigninConfirm />}
+          />
+          <Route
+            path="/session"
+            element={<Session />}
           />
         </Routes>
       )}
