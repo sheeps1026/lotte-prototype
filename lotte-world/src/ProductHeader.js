@@ -208,7 +208,7 @@ const ProductHeader = memo(() => {
                 <a>로그아웃</a>
               </>
             ) : (
-              <Link to="/TicketingPage/Login">로그인</Link>
+              <Link to="/TicketingPage/Login" props={setIsLogin}>로그인</Link>
             )}
           </div>
         </ul>
