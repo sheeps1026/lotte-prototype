@@ -127,10 +127,6 @@ const ProHeaderWrap = styled.div`
       }
     }
     .util {
-      /* position: absolute; */
-      /* top: 0; */
-      /* left: auto; */
-      /* right: 500px; */
       width: 30%;
       font-size: 14px;
       font-weight: 700;
@@ -139,11 +135,12 @@ const ProHeaderWrap = styled.div`
         display: inline-block;
         color: #3e3e4d;
       }
-      a {
+      span {
         display: inline-block;
         padding: 18px 9px;
         line-height: 1.5;
         color: #505050;
+        cursor: pointer;
       }
     }
     .btn_close {
@@ -159,11 +156,12 @@ const ProHeaderWrap = styled.div`
   }
 `;
 
-const ProductHeader = memo(() => {
+const ProductHeader = memo(({ loginChk }) => {
   const history = useNavigate();
 
   const [openList, setOpenList] = useState(false);
   let [loginStr, setLoginStr] = useState("로그인");
+  let [loginState, setLoginState] = useState(false);
 
   const openMenu = useCallback(() => {
     setOpenList(true);
@@ -173,29 +171,22 @@ const ProductHeader = memo(() => {
     setOpenList(false);
   });
 
-  useEffect(
-    (e) => {
-      if (loginStr.includes("로그인")) {
-        console.log("111111");
+  console.log(loginChk);
 
-        setLoginStr("로그아웃");
-      }
-      if (loginStr.includes("로그아웃")) {
-        // localStorage.removeItem("members");
-
-        console.log("222222");
-        setLoginStr("로그인");
-      }
-      // if (loginStr === "로그인") {
-      //   setLoginStr(false);
-      // } else {
-      //   setLoginStr(true);
-      // }
-
-      history("/TicketingPage/Login");
-    },
-    [setLoginStr]
-  );
+  useEffect(() => {
+    // 로그인이 됐으면
+    if (loginChk == true && loginState == 1) {
+      console.log("111111");
+      console.log(loginState);
+      setLoginState(0);
+      setLoginStr("로그아웃");
+    } else if (loginChk == false && loginState == 0) {
+      console.log("222222");
+      console.log(loginState);
+      setLoginState(1);
+      setLoginStr("로그인");
+    }
+  }, [setLoginStr]);
 
   return (
     <ProHeaderWrap className={`${openList ? "open" : ""}`}>
@@ -227,10 +218,8 @@ const ProductHeader = memo(() => {
           </li>
           <button className="btn_close" onClick={closeMenu}></button>
           <div className="util">
-            <Link to="/TicketingPage/Login">
-              {/* {loginStr == false ? "로그인" : "로그아웃"} */}
-              {loginStr}
-            </Link>
+            <Link to="/TicketingPage/Login">{loginStr}</Link>
+            {/* <span>{loginStr}</span> */}
           </div>
         </ul>
       </nav>

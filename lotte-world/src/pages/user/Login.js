@@ -65,7 +65,7 @@ const LoginContainer = styled.div`
   }
 `;
 
-const Login = memo(() => {
+const Login = memo(({ loginChk, setLoginChk }) => {
   const history = useNavigate();
 
   const [inpval, setInpval] = useState({
@@ -111,6 +111,7 @@ const Login = memo(() => {
           return v.id === id && v.pwd === pwd;
         });
 
+        setLoginChk(userLogin);
         // console.log(userLogin);
 
         if (userLogin.length === 0) {
@@ -155,12 +156,9 @@ const Login = memo(() => {
           <input type="checkbox" />
           <label htmlFor="">아이디저장</label>
         </div>
-        {/* <Link to="/TicketingPage"> */}
         <button type="submit" onClick={addData}>
           로그인
         </button>
-        {/* <button type="submit">로그인</button> */}
-        {/* </Link> */}
       </form>
       <ul>
         <li>

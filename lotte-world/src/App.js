@@ -106,6 +106,7 @@ const App = memo(() => {
 
   // 이메일 모달
   let [openEmail, setOpenEmail] = useState(false);
+  let [loginChk, setLoginChk] = useState(false);
 
   // 탑 버튼
   const onTopScroll = () => {
@@ -133,7 +134,11 @@ const App = memo(() => {
 
   return (
     <div>
-      {path === "/TicketingPage" ? <ProductHeader /> : <Headers />}
+      {path === "/TicketingPage" ? (
+        <ProductHeader loginChk={loginChk} setLoginChk={setLoginChk} />
+      ) : (
+        <Headers />
+      )}
       {openEmail && <Email setOpenEmail={setOpenEmail} />}
 
       <GlobalStyle />
@@ -201,7 +206,10 @@ const App = memo(() => {
             path="/TicketingPage/PaymentResult"
             element={<PaymentResult />}
           />
-          <Route path="/TicketingPage/Login" element={<Login />} />
+          <Route
+            path="/TicketingPage/Login"
+            element={<Login loginChk={loginChk} setLoginChk={setLoginChk} />}
+          />
           <Route path="/TicketingPage/HelpId" element={<HelpId />} />
           <Route
             path="/TicketingPage/HelpIdConfirm"
