@@ -86,7 +86,6 @@ const Signin = memo(() => {
 
     // value, name 고정인듯
     const { value, name } = e.target;
-
     // 입력값 확인
     // console.log(value, name);
 

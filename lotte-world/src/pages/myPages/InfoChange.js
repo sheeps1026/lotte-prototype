@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -74,6 +74,17 @@ const InfoContainer = styled.form`
         }
       }
     }
+
+    > button {
+      width: 270px;
+      padding: 15px 0;
+      border: none;
+      background-color: #2b72c9;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+    }
   }
 `;
 
@@ -91,14 +102,14 @@ const InfoChange = memo(() => {
     email: "",
   });
 
+  const [data, setData] = useState([]);
+
   const getData = (e) => {
     // console.log(e.target.value);
 
-    // value, name 고정인듯
     const { value, name } = e.target;
-
     // 입력값 확인
-    // console.log(value, name);
+    console.log(value, name);
 
     setInpval(() => {
       return {
@@ -108,18 +119,28 @@ const InfoChange = memo(() => {
     });
   };
 
+  const getUserArr = localStorage.getItem("members");
+  // console.log(getUserArr);
+  const userData = JSON.parse(getUserArr);
+  // console.log(userData);
+  // console.log(userData[0]);
+  // console.log(userData[0].id);
+
   const addData = (e) => {
     e.preventDefault();
 
-    const getUserArr = localStorage.getItem("members");
+    // const getUserArr = localStorage.getItem("members");
     // console.log(getUserArr);
+    // console.log(getUserArr[0].id);
+    // const userData = JSON.parse(getUserArr);
+    // console.log(userData);
+    // console.log(userData[0]);
+    // console.log(userData[0].id);
 
-    const { id, pwd, name, tel, email } = inpval;
+    // const 변수 = [{ a: "aa", b: "bb" }];
+    // console.log(변수[0].a);
 
-    if (getUserArr && getUserArr.length) {
-      const userData = JSON.parse(getUserArr);
-      // console.log(userData);
-    }
+    localStorage.setItem("members", JSON.stringify([...data, inpval]));
 
     // history("/TicketingPage/Login");
   };
@@ -131,19 +152,34 @@ const InfoChange = memo(() => {
       <h2>회원정보 변경</h2>
       <div className="info">
         <label htmlFor="">아이디</label>
-        <input type="text" name="id" disabled />
+        <input type="text" name="id" value={userData[0].id} disabled />
 
         <label htmlFor="">비밀번호</label>
-        <input type="text" name="pwd" onChange={getData} />
+        <input
+          type="text"
+          name="pwd"
+          onChange={getData}
+          placeholder={userData[0].pwd}
+        />
 
         <label htmlFor="">이름</label>
-        <input type="text" name="name" disabled />
+        <input type="text" name="name" placeholder={userData[0].tel} disabled />
 
         <label htmlFor="">전화번호</label>
-        <input type="number" name="tel" onChange={getData} />
+        <input
+          type="text"
+          name="tel"
+          onChange={getData}
+          placeholder={userData[0].tel}
+        />
 
         <label htmlFor="">이메일</label>
-        <input type="email" name="email" onChange={getData} />
+        <input
+          type="text"
+          name="email"
+          onChange={getData}
+          placeholder={userData[0].email}
+        />
       </div>
       <div className="info-bottom">
         <Link

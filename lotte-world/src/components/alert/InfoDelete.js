@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Background = styled.div`
@@ -83,16 +83,24 @@ const DeleteContainer = styled.div`
       cursor: pointer;
     }
 
-    a {
-      button {
-        background-color: #2b72c9;
-        color: #fff;
-      }
+    .info-delete {
+      background-color: #2b72c9;
+      color: #fff;
     }
   }
 `;
 
 const InfoDelete = memo(({ setOpenDelete }) => {
+  const history = useNavigate();
+
+  const deleteData = (e) => {
+    localStorage.removeItem("members");
+
+    alert("회원탈퇴가 완료되었습니다.");
+
+    history("/TicketingPage/Login");
+  };
+
   return (
     <Background>
       <DeleteContainer>
@@ -108,9 +116,9 @@ const InfoDelete = memo(({ setOpenDelete }) => {
         </div>
         <div className="pop-bottom">
           <button onClick={() => setOpenDelete(false)}>취소</button>
-          <Link to="/TicketingPage/Login">
-            <button>확인</button>
-          </Link>
+          <button className="info-delete" onClick={deleteData}>
+            확인
+          </button>
         </div>
       </DeleteContainer>
     </Background>
