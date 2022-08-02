@@ -144,9 +144,6 @@ const Login = memo((setIsLogin) => {
     //   }
     // }
   };
-  
-  const  loginClick =(e)=>{
-    e.preventDefault(e);
 
   const loginClick = (e) => {
     e.preventDefault(e);
