@@ -2,9 +2,9 @@ import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import CheckIcon from "../../assets/images/user/SigninConfirm/check.png";
+import CheckIcon from "../../assets/images/user/SignupConfirm/check.png";
 
-const SigninConfirmContainer = styled.div`
+const SignupConfirmContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,9 +54,9 @@ const SigninConfirmContainer = styled.div`
   }
 `;
 
-const SigninConfirm = memo(() => {
+const SignupConfirm = memo(() => {
   return (
-    <SigninConfirmContainer>
+    <SignupConfirmContainer>
       <h2>롯데월드 회원가입</h2>
       <img src={CheckIcon} alt="" />
       <p>
@@ -68,8 +68,8 @@ const SigninConfirm = memo(() => {
       <Link to="/TicketingPage/Login">
         <button type="submit">로그인</button>
       </Link>
-    </SigninConfirmContainer>
+    </SignupConfirmContainer>
   );
 });
 
-export default SigninConfirm;
+export default SignupConfirm;

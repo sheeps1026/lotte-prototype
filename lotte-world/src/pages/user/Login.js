@@ -170,7 +170,7 @@ const Login = memo(() => {
           <Link to="/TicketingPage/HelpPwd">비밀번호 찾기</Link>
         </li>
         <li>
-          <Link to="/TicketingPage/Signin">회원가입</Link>
+          <Link to="/TicketingPage/Signup">회원가입</Link>
         </li>
       </ul>
     </LoginContainer>

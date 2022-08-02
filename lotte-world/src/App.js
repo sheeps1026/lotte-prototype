@@ -35,8 +35,8 @@ import HelpPwd from "./pages/user/HelpPwd";
 import HelpPwdChange from "./pages/user/HelpPwdChange";
 import HelpPwdConfirm from "./pages/user/HelpPwdConfirm";
 import Login from "./pages/user/Login";
-import Signin from "./pages/user/Signin";
-import SigninConfirm from "./pages/user/SigninConfirm";
+import Signup from "./pages/user/Signup";
+import SignupConfirm from "./pages/user/SignupConfirm";
 
 import Guide from "./pages/enjoy/Guide";
 
@@ -181,7 +181,7 @@ const App = memo(() => {
             element={<AgreementMembership />}
           />
           <Route path="/Email" element={<Email />} />
-          <Route path="/SigninConfirm" element={<SigninConfirm />} />
+          <Route path="/SignupConfirm" element={<SignupConfirm />} />
 
           {/* 예매 페이지 */}
 
@@ -216,10 +216,10 @@ const App = memo(() => {
             path="/TicketingPage/HelpPwdChange"
             element={<HelpPwdChange />}
           />
-          <Route path="/TicketingPage/Signin" element={<Signin />} />
+          <Route path="/TicketingPage/Signup" element={<Signup />} />
           <Route
-            path="/TicketingPage/SigninConfirm"
-            element={<SigninConfirm />}
+            path="/TicketingPage/SignupConfirm"
+            element={<SignupConfirm />}
           />
           <Route path="/session" element={<Session />} />
         </Routes>

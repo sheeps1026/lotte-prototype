@@ -32,8 +32,8 @@ app.post("/add2", (req, res) => {
 
 // -----------------------------
 
-app.get("/TicketingPage/Signin", function (req, res) {
-  res.sendFile(__dirname + "/src/pages/user/Signin.js");
+app.get("/TicketingPage/Signup", function (req, res) {
+  res.sendFile(__dirname + "/src/pages/user/signup.js");
 });
 
 app.post("/add", function (req, res) {
