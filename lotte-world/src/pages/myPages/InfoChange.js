@@ -129,20 +129,9 @@ const InfoChange = memo(() => {
   const addData = (e) => {
     e.preventDefault();
 
-    // const getUserArr = localStorage.getItem("members");
-    // console.log(getUserArr);
-    // console.log(getUserArr[0].id);
-    // const userData = JSON.parse(getUserArr);
-    // console.log(userData);
-    // console.log(userData[0]);
-    // console.log(userData[0].id);
-
-    // const 변수 = [{ a: "aa", b: "bb" }];
-    // console.log(변수[0].a);
-
     localStorage.setItem("members", JSON.stringify([...data, inpval]));
 
-    // history("/TicketingPage/Login");
+    history("/TicketingPage/Login");
   };
 
   return (
@@ -152,7 +141,7 @@ const InfoChange = memo(() => {
       <h2>회원정보 변경</h2>
       <div className="info">
         <label htmlFor="">아이디</label>
-        <input type="text" name="id" value={userData[0].id} disabled />
+        <input type="text" name="id" disabled />
 
         <label htmlFor="">비밀번호</label>
         <input
@@ -163,23 +152,13 @@ const InfoChange = memo(() => {
         />
 
         <label htmlFor="">이름</label>
-        <input type="text" name="name" placeholder={userData[0].tel} disabled />
+        <input type="text" name="name" disabled />
 
         <label htmlFor="">전화번호</label>
-        <input
-          type="text"
-          name="tel"
-          onChange={getData}
-          placeholder={userData[0].tel}
-        />
+        <input type="text" name="tel" onChange={getData} />
 
         <label htmlFor="">이메일</label>
-        <input
-          type="text"
-          name="email"
-          onChange={getData}
-          placeholder={userData[0].email}
-        />
+        <input type="text" name="email" onChange={getData} />
       </div>
       <div className="info-bottom">
         <Link

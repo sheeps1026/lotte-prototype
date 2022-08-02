@@ -93,7 +93,7 @@ const DeleteContainer = styled.div`
 const InfoDelete = memo(({ setOpenDelete }) => {
   const history = useNavigate();
 
-  const deleteData = (e) => {
+  const deleteData = () => {
     localStorage.removeItem("members");
 
     alert("회원탈퇴가 완료되었습니다.");

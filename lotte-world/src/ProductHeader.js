@@ -6,7 +6,8 @@
  */
 import React, { memo, useCallback, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const ProHeaderWrap = styled.div`
   position: relative;
@@ -159,15 +160,42 @@ const ProHeaderWrap = styled.div`
 `;
 
 const ProductHeader = memo(() => {
-  const [isLogin, setIsLogin] = useState(false);
+  const history = useNavigate();
+
   const [openList, setOpenList] = useState(false);
+  let [loginStr, setLoginStr] = useState("로그인");
 
   const openMenu = useCallback(() => {
     setOpenList(true);
   });
+
   const closeMenu = useCallback(() => {
     setOpenList(false);
   });
+
+  useEffect(
+    (e) => {
+      if (loginStr.includes("로그인")) {
+        console.log("111111");
+
+        setLoginStr("로그아웃");
+      }
+      if (loginStr.includes("로그아웃")) {
+        // localStorage.removeItem("members");
+
+        console.log("222222");
+        setLoginStr("로그인");
+      }
+      // if (loginStr === "로그인") {
+      //   setLoginStr(false);
+      // } else {
+      //   setLoginStr(true);
+      // }
+
+      history("/TicketingPage/Login");
+    },
+    [setLoginStr]
+  );
 
   return (
     <ProHeaderWrap className={`${openList ? "open" : ""}`}>
@@ -192,7 +220,6 @@ const ProductHeader = memo(() => {
             </a>
             <ul className="twodepth">
               <li>
-                {/* // onClick={window.location.replace('/TicketingPage/PaymentList') */}
                 <Link to="/TicketingPage/PaymentList">결제 내역</Link>
                 <Link to="/TicketingPage/InfoChange">회원정보 변경</Link>
               </li>
@@ -200,18 +227,10 @@ const ProductHeader = memo(() => {
           </li>
           <button className="btn_close" onClick={closeMenu}></button>
           <div className="util">
-            {isLogin ? (
-              <>
-                <p className="user_info">
-                  <strong>ㅇㅇㅇ</strong> 님
-                </p>
-                <a>로그아웃</a>
-              </>
-            ) : (
-              <Link to="/TicketingPage/Login" props={setIsLogin}>
-                로그인
-              </Link>
-            )}
+            <Link to="/TicketingPage/Login">
+              {/* {loginStr == false ? "로그인" : "로그아웃"} */}
+              {loginStr}
+            </Link>
           </div>
         </ul>
       </nav>

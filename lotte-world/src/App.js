@@ -1,5 +1,5 @@
 import React, { memo, useState, useEffect, useRef } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import reset from "styled-reset";
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
@@ -100,6 +100,7 @@ const TopBtn = styled.div`
 `;
 
 const App = memo(() => {
+  const history = useNavigate();
   const location = useLocation();
   const path = location.pathname.substring(0, 14);
 
@@ -220,10 +221,7 @@ const App = memo(() => {
             path="/TicketingPage/SigninConfirm"
             element={<SigninConfirm />}
           />
-          <Route
-            path="/session"
-            element={<Session />}
-          />
+          <Route path="/session" element={<Session />} />
         </Routes>
       )}
 
